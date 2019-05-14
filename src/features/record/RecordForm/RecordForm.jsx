@@ -62,7 +62,7 @@ class RecordForm extends Component {
 
   render() {
 
-    const {handleCancel} = this.props;
+    //const {handleCancel} = this.props;
     const {record} = this.state;
     return (
       <Segment>

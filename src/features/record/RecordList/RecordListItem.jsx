@@ -15,7 +15,7 @@ class RecordListItem extends Component {
               <Item.Content>
                 <Item.Header as="a">{record.title}</Item.Header>
                 <Item.Description>
-                  Hosted by <a>{record.hostedBy}</a>
+                  Hosted by {record.hostedBy}
                 </Item.Description>
               </Item.Content>
             </Item>

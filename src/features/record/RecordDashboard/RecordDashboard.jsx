@@ -1,6 +1,6 @@
-import React, { Component } from './node_modules/react';
-import { Grid } from './node_modules/semantic-ui-react';
-import { connect } from './node_modules/react-redux';
+import React, { Component } from 'react';
+import { Grid } from 'semantic-ui-react';
+import { connect } from 'react-redux';
 import { deleteRecord } from '../recordActions';
 import RecordList from '../RecordList/RecordList';
 
