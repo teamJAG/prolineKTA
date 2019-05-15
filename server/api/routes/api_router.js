@@ -21,3 +21,4 @@ const OPTS = {
         searchFilter: '(uid={{username}}'
     }
 };
+

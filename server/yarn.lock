@@ -201,6 +201,11 @@ bindings@^1.5.0:
   dependencies:
     file-uri-to-path "1.0.0"
 
+bindings@~1.2.1:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/bindings/-/bindings-1.2.1.tgz#14ad6113812d2d37d72e67b4cacb4bb726505f11"
+  integrity sha1-FK1hE4EtLTfXLme0ystLtyZQXxE=
+
 bl@^1.0.0:
   version "1.2.2"
   resolved "https://registry.yarnpkg.com/bl/-/bl-1.2.2.tgz#a160911717103c07410cef63ef51b397c025af9c"
@@ -913,6 +918,14 @@ mariadb@^2.0.5:
     iconv-lite "^0.4.24"
     long "^4.0.0"
     moment-timezone "^0.5.25"
+
+mdns@^2.4.0:
+  version "2.4.0"
+  resolved "https://registry.yarnpkg.com/mdns/-/mdns-2.4.0.tgz#dc9d7152086a2ca8f1ed81eb451a7ee4cb456940"
+  integrity sha512-t58BWOyagGpATg8LlALpnqjfT7VHBq6/HCLfU/SK0Ox+enx3Cut7voWB9DPwjrdoccql6Z6ZY1rwuBX93t0Vpw==
+  dependencies:
+    bindings "~1.2.1"
+    nan "^2.10.0"
 
 media-typer@0.3.0:
   version "0.3.0"
