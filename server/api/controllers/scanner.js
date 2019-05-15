@@ -1,22 +1,47 @@
 const fs = require('fs');
 const hid = require('node-hid');
+const db = require('../db/connection');
+
+//Array of current system HID devices
 const devices = hid.devices();
 
+let scanner;
+let scannedKey;
 
-const scanner = devices.forEach(device => {
-    if (device.vendorId === 1504 && device.productId === 4608) {
-        return new hid.HID(device.path);
-    } else {
-        throw "Scanner not connected.";
+//Zebra scanner vendor id and product id
+const vid = 1504;
+const pid = 4608;
+
+//Open a hid device and register event handlers
+async function openScanner() {
+    try {
+        scanner = new hid.HID(vid, pid);
+        console.log("Scanner connected.");
+
+        await scanner.on("data", data => {
+            scannedKey = data.toString('hex');
+            console.log(scannedKey);
+        });
+        await scanner.on("error", err => {
+            console.log(err);
+        });
+    } catch (err) {
+        console.log(err);
+    } finally {
+        scanner.close();
     }
-});
-
-async function readCode() {
-    await scanner.
 }
 
+//
 function checkKey(scannedKey) {
-    return;
+    const queryString = "";
+    db.dbQuery(queryString);
+
 }
 
-module.exports = checkKey;
+openScanner();
+
+module.exports = {
+    openScanner,
+    checkKey
+};
