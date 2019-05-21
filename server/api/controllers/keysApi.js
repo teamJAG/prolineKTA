@@ -28,7 +28,7 @@ function createKey(req,res) {
 
 function deleteKey(req,res) {
     //Delete record of propery key
-    const queryString = "DELETE FROM key_tab WHERE key_id="req.body.keyId;
+    const queryString = "DELETE FROM key_tab WHERE key_id=" + req.body.keyId;
     try {
         const result = db.dbQuery(queryString);
         res.status(204).json(result);
