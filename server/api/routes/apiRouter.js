@@ -20,26 +20,29 @@ const OPTS = {
     }
 };
 
+// router
+// .route("/property")
+// .get()
+// .put()
+// .post()
+// .delete();
+
 router
-.route("/property")
-.get
-.put
-.post
-.delete
-
 .route("/keys")
-.get
-.put(keysAPI.checkKey)
-.post
-.delete
+// .get()
+.put(keysAPI.toggleKeyStatus)
+// .post()
+// .delete();
 
-route.route("/users")
-.get
-.put
-.post
-.delete
+// router
+// .route("/users")
+// .get()
+// .put()
+// .post()
+// .delete();
 
-route.route("/history")
-.get
-.post
-.delete
+// router
+// .route("/history")
+// .get()
+// .post()
+// .delete();
