@@ -7,21 +7,20 @@ class RecordList extends Component {
 
     const columns = [{
       Header: 'Name',
-      accessor: 'title' // String-based value accessors!
+      accessor: 'property.name' // String-based value accessors!
     }, {
-      Header: 'Age',
-      accessor: 'date',
+      Header: 'Address',
+      accessor: 'property.address',
       Cell: props => <span className='number'>{props.value}</span> // Custom cell components!
     }, {
-      id: 'friendName', // Required because our accessor is not a string
-      Header: 'Friend Name',
-      accessor: 'city' // Custom value accessors!
+      Header: 'City',
+      accessor: 'property.city' // Custom value accessors!
     }, {
-      Header: props => <span>Friend Age</span>, // Custom header components!
-      accessor: 'venue'
+      Header: props => <span>Key Id</span>, // Custom header components!
+      accessor: 'key.id'
     }, {
-      Header: 'Host',
-      accessor: 'hostedBy'
+      Header: 'Key Status',
+      accessor: 'key.status'
     }];
 
     return (
