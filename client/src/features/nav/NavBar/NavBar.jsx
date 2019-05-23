@@ -41,14 +41,14 @@ class NavBar extends Component {
           <Menu.Item>
             <Button
               as={Link}
-              to="/createEvent"
+              to="/createRecord"
               floated="right"
               //positive
               inverted
               color="teal"
               content="Add Property"
             />
-          </Menu.Item>}
+            </Menu.Item>}
 
         {authenticated &&
         <Menu.Item>
