@@ -1,11 +1,11 @@
 const db = require('../db/connection');
 
 //Create new property
-function createProperty(req, res) {
+async function createProperty(req, res) {
     //Insert address if none exists
     const addrQueryString = "INSERT";
     try {
-        let result = db.dbQuery(addrQueryString);
+        let result = await db.dbQuery(addrQueryString);
         res.status(201).json(result);
     } catch (err) {
         res.status(422).json(err);
@@ -20,22 +20,22 @@ function createProperty(req, res) {
     }
 }
 
-function updateProperty(req,res) {
+async function updateProperty(req,res) {
     //Update existing record
     const propQueryString = "UPDATE";
     try {
-        let result = db.dbQuery(propQueryString);
+        let result = await db.dbQuery(propQueryString);
         res.status(201).json(result);
     } catch (err) {
         res.status(422).json(err);
     }
 }
 
-function deleteProperty(req,res) {
+async function deleteProperty(req,res) {
     //Delete existing record
     const deleteQueryString = "DELETE FROM property_tab WHERE property_id=" + req.body.property_id;
     try {
-        let result = db.dbQuery(deleteQueryString);
+        let result = await db.dbQuery(deleteQueryString);
         res.status(204).json(result);
     } catch (err) {
         res.status(422).json(err);
