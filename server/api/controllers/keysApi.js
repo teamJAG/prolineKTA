@@ -13,10 +13,7 @@ function toggleKeyStatus(req,res) {
 
 function createKey(req,res) {
     //Add key record
-    const keyValues = "(" + req.body.storageLocation + ", " +
-    req.body.key_quantity + ", " + req.body.creationDate +
-    ", " + req.body.keyStatus + ", " + req.body.keyPending +
-    ", " + req.body.keyType + ", ";
+    const keyValues = ""
     const keyQueryString = "INSERT key_tab VALUES " + keyValues;
     try {
         result = db.dbQuery(keyQueryString);

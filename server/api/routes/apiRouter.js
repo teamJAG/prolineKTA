@@ -6,6 +6,8 @@ const passport = require('passport');
 LdapStrategy = require('passport-ldapauth');
 
 const keysAPI = require('../controllers/keysApi');
+const historyAPI = require('../controllers/historyApi');
+const propertyAPI = require('../controllers/propertyApi');
 
 //may be refactored
 const usersAPI = require('../controllers/usersApi');
@@ -20,12 +22,12 @@ const OPTS = {
     }
 };
 
-// router
-// .route("/property")
-// .get()
-// .put()
-// .post()
-// .delete();
+router
+.route("/property")
+.get(propertyAPI.listProperty)
+.put(propertyAPI.updateProperty)
+.post(propertyAPI.createProperty)
+.delete(propertyAPI.deleteProperty);
 
 router
 .route("/keys")
@@ -46,3 +48,5 @@ router
 // .get()
 // .post()
 // .delete();
+
+module.exports = router;
