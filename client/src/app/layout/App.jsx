@@ -6,7 +6,6 @@ import NavBar from '../../features/nav/NavBar/NavBar';
 import RecordForm from '../../features/record/RecordForm/RecordForm';
 import UserDetailedPage from '../../features/user/UserDetailed/UserDetailedPage';
 import PeopleDashboard from '../../features/user/PeopleDashboard/PeopleDashboard';
-//import RecordDetailedPage from '../../features/record/RecordDetailed/RecordDetailedPage';
 import HomePage from '../../features/home/HomePage';
 import TestComponent from '../../features/testarea/TestComponent';
 
