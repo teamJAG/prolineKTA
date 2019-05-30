@@ -20,12 +20,7 @@ class RecordDashboard extends Component {
   render() {
     const { records } = this.props;
     return (
-      <Grid>
-        <Grid.Column width={10}>
-          <RecordList deleteRecord={this.handleDeleteRecord} records={records} />
-        </Grid.Column>
-        <Grid.Column width={6} />
-      </Grid>
+      <RecordList deleteRecord={this.handleDeleteRecord} records={records} />
     );
   }
 }

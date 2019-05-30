@@ -31,17 +31,18 @@ class NavBar extends Component {
             <img src="/assets/logo.png" alt="logo" />
             Proline KTA
           </Menu.Item>
-          <Menu.Item as={NavLink} to="/records" name="Properties" />
+          <Menu.Item as={NavLink} to="/records" name="Records" />
 
-          {authenticated && <Menu.Item as={NavLink} to="/inventory" name="Inventory" />}
+          {authenticated && 
+            <Menu.Item as={NavLink} to="/inventory" name="Inventory" />}
 
-          <Menu.Item as={NavLink} to="/test" name="Test" />
           <Menu.Item as={NavLink} to="/testing" name="Testing" />
           
-          {authenticated && <Menu.Item as={NavLink} to="/report" name="Report" />}
+          {authenticated && 
+            <Menu.Item as={NavLink} to="/report" name="Reports" />}
           
           {authenticated &&
-          <Menu.Item as={NavLink} to="/people" name="Employees" />}
+          <Menu.Item as={NavLink} to="/people" name="People" />}
 
           {authenticated &&
           <Menu.Item>

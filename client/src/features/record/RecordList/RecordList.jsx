@@ -6,18 +6,26 @@ class RecordList extends Component {
   render() {
 
     const columns = [{
-      Header: 'Name',
-      accessor: 'property.name' // String-based value accessors!
+      Header: 'Property Type',
+      accessor: 'property.name', // String-based value accessors!
+      minWidth: 150
     }, {
-      Header: 'Address',
+      Header: 'Property Address',
       accessor: 'property.address',
-      Cell: props => <span className='number'>{props.value}</span> // Custom cell components!
+      minWidth: 200
     }, {
-      Header: 'City',
+      Header: 'City/Municipality',
       accessor: 'property.city' // Custom value accessors!
     }, {
-      Header: props => <span>Key Id</span>, // Custom header components!
+      Header: props => <span style={{textAlign:"center"}}>Key Location</span>, // Custom header components!
       accessor: 'key.id'
+    }, {
+      Header: 'Office Location',
+      accessor: 'key.status',
+      minWidth: 120
+    }, {
+      Header: 'Key Type',
+      accessor: 'key.type'
     }, {
       Header: 'Key Status',
       accessor: 'key.status'
@@ -26,6 +34,7 @@ class RecordList extends Component {
     return (
       <div>
         <ReactTable
+          className = '-highlight'
           data={this.props.records}
           columns={columns}
         />
