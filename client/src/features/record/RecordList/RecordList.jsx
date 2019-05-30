@@ -1,41 +1,33 @@
 import React, { Component } from 'react';
-// import RecordListItem from './RecordListItem';
-import ReactTable from 'react-table'
-import 'react-table/react-table.css'
+import ReactTable from 'react-table';
+import 'react-table/react-table.css';
 
 class RecordList extends Component {
   render() {
-    // const { records, deleteRecord } = this.props;
+
     const columns = [{
-      Header:'Name',
-      accessor: 'title' // String-based value accessors!
+      Header: 'Name',
+      accessor: 'property.name' // String-based value accessors!
     }, {
-      Header: 'Age',
-      accessor: 'date',
+      Header: 'Address',
+      accessor: 'property.address',
       Cell: props => <span className='number'>{props.value}</span> // Custom cell components!
     }, {
-      id: 'friendName', // Required because our accessor is not a string
-      Header: 'Friend Name',
-      accessor: 'city' // Custom value accessors!
+      Header: 'City',
+      accessor: 'property.city' // Custom value accessors!
     }, {
-      Header: props => <span>Friend Age</span>, // Custom header components!
-      accessor: 'venue'
+      Header: props => <span>Key Id</span>, // Custom header components!
+      accessor: 'key.id'
     }, {
-      Header: 'Host',
-      accessor: 'hostedBy'
+      Header: 'Key Status',
+      accessor: 'key.status'
     }];
+
     return (
       <div>
-        {/* {records.map(record => (
-          <RecordListItem
-            key={record.id}
-            record={record}
-            deleteRecord={deleteRecord}
-          />
-        ))} */}
         <ReactTable
-        data={this.props.records}
-        columns={columns}
+          data={this.props.records}
+          columns={columns}
         />
       </div>
     );
