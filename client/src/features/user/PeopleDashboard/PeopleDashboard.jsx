@@ -130,5 +130,4 @@ const CustomTableCell = withStyles(theme => ({
     classes: PropTypes.object.isRequired,
   };
 
-
 export default withStyles(styles)(EmployeesTable);

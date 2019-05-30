@@ -8,6 +8,12 @@ import UserDetailedPage from '../../features/user/UserDetailed/UserDetailedPage'
 import PeopleDashboard from '../../features/user/PeopleDashboard/PeopleDashboard';
 import HomePage from '../../features/home/HomePage';
 import TestComponent from '../../features/testarea/TestComponent';
+import InventoryPage from '../../features/inventory/InventoryPage';
+import addProperty from '../../features/property/addProperty';
+import CreateReport from '../../features/createReport/CreateReport';
+import Register from '../../features/register/Register';
+import Testing from '../../features/testing/Testing';
+import ReportList from '../../features/report/ReportList';
 
 class App extends Component {
   render() {
@@ -25,10 +31,16 @@ class App extends Component {
               <Container className="main">
                 <Switch>
                   <Route path="/records" component={RecordDashboard} />
+                  <Route path="/inventory" component={InventoryPage} />
                   <Route path="/test" component={TestComponent} />
                   <Route path="/people" component={PeopleDashboard} />
                   <Route path="/profile/:id" component={UserDetailedPage} />
                   <Route path="/createRecord" component={RecordForm} />
+                  <Route path="/property" component={addProperty} />
+                  <Route path="/createReport" component={CreateReport} />
+                  <Route path="/register" component={Register} />
+                  <Route path="/testing" component={Testing} />
+                  <Route path="/report" component={ReportList} />
                 </Switch>
               </Container>
             </div>
