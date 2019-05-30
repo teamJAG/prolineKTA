@@ -32,37 +32,45 @@ class NavBar extends Component {
             Proline KTA
           </Menu.Item>
           <Menu.Item as={NavLink} to="/records" name="Properties" />
+
+          {authenticated && <Menu.Item as={NavLink} to="/inventory" name="Inventory" />}
+
           <Menu.Item as={NavLink} to="/test" name="Test" />
+          <Menu.Item as={NavLink} to="/testing" name="Testing" />
+          
+          {authenticated && <Menu.Item as={NavLink} to="/report" name="Report" />}
+          
           {authenticated &&
           <Menu.Item as={NavLink} to="/people" name="Employees" />}
 
           {authenticated &&
-
           <Menu.Item>
             <Button
-              as={Link}
-              to="/createRecord"
+              as={NavLink}
+              to="/property"
+              name="addProperty"
               floated="right"
               //positive
               inverted
               color="teal"
               content="Add Property"
             />
-            </Menu.Item>}
+          </Menu.Item>}
 
-        {authenticated &&
-        <Menu.Item>
-        <Button
-          as={Link}
-          to="/createEvent"
-          floated="right"
-          //positive
-          inverted
-          color="teal"
-          content="Create Report"
-        />
-      </Menu.Item>
-        }
+          {authenticated &&
+          <Menu.Item>
+            <Button
+              as={Link}
+              to="/createReport"
+              name="CreateReport"
+              floated="right"
+              //positive
+              inverted
+              color="teal"
+              content="Create Report"
+            />
+          </Menu.Item>
+          }
 
           {authenticated ? (
             <SignedInMenu signOut={this.handleSignOut} />
