@@ -1,28 +1,24 @@
 import React, { Component } from 'react';
-import { Grid } from 'semantic-ui-react';
 import { connect } from 'react-redux';
-import { deleteRecord } from '../recordActions';
+import { fetchRecords } from '../recordActions';
 import RecordList from '../RecordList/RecordList';
 
-const mapState = state => ({
+const mapStateToProps = state => ({
   records: state.records
 });
 
-const actions = {
-  deleteRecord
-};
-
 class RecordDashboard extends Component {
-  handleDeleteRecord = recordId => () => {
-    this.props.deleteRecord(recordId);
-  };
+
+  componentDidMount() {
+    this.props.dispatch(fetchRecords);
+  }
 
   render() {
     const { records } = this.props;
     return (
-      <RecordList deleteRecord={this.handleDeleteRecord} records={records} />
+      <RecordList records={records} />
     );
   }
 }
 
-export default connect(mapState, actions)(RecordDashboard);
+export default connect(mapStateToProps)(RecordDashboard);

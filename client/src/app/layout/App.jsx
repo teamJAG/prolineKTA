@@ -7,7 +7,6 @@ import RecordForm from '../../features/record/RecordForm/RecordForm';
 import UserDetailedPage from '../../features/user/UserDetailed/UserDetailedPage';
 import PeopleDashboard from '../../features/user/PeopleDashboard/PeopleDashboard';
 import HomePage from '../../features/home/HomePage';
-import TestComponent from '../../features/testarea/TestComponent';
 import InventoryPage from '../../features/inventory/InventoryPage';
 import addProperty from '../../features/property/addProperty';
 import CreateReport from '../../features/createReport/CreateReport';
@@ -32,7 +31,6 @@ class App extends Component {
                 <Switch>
                   <Route path="/records" component={RecordDashboard} />
                   <Route path="/inventory" component={InventoryPage} />
-                  <Route path="/test" component={TestComponent} />
                   <Route path="/people" component={PeopleDashboard} />
                   <Route path="/profile/:id" component={UserDetailedPage} />
                   <Route path="/createRecord" component={RecordForm} />
