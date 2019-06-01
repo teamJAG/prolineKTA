@@ -3,29 +3,48 @@ import ReactTable from 'react-table';
 import 'react-table/react-table.css';
 
 class RecordList extends Component {
+
   render() {
 
     const columns = [{
-      Header: 'Name',
-      accessor: 'property.name' // String-based value accessors!
+      Header: 'Property Type',
+      accessor: 'property_type',
+      minWidth: 150
     }, {
-      Header: 'Address',
-      accessor: 'property.address',
-      Cell: props => <span className='number'>{props.value}</span> // Custom cell components!
+      Header: 'Property Address',
+      accessor: 'address',
+      minWidth: 200
     }, {
-      Header: 'City',
-      accessor: 'property.city' // Custom value accessors!
+      Header: 'City/Municipality',
+      accessor: 'city',
+      style: {textAlign: 'center'}
     }, {
-      Header: props => <span>Key Id</span>, // Custom header components!
-      accessor: 'key.id'
+      Header: 'Key Location',
+      accessor: 'storage_location',
+      style: {textAlign: 'center'}
+    }, {
+      Header: 'Office Location',
+      accessor: 'office_location',
+      minWidth: 120,
+      style: {textAlign: 'center'}
+    }, {
+      Header: 'Key Number',
+      accessor: 'key_number',
+    }, {
+      Header: 'Key Type',
+      accessor: 'key_type',
+      style: {textAlign: 'center'}
     }, {
       Header: 'Key Status',
-      accessor: 'key.status'
-    }];
+      accessor: 'key_status',
+      style: {textAlign: 'center'}
+    }
+  ];
 
     return (
       <div>
         <ReactTable
+          className = '-highlight'
           data={this.props.records}
           columns={columns}
         />

@@ -31,7 +31,7 @@ router
 
 router
 .route("/keys")
-// .get()
+.get(keysAPI.listKeys)
 .put(keysAPI.toggleKeyStatus)
 // .post()
 // .delete();
