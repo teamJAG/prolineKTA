@@ -14,6 +14,7 @@ import CreateReport from '../../features/createReport/CreateReport';
 import Register from '../../features/register/Register';
 import Testing from '../../features/testing/Testing';
 import ReportList from '../../features/report/ReportList';
+import addKey from '../../features/key/addKey';
 
 class App extends Component {
   render() {
@@ -41,6 +42,7 @@ class App extends Component {
                   <Route path="/register" component={Register} />
                   <Route path="/testing" component={Testing} />
                   <Route path="/report" component={ReportList} />
+                  <Route path="/key" component={addKey} />
                 </Switch>
               </Container>
             </div>
