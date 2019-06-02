@@ -48,6 +48,20 @@ class NavBar extends Component {
           <Menu.Item>
             <Button
               as={NavLink}
+              to="/key"
+              name="addKey"
+              floated="right"
+              //positive
+              inverted
+              color="teal"
+              content="Add Key"
+            />
+          </Menu.Item>}
+
+          {authenticated &&
+          <Menu.Item>
+            <Button
+              as={NavLink}
               to="/property"
               name="addProperty"
               floated="right"

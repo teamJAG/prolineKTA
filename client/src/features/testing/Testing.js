@@ -29,9 +29,6 @@ export default () => (
           </Button>
         </Form>
       </Segment>
-      <Message>
-        Not registered yet? <a href="#">Sign Up</a>
-      </Message>
     </Grid.Column>
 
 {/* Create/update user form example */}
