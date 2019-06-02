@@ -1,22 +1,31 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchRecords } from '../recordActions';
+import { fetchData } from '../recordActions';
 import RecordList from '../RecordList/RecordList';
+import { Search } from 'semantic-ui-react';
 
 const mapStateToProps = state => ({
-  records: state.records
+  records: state.records,
+  isLoading: state.isLoading
 });
 
 class RecordDashboard extends Component {
 
   componentDidMount() {
-    this.props.dispatch(fetchRecords);
+    this.props.dispatch(fetchData);
   }
 
   render() {
-    const { records } = this.props;
+    const { records, isLoading } = this.props;
     return (
-      <RecordList records={records} />
+      <div>
+        <div>
+          <Search
+            loading={isLoading}
+             />
+        </div>
+          <RecordList records={records} />
+      </div>
     );
   }
 }

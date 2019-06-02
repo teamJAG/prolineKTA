@@ -1,5 +1,5 @@
 import { createReducer } from 'redux-create-reducer';
-import { CREATE_RECORD, DELETE_RECORD, UPDATE_RECORD, FETCH_RECORDS_SUCCESS, FETCH_RECORDS_FAIL } from './recordConstants';
+import { CREATE_RECORD, DELETE_RECORD, UPDATE_RECORD, FETCHING, FETCH_DATA_SUCCESS, FETCH_DATA_FAIL } from './recordConstants';
 
 
 const initialState = [{}];
@@ -21,15 +21,21 @@ export const deleteRecord = (state, payload) => {
   ]
 }
 
-export function fetchRecordsSuccess(state, action) {
+export function fetchDataLoading(state, action) {
   return [
-    ...action.payload
+    ...state, action.payload
   ]
 }
 
-export function fetchRecordsFail(state, action) {
+export function fetchDataSuccess(state, action) {
   return [
-    ...state, action.error
+    action.payload
+  ]
+}
+
+export function fetchDataFail(state, action) {
+  return [
+    action.payload
   ]
 }
 
@@ -37,6 +43,7 @@ export default createReducer(initialState, {
   [CREATE_RECORD]: createRecord,
   [UPDATE_RECORD]: updateRecord,
   [DELETE_RECORD]: deleteRecord,
-  [FETCH_RECORDS_SUCCESS]: fetchRecordsSuccess,
-  [FETCH_RECORDS_FAIL]: fetchRecordsFail
+  [FETCHING]: fetchDataLoading,
+  [FETCH_DATA_SUCCESS]: fetchDataSuccess,
+  [FETCH_DATA_FAIL]: fetchDataFail
 })
