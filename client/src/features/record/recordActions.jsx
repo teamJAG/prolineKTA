@@ -1,4 +1,4 @@
-import { FETCH_RECORDS_SUCCESS, FETCH_RECORDS_FAIL } from './recordConstants';
+import { FETCHING, FETCH_DATA_SUCCESS, FETCH_DATA_FAIL } from './recordConstants';
 
 function handleHTTPErrors(response) {
   if (!response.ok) {
@@ -7,22 +7,34 @@ function handleHTTPErrors(response) {
   return response;
 }
 
+export const fetchDataLoading = () => {
+  return {
+    type: FETCHING,
+    payload: {
+      isLoading: true
+    }
+  }
+}
+
 export const fetchDataSuccess = (data) => {
   return {
-    type: FETCH_RECORDS_SUCCESS,
+    type: FETCH_DATA_SUCCESS,
     payload: data
   }
 }
 
-export const fetchDataFail = (error) => {
+export const fetchDataFail = (err) => {
   return {
-    type: FETCH_RECORDS_FAIL,
-    error: error
+    type: FETCH_DATA_FAIL,
+    payload: {
+      error : true
+    }
   }
 }
 
-export async function fetchRecords(dispatch){
+export async function fetchData(dispatch,){
   try {
+    dispatch(fetchDataLoading());
     let result = await fetch(`${process.env.REACT_APP_API_URL}/keys`);
     result = await handleHTTPErrors(result);
     const records = await result.json();
