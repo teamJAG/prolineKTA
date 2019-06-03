@@ -14,11 +14,10 @@ const rootEl = document.getElementById('root');
 
 let render = () => {
   ReactDOM.render(
-    <Provider store={store}>
       <BrowserRouter>
         <App />
       </BrowserRouter>
-    </Provider>,
+,
     rootEl
   );
 };

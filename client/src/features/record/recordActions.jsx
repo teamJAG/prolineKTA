@@ -32,7 +32,7 @@ export const fetchDataFail = (err) => {
   }
 }
 
-export async function fetchData(dispatch,){
+export async function fetchData(dispatch){
   try {
     dispatch(fetchDataLoading());
     let result = await fetch(`${process.env.REACT_APP_API_URL}/keys`);
