@@ -1,29 +1,10 @@
 import React, { Component } from 'react';
-import { Menu, Container, Button } from 'semantic-ui-react';
+import { Menu, Dropdown, Container, Button } from 'semantic-ui-react';
 import { NavLink, Link, withRouter } from 'react-router-dom';
-import SignedOutMenu from '../Menus/SignedOutMenu';
-import SignedInMenu from '../Menus/SignedInMenu';
 
 class NavBar extends Component {
-  state = {
-    authenticated: false
-  };
-
-  handleSignIn = () => {
-    this.setState({
-      authenticated: true
-    });
-  };
-
-  handleSignOut = () => {
-    this.setState({
-      authenticated: false
-    });
-    this.props.history.push('/')
-  };
 
   render() {
-    const { authenticated } = this.state;
     return (
       <Menu inverted fixed="top">
         <Container>
@@ -31,20 +12,18 @@ class NavBar extends Component {
             <img src="/assets/logo.png" alt="logo" />
             Proline KTA
           </Menu.Item>
-          <Menu.Item as={NavLink} to="/records" name="Records" />
-
-          {authenticated && 
-            <Menu.Item as={NavLink} to="/inventory" name="Inventory" />}
+          <Dropdown item text="Records">
+            <Dropdown.Menu>
+              <Dropdown.Item as={NavLink} to="/records">Keys</Dropdown.Item>
+              <Dropdown.Item as={NavLink} to="/properties">Properties</Dropdown.Item>
+              <Dropdown.Item as={NavLink} to="/people">Contractors</Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
 
           <Menu.Item as={NavLink} to="/testing" name="Testing" />
-          
-          {authenticated && 
-            <Menu.Item as={NavLink} to="/report" name="Reports" />}
-          
-          {authenticated &&
-          <Menu.Item as={NavLink} to="/people" name="People" />}
+            
+          <Menu.Item as={NavLink} to="/report" name="Reports" />
 
-          {authenticated &&
           <Menu.Item>
             <Button
               as={NavLink}
@@ -56,9 +35,8 @@ class NavBar extends Component {
               color="teal"
               content="Add Key"
             />
-          </Menu.Item>}
+          </Menu.Item>
 
-          {authenticated &&
           <Menu.Item>
             <Button
               as={NavLink}
@@ -70,28 +48,7 @@ class NavBar extends Component {
               color="teal"
               content="Add Property"
             />
-          </Menu.Item>}
-
-          {authenticated &&
-          <Menu.Item>
-            <Button
-              as={Link}
-              to="/createReport"
-              name="CreateReport"
-              floated="right"
-              //positive
-              inverted
-              color="teal"
-              content="Create Report"
-            />
           </Menu.Item>
-          }
-
-          {authenticated ? (
-            <SignedInMenu signOut={this.handleSignOut} />
-          ) : (
-            <SignedOutMenu signIn={this.handleSignIn} />
-          )}
         </Container>
       </Menu>
     );
