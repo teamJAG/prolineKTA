@@ -30,20 +30,29 @@ const useStyles = withStyles(theme => ({
 function AddPropertyForm() {
   const classes = withStyles();
   const [values, setValues] = React.useState({
-    amount: '',
-    password: '',
-    weight: '',
-    weightRange: '',
-    showPassword: false,
+    // amount: '',
+    // password: '',
+    // weight: '',
+    // weightRange: '',
+    // showPassword: false,
   });
 
-  const [state, setState] = React.useState({
-    checkedA: true,
-    checkedB: true,
-    checkedC: true,
-    checkedD: true,
-    checkedE: true,
-  });
+  const handleChange = prop => event => {
+    setValues({ ...values, [prop]: event.target.value });
+  };
+
+  const propType = [
+    {
+      label: 'Strata',
+    },
+    {
+      label: 'Rental',
+    },
+    {
+      label: 'Saundry',
+    },
+  ];
+
 
   return (
       <div style={{ marginTop: 10, padding: 20 }}>
@@ -51,13 +60,36 @@ function AddPropertyForm() {
       
       <form className={classes.container} noValidate autoComplete="off">
       <TextField
-        id="propAddress"
+        id="city"
         label="City"
         fullWidth
         className={classes.textField}
         margin="normal"
         variant="outlined"
       />
+      <TextField
+        id="propType"
+        select
+        label="Property Type"
+        fullWidth
+        value={values.propType}
+        onChange={handleChange('propType')}
+        SelectProps={{
+          native: true,
+          MenuProps: {
+            className: classes.menu,
+          },
+        }}
+        className={classes.textField}
+        margin="normal"
+        variant="outlined"
+      >
+        {propType.map(option => (
+          <option key={option.value} value={option.value}>
+            {option.label}
+          </option>
+        ))}
+      </TextField> 
       <TextField
         id="propName"
         label="Poperty Name"

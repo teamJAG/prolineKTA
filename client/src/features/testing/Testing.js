@@ -75,7 +75,7 @@ export default () => (
             placeholder="Address"
           />
           <Form.Field label='User Privilege' control='select'>
-            <option value='admin'>Admin</option>
+            <option value='admin'>Administrator</option>
             <option value='user'>User</option>
           </Form.Field>
           <Form.Field label='Department' control='select'>
