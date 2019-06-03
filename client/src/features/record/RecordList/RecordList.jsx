@@ -93,7 +93,7 @@ class RecordList extends Component {
           showPaginationTop={false}
           showPaginationBottom={true}
           pageSizeOptions={[5, 10, 20, 25, 50, 100]}
-          manual // this would indicate that server side pagination has been enabled 
+          manual
           onFetchData={(state, instance) => {
                   this.setState({loading: true});
                   fetchData("keys", state.page, state.pageSize, state.sorted, state.filtered, (res) => {
