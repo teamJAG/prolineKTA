@@ -1,157 +1,127 @@
-import React from 'react'
-import 'semantic-ui-css/semantic.min.css';
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
-import TextField from '@material-ui/core/TextField';
-import Grid from '@material-ui/core/Grid';
-import Checkbox from '@material-ui/core/Checkbox';
+import React, { Component } from 'react';
+import ReactTable from 'react-table';
+import 'react-table/react-table.css';
+import DatePicker from 'react-datepicker'
+import "react-datepicker/dist/react-datepicker.css"
 
-const CustomTableCell = withStyles(theme => ({
-  head: {
-    backgroundColor: theme.palette.common.black,
-    color: theme.palette.common.white,
-  },
-  body: {
-    fontSize: 14,
-  },
-}))(TableCell);
+function handleHTTPErrors(response) {
+if (!response.ok) {
+throw Error(response.statusText);
+}
+return response;
+}
 
-const styles = theme => ({
-  root: {
-    width: '100%',
-    marginTop: theme.spacing.unit * 3,
-    overflowX: 'auto',
-  },
-  table: {
-    minWidth: 700,
-  },
-  row: {
-    '&:nth-of-type(odd)': {
-      backgroundColor: theme.palette.background.default,
-    },
-  },
+async function fetchData(endpoint, page, pageSize, sorted, filtered, handleData) {
+let requestBody = {
+page: page,
+pageSize: pageSize,
+sorted: sorted,
+filtered: filtered,
+};
+try {
+let result = await fetch(`${process.env.REACT_APP_API_URL}/${endpoint}`, {
+method: 'POST',
+headers: {
+'Content-Type': 'application/json'
+},
+body: JSON.stringify(requestBody)
 });
+result = await handleHTTPErrors(result);
+const records = await result.json();
+return handleData(records);
+} catch (err) {
+console.log("fetchData failed: " + err);
+return err;
+}
+}
 
-  let id = 0;
-  function createData(prop_id, status, key_type, address, last_activity, user) {
-    id += 1;
-    return { prop_id, status, key_type, address, last_activity, user };
-  }
+class ReportList extends Component {
 
-  const rows = [
-    createData('000001', 'Pending', 'Maintenance', '123 First Rd.', '15 Jul, 8:56 AM (2019)', 'A'),
-    createData('000002', 'Signed-In', 'Operations', '234 Second Rd.',  '16 Jul, 10:00 AM (2019)', 'B'),
-    createData('000003', 'Signed-Out', 'Master', '345 Third Rd.',  '17 Jul, 11:00 AM (2019)', 'C'),
-    createData('000004', 'Signed-In', 'Master', '456 Fourth Rd.', '18 Jul, 13:00 PM (2019)', 'D'),
-    createData('000005', 'Pending', 'Maintenance', '567 Fifth Rd.', '19 Jul, 15:00 PM (2019)', 'E'),
-  ];
+constructor(props) {
+super(props);
+this.state = {
+startDate: new Date(),
+endDate: new Date(),
+data: [],
+pages: 0,
+loading: false
+};
+this.handleChangeStart = this.handleChangeStart.bind(this);
+this.handleChangeEnd = this.handleChangeEnd.bind(this);
+//this.handleChange = this.handleChange.bind(this);
 
-  function ReportListTable(props) {
-    const { classes } = props;
-  
-    return (
-    <div> 
-    {/* <Paper className={classes.root}>
-    <br></br>
-    <h2 class = "ui horizontal divider header"> Search by Date </h2> 
-    <br></br>
-    <Grid container className={classes.grid} justify="space-around">
-    <Form size="medium">
-    <Form.Input
-            fluid
-            iconPosition="left"
-            placeholder="Property Name/ID"
-    />
-    <button class="ui blue button">Search</button>
-    </Form>
-    </Grid>
-      <br></br>
-    </Paper> */}
+}
 
-    <Paper className={classes.root}>
-    <br></br>
-    <h2 class = "ui horizontal divider header"> Select Date Range </h2> 
-    <br></br>
-    <Grid container className={classes.grid} justify="space-around">
-    <Checkbox/>
-    <form className={classes.container} noValidate>
-      <TextField
-        id="date"
-        label="Waiting From"
-        type="date"
-        defaultValue="2019-05-29"
-        className={classes.textField}
-        InputLabelProps={{
-        shrink: true,
-        }}
-      />
-    </form>
-    _________________
+handleChangeStart(date) {
+this.setState({
+startDate: date
+});
+}
 
-    <form className={classes.container} noValidate>
-      <TextField
-        id="date"
-        label="Waiting To"
-        type="date"
-        defaultValue="2019-05-30"
-        className={classes.textField}
-        InputLabelProps={{
-          shrink: true,
-        }}
-      />
-    </form>
-    <button class="ui blue basic button">OK</button>
+handleChangeEnd(date) {
+this.setState({
+endDate: date
+});
+}
 
-    {/* <Button variant="contained" color="primary" className={classes.button}> OK </Button> */}
-    </Grid>
-    <br></br>
-    </Paper>
+render() {
 
-    <Paper className={classes.root}>
-        <Table className={classes.table}>
-          <TableHead>
-            <TableRow>
-            <CustomTableCell>PROPERTY ID</CustomTableCell>
-              <CustomTableCell align="right">STATUS</CustomTableCell>
-              <CustomTableCell align="right">KEY TYPE</CustomTableCell>
-              <CustomTableCell align="right">ADDRESS</CustomTableCell>
-              <CustomTableCell align="right">LAST ACTIVITY DATE</CustomTableCell>
-              <CustomTableCell align="right">USER</CustomTableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {rows.map(row => (
-              <TableRow className={classes.row} key={row.id}>
-                <CustomTableCell component="th" scope="row">
-                  {row.prop_id}
-                </CustomTableCell>
-                <CustomTableCell align="right">{row.status}</CustomTableCell>
-                <CustomTableCell align="right">{row.key_type}</CustomTableCell>
-                <CustomTableCell align="right">{row.address}</CustomTableCell>
-                <CustomTableCell align="right">{row.last_activity}</CustomTableCell>
-                <CustomTableCell align="right">{row.user}</CustomTableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-    </Paper>
-    <br></br>
-    <div class="ui red labeled icon button">
-        Export PDF
-        <i class="file icon"></i>
-    </div>
-    </div>
-    );
-  }
 
-  ReportListTable.propTypes = {
-    classes: PropTypes.object.isRequired,
-  };
 
-export default withStyles(styles)(ReportListTable);
+return (
+<div>
+<container>
+<DatePicker
+selected={this.state.startDate}
+selectsStart
+startDate={this.state.startDate}
+endDate={this.state.endDate}
+onChange={this.handleChangeStart}
+showYearDropdown
+showMonthDropdown
+withPortal
+/>
+<DatePicker
+selected={this.state.endDate}
+selectsEnd
+startDate={this.state.startDate}
+endDate={this.state.endDate}
+onChange={this.handleChangeEnd}
+minDate={this.state.startDate}
+showYearDropdown
+showMonthDropdown
+withPortal
+/>
+<ReactTable
+className = '-highlight'
+data={this.state.data}
+pages={this.state.pages}
+columns={this.props.columns}
+minRows={1}
+defaultPageSize={20}
+loading={this.state.loading}
+showPagination={true}
+showPaginationTop={false}
+showPaginationBottom={true}
+pageSizeOptions={[5, 10, 20, 25, 50, 100]}
+manual
+onFetchData={(state, instance) => {
+this.setState({loading: true});
+fetchData("keys", state.page, state.pageSize, state.sorted, state.filtered, (res) => {
+this.setState({
+data: res.data,
+pages: res.pages,
+loading: false
+});
+});
+}}
+/>
+);
+</container>
+</div>
+);
+}
+}
+
+
+export default ReportList;
