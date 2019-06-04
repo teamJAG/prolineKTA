@@ -16,7 +16,7 @@ class NavBar extends Component {
             <Dropdown.Menu>
               <Dropdown.Item as={NavLink} to="/records">Keys</Dropdown.Item>
               <Dropdown.Item as={NavLink} to="/properties">Properties</Dropdown.Item>
-              <Dropdown.Item as={NavLink} to="/people">Contractors</Dropdown.Item>
+              <Dropdown.Item as={NavLink} to="/people">People</Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
 
@@ -33,7 +33,7 @@ class NavBar extends Component {
               //positive
               inverted
               color="teal"
-              content="Add Key"
+              content="Add/Edit Key"
             />
           </Menu.Item>
 
@@ -46,9 +46,22 @@ class NavBar extends Component {
               //positive
               inverted
               color="teal"
-              content="Add Property"
+              content="Add/Edit Property"
             />
           </Menu.Item>
+
+          <Menu.Item>
+          <Button
+            as={NavLink}
+            to="/checkKey"
+            name="checkKey"
+            floated="right"
+            //positive
+            inverted
+            color="teal"
+            content="Scan Key"
+          />
+        </Menu.Item>
         </Container>
       </Menu>
     );
