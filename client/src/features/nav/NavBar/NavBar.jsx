@@ -16,7 +16,7 @@ class NavBar extends Component {
             <Dropdown.Menu>
               <Dropdown.Item as={NavLink} to="/records">Keys</Dropdown.Item>
               <Dropdown.Item as={NavLink} to="/properties">Properties</Dropdown.Item>
-              <Dropdown.Item as={NavLink} to="/people">Contractors</Dropdown.Item>
+              <Dropdown.Item as={NavLink} to="/people">People</Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
 

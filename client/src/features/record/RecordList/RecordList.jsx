@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
 import ReactTable from 'react-table';
 import 'react-table/react-table.css';
+//import DatePicker from "react-datepicker";
+//import "react-datepicker/dist/react-datepicker.css";
+
+// CSS Modules, react-datepicker-cssmodules.css
+// import 'react-datepicker/dist/react-datepicker-cssmodules.css';
 
 function handleHTTPErrors(response) {
   if (!response.ok) {
@@ -39,10 +44,17 @@ class RecordList extends Component {
     super(props);
     this.state = {
        data: [],
+       
        loading: false,
        pages: 0
     };
-}
+    this.handleChange = this.handleChange.bind(this);
+  }
+    handleChange(date) {
+      this.setState({
+        startDate: date
+      });
+    }
 
   render() {
 
@@ -82,6 +94,7 @@ class RecordList extends Component {
   ];
 
     return (
+
       <div>
         <ReactTable
           className = '-highlight'
