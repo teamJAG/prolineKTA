@@ -34,7 +34,7 @@ async function deleteKey(req,res) {
     }
 }
 
-async function listKeys(req, res) {
+async function listRecords(req, res) {
     let countQuery = `SELECT COUNT(*) as count FROM (SELECT p.property_type, p.property_name, a.address, c.city, k.storage_location, k.office_location, k.key_number, k.key_type, k.key_status
     FROM proline.key_tab k
     INNER JOIN proline.address_tab a ON a.address_id = k.address_tab_address_id
@@ -48,8 +48,8 @@ async function listKeys(req, res) {
     INNER JOIN proline.property_tab p ON p.property_id = a.property_tab_property_id `;
     
     if (req.body.filtered.length) {
-        countQuery += req.body.filtered;
-        queryString += req.body.filtered;   
+        countString += 'WHERE ' + req.body.filtered[0].id + ' LIKE \"' + req.body.filtered.value + '\" ';
+        queryString += 'WHERE ' + req.body.filtered[0].id + ' LIKE \"' + req.body.filtered.value + '\" ';
     }
 
     if (req.body.sorted.length) {   
@@ -86,5 +86,5 @@ module.exports = {
     toggleKeyStatus,
     createKey,
     deleteKey,
-    listKeys
+    listRecords
 };
