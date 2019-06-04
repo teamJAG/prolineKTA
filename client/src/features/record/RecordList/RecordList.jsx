@@ -9,8 +9,9 @@ function handleHTTPErrors(response) {
   return response;
 }
 
-async function fetchData(endpoint, page, pageSize, sorted, filtered, handleData) {
+async function fetchData(endpoint, queryType, page, pageSize, sorted, filtered, handleData) {
   let requestBody = {
+    queryType: queryType,
     page: page,
     pageSize: pageSize,
     sorted: sorted,
@@ -65,7 +66,7 @@ class RecordList extends Component {
           manual
           onFetchData={(state, instance) => {
                   this.setState({loading: true});
-                  fetchData("keys", state.page, state.pageSize, state.sorted, state.filtered, (res) => {
+                  fetchData("keys", this.props.type, state.page, state.pageSize, state.sorted, state.filtered, (res) => {
                   this.setState({
                           data: res.data,
                           pages: res.pages,

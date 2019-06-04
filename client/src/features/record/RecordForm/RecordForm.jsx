@@ -54,10 +54,10 @@ class RecordForm extends Component {
 
   onInputChange = (rcd) => {
     const newRecord = this.state.record;
-    newRecord[rcd.target.name] = rcd.target.value
+    newRecord[rcd.target.name] = rcd.target.value;
     this.setState({
       record: newRecord
-    })
+    });
   }
 
   render() {

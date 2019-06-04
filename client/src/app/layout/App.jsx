@@ -15,19 +15,19 @@ import addKey from '../../features/key/addKey';
 
 const KeyRecordDashBoard = (props) => {
   return (
-    <RecordDashboard tableType="keys" {...props} />
+    <RecordDashboard columnsType="keys" {...props} />
   )
 }
 
 const PropertyRecordDashBoard = (props) => {
   return (
-    <RecordDashboard tableType="properties" {...props} />
+    <RecordDashboard columnsType="properties" {...props} />
   )
 }
 
 const PeopleRecordDashboard = (props) => {
   return (
-    <RecordDashboard tableType="people" {...props} />
+    <RecordDashboard columnsType="people" {...props} />
   )
 }
 
