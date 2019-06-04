@@ -8,6 +8,7 @@
     "clsx": "^1.0.4",
     "cuid": "^2.1.6",
     "react": "^16.8.6",
+    "react-datepicker": "^2.6.0",
     "react-dom": "^16.8.6",
     "react-redux": "^7.0.3",
     "react-router-dom": "^5.0.0",

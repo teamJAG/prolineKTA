@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ReactTable from 'react-table';
 import 'react-table/react-table.css';
 import DatePicker from 'react-datepicker'
+import * as ui from '../record/RecordDashboard/ui';
 import "react-datepicker/dist/react-datepicker.css"
 
 function handleHTTPErrors(response) {
@@ -37,18 +38,18 @@ return err;
 
 class ReportList extends Component {
 
-constructor(props) {
-super(props);
-this.state = {
-startDate: new Date(),
-endDate: new Date(),
-data: [],
-pages: 0,
-loading: false
-};
-this.handleChangeStart = this.handleChangeStart.bind(this);
-this.handleChangeEnd = this.handleChangeEnd.bind(this);
-//this.handleChange = this.handleChange.bind(this);
+    constructor(props) {
+        super(props);
+        this.state = {
+            startDate: new Date(),
+            endDate: new Date(),
+            data: [],
+            pages: 0,
+            loading: false
+        };
+    this.handleChangeStart = this.handleChangeStart.bind(this);
+    this.handleChangeEnd = this.handleChangeEnd.bind(this);
+    //this.handleChange = this.handleChange.bind(this);
 
 }
 
@@ -64,7 +65,7 @@ endDate: date
 });
 }
 
-render() {
+    render() {
 
 
 
@@ -96,7 +97,7 @@ withPortal
 className = '-highlight'
 data={this.state.data}
 pages={this.state.pages}
-columns={this.props.columns}
+columns={ui.peopleColumns}
 minRows={1}
 defaultPageSize={20}
 loading={this.state.loading}

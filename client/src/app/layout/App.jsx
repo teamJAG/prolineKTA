@@ -31,6 +31,12 @@ const PeopleRecordDashboard = (props) => {
   )
 }
 
+const ReportDashboard = (props) => {
+  return (
+    <ReportList tableType="reports" {...props} />
+  )
+}
+
 class App extends Component {
 
   
@@ -57,7 +63,7 @@ class App extends Component {
                   <Route path="/createReport" component={CreateReport} />
                   <Route path="/register" component={Register} />
                   <Route path="/testing" component={Testing} />
-                  <Route path="/report" component={ReportList} />
+                  <Route path="/report" render={ReportDashboard} />
                   <Route path="/key" component={addKey} />
                 </Switch>
               </Container>
