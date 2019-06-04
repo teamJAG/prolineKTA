@@ -33,7 +33,7 @@ class NavBar extends Component {
               //positive
               inverted
               color="teal"
-              content="Add Key"
+              content="Add/Edit Key"
             />
           </Menu.Item>
 
@@ -46,9 +46,22 @@ class NavBar extends Component {
               //positive
               inverted
               color="teal"
-              content="Add Property"
+              content="Add/Edit Property"
             />
           </Menu.Item>
+
+          <Menu.Item>
+          <Button
+            as={NavLink}
+            to="/checkKey"
+            name="checkKey"
+            floated="right"
+            //positive
+            inverted
+            color="teal"
+            content="Scan Key"
+          />
+        </Menu.Item>
         </Container>
       </Menu>
     );

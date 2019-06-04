@@ -44,9 +44,8 @@ class RecordList extends Component {
     super(props);
     this.state = {
        data: [],
-       
-       loading: false,
-       pages: 0
+       pages: 0,
+       loading: false
     };
     this.handleChange = this.handleChange.bind(this);
   }
@@ -58,40 +57,7 @@ class RecordList extends Component {
 
   render() {
 
-    const columns = [{
-      Header: 'Property Type',
-      accessor: 'property_type',
-      minWidth: 150
-    }, {
-      Header: 'Property Address',
-      accessor: 'address',
-      minWidth: 200
-    }, {
-      Header: 'City/Municipality',
-      accessor: 'city',
-      style: {textAlign: 'center'}
-    }, {
-      Header: 'Key Location',
-      accessor: 'storage_location',
-      style: {textAlign: 'center'}
-    }, {
-      Header: 'Office Location',
-      accessor: 'office_location',
-      minWidth: 120,
-      style: {textAlign: 'center'}
-    }, {
-      Header: 'Key Number',
-      accessor: 'key_number',
-    }, {
-      Header: 'Key Type',
-      accessor: 'key_type',
-      style: {textAlign: 'center'}
-    }, {
-      Header: 'Key Status',
-      accessor: 'key_status',
-      style: {textAlign: 'center'}
-    }
-  ];
+
 
     return (
 
@@ -99,22 +65,24 @@ class RecordList extends Component {
         <ReactTable
           className = '-highlight'
           data={this.state.data}
-          columns={columns}
-          defaultPageSize={25}
+          pages={this.state.pages}
+          columns={this.props.columns}
+          minRows={1}
+          defaultPageSize={20}
           loading={this.state.loading}
           showPagination={true}
           showPaginationTop={false}
           showPaginationBottom={true}
           pageSizeOptions={[5, 10, 20, 25, 50, 100]}
-          manual // this would indicate that server side pagination has been enabled 
+          manual
           onFetchData={(state, instance) => {
                   this.setState({loading: true});
                   fetchData("keys", state.page, state.pageSize, state.sorted, state.filtered, (res) => {
                   this.setState({
-                          data: res,
-                          pages: res.totalPages,
+                          data: res.data,
+                          pages: res.pages,
                           loading: false
-                  })
+                  });
           });
           }}
         />

@@ -5,9 +5,7 @@ import RecordDashboard from '../../features/record/RecordDashboard/RecordDashboa
 import NavBar from '../../features/nav/NavBar/NavBar';
 import RecordForm from '../../features/record/RecordForm/RecordForm';
 import UserDetailedPage from '../../features/user/UserDetailed/UserDetailedPage';
-import PeopleDashboard from '../../features/user/PeopleDashboard/PeopleDashboard';
 import HomePage from '../../features/home/HomePage';
-import InventoryPage from '../../features/inventory/InventoryPage';
 import addProperty from '../../features/property/addProperty';
 import CreateReport from '../../features/createReport/CreateReport';
 import Register from '../../features/register/Register';
@@ -15,7 +13,27 @@ import Testing from '../../features/testing/Testing';
 import ReportList from '../../features/report/ReportList';
 import addKey from '../../features/key/addKey';
 
+const KeyRecordDashBoard = (props) => {
+  return (
+    <RecordDashboard tableType="keys" {...props} />
+  )
+}
+
+const PropertyRecordDashBoard = (props) => {
+  return (
+    <RecordDashboard tableType="properties" {...props} />
+  )
+}
+
+const PeopleRecordDashboard = (props) => {
+  return (
+    <RecordDashboard tableType="people" {...props} />
+  )
+}
+
 class App extends Component {
+
+  
   render() {
     return (
       <div>
@@ -30,9 +48,9 @@ class App extends Component {
               <NavBar />
               <Container className="main">
                 <Switch>
-                  <Route path="/records" component={RecordDashboard} />
-                  <Route path="/inventory" component={InventoryPage} />
-                  <Route path="/people" component={PeopleDashboard} />
+                  <Route path="/records" render={KeyRecordDashBoard} />
+                  <Route path="/properties" render={PropertyRecordDashBoard} />
+                  <Route path="/people" render={PeopleRecordDashboard} />
                   <Route path="/profile/:id" component={UserDetailedPage} />
                   <Route path="/createRecord" component={RecordForm} />
                   <Route path="/property" component={addProperty} />
