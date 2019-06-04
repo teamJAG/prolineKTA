@@ -15,7 +15,7 @@ async function dbQuery(queryString) {
         rows = await conn.query(queryString);
         return rows;
     } catch (err) {
-        console.log(err);
+        console.log("dbQuery failed: " + err);
         throw err;
     } finally {
         if (conn) {
