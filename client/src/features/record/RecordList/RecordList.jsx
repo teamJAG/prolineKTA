@@ -1,11 +1,7 @@
 import React, { Component } from 'react';
 import ReactTable from 'react-table';
 import 'react-table/react-table.css';
-//import DatePicker from "react-datepicker";
-//import "react-datepicker/dist/react-datepicker.css";
-
-// CSS Modules, react-datepicker-cssmodules.css
-// import 'react-datepicker/dist/react-datepicker-cssmodules.css';
+import * as ui from '../ui';
 
 function handleHTTPErrors(response) {
   if (!response.ok) {
@@ -14,8 +10,9 @@ function handleHTTPErrors(response) {
   return response;
 }
 
-async function fetchData(endpoint, page, pageSize, sorted, filtered, handleData) {
+async function fetchData(endpoint, queryType, page, pageSize, sorted, filtered, handleData) {
   let requestBody = {
+    queryType: queryType,
     page: page,
     pageSize: pageSize,
     sorted: sorted,
@@ -44,29 +41,65 @@ class RecordList extends Component {
     super(props);
     this.state = {
        data: [],
+       page: 0,
        pages: 0,
-       loading: false
+       pageSize: 20,
+       sorted: [],
+       filtered: [],
+       loading: false,
+       columnsType: ui.keyColumns
     };
-    this.handleChange = this.handleChange.bind(this);
   }
-    handleChange(date) {
-      this.setState({
-        startDate: date
-      });
+
+  componentDidUpdate(prevProps) {
+    if (this.props.type !== prevProps.type) {
+      switch (this.props.type) {
+        case "keys":
+          fetchData("keys", this.props.type, this.state.page, this.state.pageSize, this.state.sorted, this.state.filtered, (res) => {
+            this.setState({
+              columnsType: ui.keyColumns,
+              data: res.data,
+              pages: res.pages,
+              loading: false
+            });
+          });
+          break;
+        case "properties":
+            fetchData("keys", this.props.type, this.state.page, this.state.pageSize, this.state.sorted, this.state.filtered, (res) => {
+              this.setState({
+                columnsType: ui.propertyColumns,
+                data: res.data,
+                pages: res.pages,
+                loading: false
+              });
+            });
+          break;
+        case "people":
+            fetchData("keys", this.props.type, this.state.page, this.state.pageSize, this.state.sorted, this.state.filtered, (res) => {
+              this.setState({
+                columnsType: ui.peopleColumns,
+                data: res.data,
+                pages: res.pages,
+                loading: false
+              });
+            });
+          break;
+        default:
+          return;
+      }
     }
+  }
 
   render() {
 
-
-
     return (
-
+      
       <div>
         <ReactTable
           className = '-highlight'
           data={this.state.data}
           pages={this.state.pages}
-          columns={this.props.columns}
+          columns={this.state.columnsType}
           minRows={1}
           defaultPageSize={20}
           loading={this.state.loading}
@@ -75,14 +108,16 @@ class RecordList extends Component {
           showPaginationBottom={true}
           pageSizeOptions={[5, 10, 20, 25, 50, 100]}
           manual
+          onPageChange={(pageIndex) => {this.setState({page: pageIndex});}}
+          onPageSizeChange={(pageSize, pageIndex) => {this.setState({ page: pageIndex, pageSize: pageSize});}}
           onFetchData={(state, instance) => {
-                  this.setState({loading: true});
-                  fetchData("keys", state.page, state.pageSize, state.sorted, state.filtered, (res) => {
-                  this.setState({
-                          data: res.data,
-                          pages: res.pages,
-                          loading: false
-                  });
+            this.setState({loading: true});
+            fetchData("keys", this.props.type, state.page, state.pageSize, state.sorted, state.filtered, (res) => {
+            this.setState({
+              data: res.data,
+              pages: res.pages,
+              loading: false
+            });
           });
           }}
         />
