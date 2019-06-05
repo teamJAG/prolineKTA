@@ -59,9 +59,31 @@ async function listRecords(req, res) {
             throw new Error("No query type passed to server.");
     }
     
-    if (req.body.filtered.length) {
-        countQuery += 'WHERE ' + req.body.filtered[0].id + ' LIKE \"' + req.body.filtered.value + '\" ';
-        recordQuery += 'WHERE ' + req.body.filtered[0].id + ' LIKE \"' + req.body.filtered.value + '\" ';
+    //Build queries with WHERE clause, if request body includes an id and a value.
+    //If the query is for the people table, a second WHERE clause must be inserted in.
+    if (req.body.filter.id && req.body.filter.value) {
+        if (req.body.queryType === 'people') {
+            const countIndex = countQuery.indexOf(' UNION ALL');
+            const recordIndex = recordQuery.indexOf(' UNION ALL');
+            let newCount = '';
+            let newRecord = '';
+            for (let i=0; i<countQuery.length; i++) {
+                newCount += countQuery.charAt(i);
+                if (i === countIndex) {
+                    newCount += 'WHERE ' + req.body.filter.id + ' LIKE \"' + req.body.filter.value + '\" ';
+                }
+            }
+            for (let i=0; i<recordQuery.length; i++) {
+                newRecord += recordQuery.charAt(i);
+                if (i === recordIndex) {
+                    newRecord += 'WHERE ' + req.body.filter.id + ' LIKE \"' + req.body.filter.value + '\" ';
+                }
+            }
+            countQuery = newCount;
+            recordQuery = newRecord;
+        }
+        countQuery += 'WHERE ' + req.body.filter.id + ' LIKE \"' + req.body.filter.value + '\" ';
+        recordQuery += 'WHERE ' + req.body.filter.id + ' LIKE \"' + req.body.filter.value + '\" ';
     }
 
     if (req.body.sorted.length) {   
