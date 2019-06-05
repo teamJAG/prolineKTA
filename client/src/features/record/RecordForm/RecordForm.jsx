@@ -1,33 +1,6 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux'
 import cuid from 'cuid';
 import { Segment, Form, Button } from 'semantic-ui-react';
-import { createRecord, updateRecord } from '../recordActions'
-
-const mapState = (state, ownProps) => {
-  const recordId = ownProps.match.params.id;
-
-  let record = {
-    title: '',
-    date: '',
-    city: '',
-    venue: '',
-    hostedBy: ''
-  }
-
-  if (recordId && state.records.length > 0) {
-    record = state.records.filter(record => record.id === recordId)[0]
-  }
-
-  return {
-    record
-  }
-}
-
-const actions = {
-  createRecord,
-  updateRecord
-}
 
 class RecordForm extends Component {
 
@@ -97,4 +70,4 @@ class RecordForm extends Component {
   }
 }
 
-export default connect(mapState, actions)(RecordForm);
+export default RecordForm;

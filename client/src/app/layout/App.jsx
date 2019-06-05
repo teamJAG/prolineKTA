@@ -38,7 +38,6 @@ const ReportDashboard = (props) => {
 }
 
 class App extends Component {
-
   
   render() {
     return (

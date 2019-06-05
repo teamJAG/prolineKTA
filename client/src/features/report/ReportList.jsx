@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import ReactTable from 'react-table';
 import 'react-table/react-table.css';
 import DatePicker from 'react-datepicker'
-import * as ui from '../record/RecordDashboard/ui';
 import "react-datepicker/dist/react-datepicker.css"
+import * as ui from '../record/ui';
 
 function handleHTTPErrors(response) {
 if (!response.ok) {

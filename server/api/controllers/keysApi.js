@@ -1,5 +1,7 @@
 const db = require('../db/connection');
+const queries = require('../db/queries');
 
+//Toggle the key_status in the database to reflect a key being checked in/out
 async function toggleKeyStatus(req,res) {
     const queryString = "UPDATE key_tab SET key_status = !key_status WHERE key_id LIKE " + req.body.scannedKey;
     try {
@@ -34,42 +36,71 @@ async function deleteKey(req,res) {
     }
 }
 
+//Returns a total row count and paginated results for requested records, optionally sorted and filtered
 async function listRecords(req, res) {
-    let countQuery = `SELECT COUNT(*) as count FROM (SELECT p.property_type, p.property_name, a.address, c.city, k.storage_location, k.office_location, k.key_number, k.key_type, k.key_status
-    FROM proline.key_tab k
-    INNER JOIN proline.address_tab a ON a.address_id = k.address_tab_address_id
-	INNER JOIN proline.city_tab c ON c.city_id = a.city_tab_city_id
-    INNER JOIN proline.property_tab p ON p.property_id = a.property_tab_property_id) as count `;
 
-    let queryString = `SELECT p.property_type, p.property_name, a.address, c.city, k.storage_location, k.office_location, k.key_number, k.key_type, k.key_status
-    FROM proline.key_tab k
-    INNER JOIN proline.address_tab a ON a.address_id = k.address_tab_address_id
-	INNER JOIN proline.city_tab c ON c.city_id = a.city_tab_city_id
-    INNER JOIN proline.property_tab p ON p.property_id = a.property_tab_property_id `;
+    let countQuery;
+    let recordQuery;
+
+    switch (req.body.queryType) {
+        case "keys":
+            countQuery = queries.keyCount;
+            recordQuery = queries.keyRecords;
+            break;
+        case "properties":
+            countQuery = queries.propCount;
+            recordQuery = queries.propRecords;
+            break;
+        case "people":
+            countQuery = queries.peopleCount;
+            recordQuery = queries.peopleRecords;
+            break;
+        default:
+            throw new Error("No query type passed to server.");
+    }
     
-    if (req.body.filtered.length) {
-        countString += 'WHERE ' + req.body.filtered[0].id + ' LIKE \"' + req.body.filtered.value + '\" ';
-        queryString += 'WHERE ' + req.body.filtered[0].id + ' LIKE \"' + req.body.filtered.value + '\" ';
+    //Build queries with WHERE clause, if request body includes an id and a value.
+    //If the query is for the people table, a second WHERE clause must be inserted in.
+    if (req.body.filter.id && req.body.filter.value) {
+        if (req.body.queryType === 'people') {
+            const countIndex = countQuery.indexOf(' UNION ALL');
+            const recordIndex = recordQuery.indexOf(' UNION ALL');
+            let newCount = '';
+            let newRecord = '';
+            for (let i=0; i<countQuery.length; i++) {
+                newCount += countQuery.charAt(i);
+                if (i === countIndex) {
+                    newCount += 'WHERE ' + req.body.filter.id + ' LIKE \"' + req.body.filter.value + '\" ';
+                }
+            }
+            for (let i=0; i<recordQuery.length; i++) {
+                newRecord += recordQuery.charAt(i);
+                if (i === recordIndex) {
+                    newRecord += 'WHERE ' + req.body.filter.id + ' LIKE \"' + req.body.filter.value + '\" ';
+                }
+            }
+            countQuery = newCount;
+            recordQuery = newRecord;
+        }
+        countQuery += 'WHERE ' + req.body.filter.id + ' LIKE \"' + req.body.filter.value + '\" ';
+        recordQuery += 'WHERE ' + req.body.filter.id + ' LIKE \"' + req.body.filter.value + '\" ';
     }
 
     if (req.body.sorted.length) {   
-        queryString += 'ORDER BY ' + req.body.sorted[0].id + ' ';
+        recordQuery += 'ORDER BY ' + req.body.sorted[0].id + ' ';
         if (req.body.sorted[0].desc) {
-            queryString += 'DESC ';
+            recordQuery += 'DESC ';
         }
-        // req.body.sorted.forEach(sorter => {
-        //     queryString += sorter.id + ', ';
-        // })
     }
 
     let offset = req.body.page * req.body.pageSize;
-    queryString += `LIMIT ${offset}, ${req.body.pageSize} `;
+    recordQuery += `LIMIT ${offset}, ${req.body.pageSize} `;
 
     try {
         console.log(req.body);
-        console.log(queryString);
+        console.log(recordQuery);
         const count = await db.dbQuery(countQuery);
-        const rows = await db.dbQuery(queryString);
+        const rows = await db.dbQuery(recordQuery);
         let pageCount = Math.ceil(parseFloat(count[0].count) / parseFloat(req.body.pageSize));
         const payload = {
             data: rows,
