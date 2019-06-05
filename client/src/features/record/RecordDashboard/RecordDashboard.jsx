@@ -30,7 +30,8 @@ class RecordDashboard extends Component {
 
   render() {
 
-    let columns = []
+    let columns = [];
+    
       switch (this.props.tableType) {
       case "keys":
         columns = ui.keyColumns;

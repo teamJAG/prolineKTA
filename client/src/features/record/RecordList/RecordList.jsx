@@ -10,28 +10,30 @@ function handleHTTPErrors(response) {
   return response;
 }
 
-  let requestBody = {
-    sorted: sorted,
-    filter: filter,
-  };
-
-async function fetchData() {
-  try {
-    let result = await fetch(`${process.env.REACT_APP_API_URL}/${endpoint}`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(requestBody)
-    });
-    result = await handleHTTPErrors(result);
-    const records = await result.json();
-    return handleData(records);
-  } catch (err) {
-    console.log("fetchData failed: " + err);
-    return err;
+  async function fetchData(endpoint, queryType, page, pageSize, sorted, filter, handleData) {
+    let requestBody = {
+      queryType: queryType,
+      page: page,
+      pageSize: pageSize,
+      sorted: sorted,
+      filter: filter,
+    };
+    try {
+      let result = await fetch(`${process.env.REACT_APP_API_URL}/${endpoint}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(requestBody)
+      });
+      result = await handleHTTPErrors(result);
+      const records = await result.json();
+      return handleData(records);
+    } catch (err) {
+      console.log("fetchData failed: " + err);
+      return err;
+    }
   }
-}
 
 class RecordList extends Component {
 

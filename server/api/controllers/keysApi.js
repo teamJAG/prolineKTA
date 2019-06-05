@@ -42,6 +42,8 @@ async function listRecords(req, res) {
     let countQuery;
     let recordQuery;
 
+    console.log(req.body);
+
     switch (req.body.queryType) {
         case "keys":
             countQuery = queries.keyCount;
@@ -56,9 +58,13 @@ async function listRecords(req, res) {
             recordQuery = queries.peopleRecords;
             break;
         default:
-            throw new Error("No query type passed to server.");
+            console.log("No query type passed to server.");
+            res.status(400).json({error: "No query type passed to server."});
+            return;
     }
     
+    console.log(recordQuery);
+
     //Build queries with WHERE clause, if request body includes an id and a value.
     //If the query is for the people table, a second WHERE clause must be inserted in.
     if (req.body.filter.id && req.body.filter.value) {
@@ -97,8 +103,6 @@ async function listRecords(req, res) {
     recordQuery += `LIMIT ${offset}, ${req.body.pageSize} `;
 
     try {
-        console.log(req.body);
-        console.log(recordQuery);
         const count = await db.dbQuery(countQuery);
         const rows = await db.dbQuery(recordQuery);
         let pageCount = Math.ceil(parseFloat(count[0].count) / parseFloat(req.body.pageSize));
