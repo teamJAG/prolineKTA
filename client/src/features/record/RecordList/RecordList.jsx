@@ -10,14 +10,12 @@ function handleHTTPErrors(response) {
   return response;
 }
 
-async function fetchData(endpoint, queryType, page, pageSize, sorted, filter, handleData) {
   let requestBody = {
-    queryType: queryType,
-    page: page,
-    pageSize: pageSize,
     sorted: sorted,
     filter: filter,
   };
+
+async function fetchData() {
   try {
     let result = await fetch(`${process.env.REACT_APP_API_URL}/${endpoint}`, {
       method: 'POST',

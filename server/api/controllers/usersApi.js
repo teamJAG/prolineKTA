@@ -1,4 +1,4 @@
-function viewRecords() {
+function listRecords() {
     return;
 }
 
@@ -23,7 +23,7 @@ function logout(credentials) {
 }
 
 module.exports = {
-    viewRecords,
+    listRecords,
     createRecord,
     modifyRecord,
     deleteRecord,
