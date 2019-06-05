@@ -31,34 +31,30 @@ class RecordDashboard extends Component {
   render() {
 
     let columns = [];
+    let options = [];
+    let filter = {
+      id: this.state.filterId,
+      value: this.state.filterValue
+    }
     
       switch (this.props.tableType) {
       case "keys":
         columns = ui.keyColumns;
+        options = ui.keyFilter;
         break;
       case "properties":
         columns = ui.propertyColumns;
+        options = ui.propFilter;
         break;
       case "people":
         columns = ui.peopleColumns;
+        options = ui.peopleFilter;
         break;
       default:
         break;
   }
 
-  let filter = {
-    id: this.state.filterId,
-    value: this.state.filterValue
-  }
 
-  const options = [
-    { id: 'filterId', text: '', value: ''},
-    { id: 'filterId', text: 'First Name', value: 'first_name'},
-    { id: 'filterId', text: 'Last Name', value: 'last_name' },
-    { id: 'filterId', text: 'E-mail', value: 'email' },
-    { id: 'filterId', text: 'Phone', value: 'phone_num' },
-    { id: 'filterId', text: 'Company', value: 'company'}
-  ]
 
     return (
       <div>
@@ -70,7 +66,6 @@ class RecordDashboard extends Component {
         onChange={this.handleText}
         />
         <Dropdown 
-        id='filterId' 
         options={options}
         placeholder='By...'
         onChange={this.handleText}

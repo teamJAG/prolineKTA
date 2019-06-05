@@ -88,8 +88,8 @@ async function listRecords(req, res) {
             countQuery = newCount;
             recordQuery = newRecord;
         }
-        countQuery += 'WHERE ' + req.body.filter.id + ' LIKE \"' + req.body.filter.value + '\" ';
-        recordQuery += 'WHERE ' + req.body.filter.id + ' LIKE \"' + req.body.filter.value + '\" ';
+        countQuery += 'WHERE ' + req.body.filter.id + ' LIKE \"' + req.body.filter.value + '%\" ';
+        recordQuery += 'WHERE ' + req.body.filter.id + ' LIKE \"' + req.body.filter.value + '%\" ';
     }
 
     if (req.body.sorted.length) {   

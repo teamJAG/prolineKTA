@@ -1,3 +1,4 @@
+//Objects arrays describing the structure and names of table columns  
   export const keyColumns = [{
     Header: 'Property Type',
     accessor: 'property_type',
@@ -73,26 +74,34 @@
     accessor: 'comments'
   }];
 
+//Arrays to describe the selections available to filter results by id
   export const peopleFilter = [
-    { key: 'first_name', text: 'First Name', value: 'first_name' },
-    { key: 'last_name', text: 'Last Name', value: 'last_name' },
-    { key: 'email', text: 'E-mail', value: 'email' },
-    { key: 'phone', text: 'Phone', value: 'phone_num' },
-    { key: 'company', text: 'Company', value: 'company' }
+    { id: 'filterId', text: '', value: ''},
+    { id: 'filterId', text: 'First Name', value: 'first_name'},
+    { id: 'filterId', text: 'Last Name', value: 'last_name' },
+    { id: 'filterId', text: 'E-mail', value: 'email' },
+    { id: 'filterId', text: 'Phone', value: 'phone_num' },
+    { id: 'filterId', text: 'Company', value: 'company'}
   ];
 
   export const propFilter = [
-    { key: 'first_name', text: 'First Name', value: 'first_name' },
-    { key: 'last_name', text: 'Last Name', value: 'last_name' },
-    { key: 'email', text: 'E-mail', value: 'email' },
-    { key: 'phone', text: 'Phone', value: 'phone_num' },
-    { key: 'company', text: 'Company', value: 'company' }
+    { id: 'filterId', text: '', value: ''},
+    { id: 'filterId', text: 'Property Name', value: 'property_name'},
+    { id: 'filterId', text: 'Property Type', value: 'property_type' },
+    { id: 'filterId', text: 'Address', value: 'address' },
+    { id: 'filterId', text: 'City', value: 'city' },
+    { id: 'filterId', text: 'Postal Code', value: 'postal_code'},
+    { id: 'filterId', text: 'Comments', value: 'comments'}
   ];
 
   export const keyFilter = [
-    { key: 'first_name', text: 'First Name', value: 'first_name' },
-    { key: 'last_name', text: 'Last Name', value: 'last_name' },
-    { key: 'email', text: 'E-mail', value: 'email' },
-    { key: 'phone', text: 'Phone', value: 'phone_num' },
-    { key: 'company', text: 'Company', value: 'company' }
+    { id: 'filterId', text: '', value: ''},
+    { id: 'filterId', text: 'Property Type', value: 'property_type'},
+    { id: 'filterId', text: 'Property Name', value: 'property_name' },
+    { id: 'filterId', text: 'City', value: 'city' },
+    { id: 'filterId', text: 'Location', value: 'storage_location' },
+    { id: 'filterId', text: 'Office', value: 'office_location'},
+    { id: 'filterId', text: 'Key Number', value: 'key_number'},
+    { id: 'filterId', text: 'Key Type', value: 'key_type'},
+    { id: 'filterId', text: 'Status', value: 'key_status'}
   ];
