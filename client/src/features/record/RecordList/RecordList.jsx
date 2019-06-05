@@ -10,30 +10,30 @@ function handleHTTPErrors(response) {
   return response;
 }
 
-async function fetchData(endpoint, queryType, page, pageSize, sorted, filtered, handleData) {
-  let requestBody = {
-    queryType: queryType,
-    page: page,
-    pageSize: pageSize,
-    sorted: sorted,
-    filtered: filtered,
-  };
-  try {
-    let result = await fetch(`${process.env.REACT_APP_API_URL}/${endpoint}`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(requestBody)
-    });
-    result = await handleHTTPErrors(result);
-    const records = await result.json();
-    return handleData(records);
-  } catch (err) {
-    console.log("fetchData failed: " + err);
-    return err;
+  async function fetchData(endpoint, queryType, page, pageSize, sorted, filter, handleData) {
+    let requestBody = {
+      queryType: queryType,
+      page: page,
+      pageSize: pageSize,
+      sorted: sorted,
+      filter: filter,
+    };
+    try {
+      let result = await fetch(`${process.env.REACT_APP_API_URL}/${endpoint}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(requestBody)
+      });
+      result = await handleHTTPErrors(result);
+      const records = await result.json();
+      return handleData(records);
+    } catch (err) {
+      console.log("fetchData failed: " + err);
+      return err;
+    }
   }
-}
 
 class RecordList extends Component {
 
@@ -45,44 +45,48 @@ class RecordList extends Component {
        pages: 0,
        pageSize: 20,
        sorted: [],
-       filtered: [],
-       loading: false,
-       columnsType: ui.keyColumns
+       loading: false
     };
   }
 
-  componentDidUpdate(prevProps) {
-    if (this.props.type !== prevProps.type) {
+  componentDidUpdate(prevProps, prevState) {
+    if (this.props.type !== prevProps.type || this.props.filter !== prevProps.filter) {
       switch (this.props.type) {
         case "keys":
-          fetchData("keys", this.props.type, this.state.page, this.state.pageSize, this.state.sorted, this.state.filtered, (res) => {
+          this.setState({
+            loading: true
+          });
+          fetchData("keys", this.props.type, this.state.page, this.state.pageSize, this.state.sorted, this.props.filter, (res) => {
             this.setState({
-              columnsType: ui.keyColumns,
+              data: res.data,
+              pages: res.pages,
+              loading: false 
+            });
+          });
+          break;
+        case "properties":
+          this.setState({
+            loading: true
+          });
+          fetchData("keys", this.props.type, this.state.page, this.state.pageSize, this.state.sorted, this.props.filter, (res) => {
+            this.setState({
               data: res.data,
               pages: res.pages,
               loading: false
             });
           });
           break;
-        case "properties":
-            fetchData("keys", this.props.type, this.state.page, this.state.pageSize, this.state.sorted, this.state.filtered, (res) => {
-              this.setState({
-                columnsType: ui.propertyColumns,
-                data: res.data,
-                pages: res.pages,
-                loading: false
-              });
-            });
-          break;
         case "people":
-            fetchData("keys", this.props.type, this.state.page, this.state.pageSize, this.state.sorted, this.state.filtered, (res) => {
-              this.setState({
-                columnsType: ui.peopleColumns,
-                data: res.data,
-                pages: res.pages,
-                loading: false
-              });
+          this.setState({
+            loading: true
+          });
+          fetchData("keys", this.props.type, this.state.page, this.state.pageSize, this.state.sorted, this.props.filter, (res) => {
+            this.setState({
+              data: res.data,
+              pages: res.pages,
+              loading: false
             });
+          });
           break;
         default:
           return;
@@ -99,7 +103,7 @@ class RecordList extends Component {
           className = '-highlight'
           data={this.state.data}
           pages={this.state.pages}
-          columns={this.state.columnsType}
+          columns={this.props.columns}
           minRows={1}
           defaultPageSize={20}
           loading={this.state.loading}
@@ -112,9 +116,10 @@ class RecordList extends Component {
           onPageSizeChange={(pageSize, pageIndex) => {this.setState({ page: pageIndex, pageSize: pageSize});}}
           onFetchData={(state, instance) => {
             this.setState({loading: true});
-            fetchData("keys", this.props.type, state.page, state.pageSize, state.sorted, state.filtered, (res) => {
+            fetchData("keys", this.props.type, state.page, state.pageSize, state.sorted, this.props.filter, (res) => {
             this.setState({
               data: res.data,
+              page: state.page,
               pages: res.pages,
               loading: false
             });
