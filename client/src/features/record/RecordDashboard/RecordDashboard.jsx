@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Input, Divider } from 'semantic-ui-react'
+import { Input, Divider, Dropdown } from 'semantic-ui-react'
 import RecordList from '../RecordList/RecordList';
 import * as ui from '../ui';
 
@@ -10,7 +10,7 @@ class RecordDashboard extends Component {
   handleText(event, data) {
     if (event.target.id === "filterId") {
       this.setState({
-        filterId: event.target.value
+        filterId: data.value
       });
     } else {
       this.setState({
@@ -22,32 +22,63 @@ class RecordDashboard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      filtered: {
-        filterId: '',
-        filterValue: ''
-      }
+      filterId: '',
+      filterValue: ''
     };
     this.handleText = this.handleText.bind(this);
   }
 
   render() {
 
+    let columns = []
+      switch (this.props.tableType) {
+      case "keys":
+        columns = ui.keyColumns;
+        break;
+      case "properties":
+        columns = ui.propertyColumns;
+        break;
+      case "people":
+        columns = ui.peopleColumns;
+        break;
+      default:
+        break;
+  }
+
+  let filter = {
+    id: this.state.filterId,
+    value: this.state.filterValue
+  }
+
+  const options = [
+    { id: 'filterId', text: '', value: ''},
+    { id: 'filterId', text: 'First Name', value: 'first_name'},
+    { id: 'filterId', text: 'Last Name', value: 'last_name' },
+    { id: 'filterId', text: 'E-mail', value: 'email' },
+    { id: 'filterId', text: 'Phone', value: 'phone_num' },
+    { id: 'filterId', text: 'Company', value: 'company'}
+  ]
+
     return (
       <div>
-        <Input id='filterValue' icon='search' placeholder='Search...' onChange={this.handleText} />
-        <Input id='filterId' list='id' placeholder='By...' onChange={this.handleText} />
-        <datalist id='id'>
-          <option data-value='first_name' value='First Name' />
-          <option data-value='last_name' value='Last Name' />
-          <option data-value='email' value='E-mail' />
-          <option data-value='phone_num' value='Phone' />
-          <option data-value='company' value='Company' />
-        </datalist>
-        <div className='ui divider'>
-          <Divider />
-        </div>
+        <Input
+        id='filterValue'
+        icon='search'
+        iconPosition='left'
+        placeholder='Search...'
+        onChange={this.handleText}
+        />
+        <Dropdown 
+        id='filterId' 
+        options={options}
+        placeholder='By...'
+        onChange={this.handleText}
+        selection
+        value={this.state.filterId}
+        />
+        <Divider />
         <div>
-          <RecordList type={this.props.tableType} filtered={this.state.filtered}/>
+          <RecordList columns={columns} type={this.props.tableType} filter={filter}/>
         </div>
       </div>
     )
