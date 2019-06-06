@@ -1,38 +1,38 @@
-const keyCount = `SELECT COUNT(*) as count FROM (SELECT p.property_type, p.property_name, a.address, c.city, k.storage_location, k.office_location, k.key_number, k.key_type, k.key_status
+const keyCount = `SELECT COUNT(*) as count FROM (SELECT k.key_id, p.property_type, p.property_name, a.address, c.city, k.storage_location, k.office_location, k.key_number, k.key_type, k.key_status
     FROM proline.key_tab k
     INNER JOIN proline.address_tab a ON a.address_id = k.address_tab_address_id
 	INNER JOIN proline.city_tab c ON c.city_id = a.city_tab_city_id
     INNER JOIN proline.property_tab p ON p.property_id = a.property_tab_property_id) as count `;
 
-const keyRecords = `SELECT p.property_type, p.property_name, a.address, c.city, k.storage_location, k.office_location, k.key_number, k.key_type, k.key_status
+const keyRecords = `SELECT k.key_id, p.property_type, p.property_name, a.address, c.city, k.storage_location, k.office_location, k.key_number, k.key_type, k.key_status
     FROM proline.key_tab k
     INNER JOIN proline.address_tab a ON a.address_id = k.address_tab_address_id
 	INNER JOIN proline.city_tab c ON c.city_id = a.city_tab_city_id
     INNER JOIN proline.property_tab p ON p.property_id = a.property_tab_property_id `;
 
-const propCount = `SELECT COUNT(*) as count FROM (SELECT p.property_type, p.property_name, a.address, c.city, a.postal_code, p.comments
+const propCount = `SELECT COUNT(*) as count FROM (SELECT p.property_id as id, p.property_type, p.property_name, a.address, c.city, a.postal_code, p.comments
     FROM proline.key_tab k
     INNER JOIN proline.address_tab a ON a.address_id = k.address_tab_address_id
     INNER JOIN proline.city_tab c ON c.city_id = a.city_tab_city_id
     INNER JOIN proline.property_tab p ON p.property_id = a.property_tab_property_id) as count `;
 
-const propRecords = `SELECT p.property_type, p.property_name, a.address, c.city, a.postal_code, p.comments
+const propRecords = `SELECT p.property_id as id, p.property_type, p.property_name, a.address, c.city, a.postal_code, p.comments
     FROM proline.key_tab k
     INNER JOIN proline.address_tab a ON a.address_id = k.address_tab_address_id
     INNER JOIN proline.city_tab c ON c.city_id = a.city_tab_city_id
     INNER JOIN proline.property_tab p ON p.property_id = a.property_tab_property_id `;
 
-const peopleCount = `SELECT COUNT(*) as count FROM (SELECT first_name, last_name, email, phone_num, null as company
+const peopleCount = `SELECT COUNT(*) as count FROM (SELECT user_id, first_name, last_name, email, phone_num, null as company
 	FROM proline.users_tab
     UNION ALL
-    SELECT first_name, last_name, null as email, phone_num, company
-	FROM proline.contractor_tab) as count `;
+    SELECT contractor_id, first_name, last_name, null as email, phone_num, company
+	FROM proline.contractor_tab) as c `;
 
-const peopleRecords = `SELECT first_name, last_name, email, phone_num, null as company
-    FROM proline.users_tab
+const peopleRecords = `SELECT user_id, first_name, last_name, email, phone_num, company
+    FROM (SELECT user_id, first_name, last_name, email, phone_num, null as company FROM proline.users_tab
     UNION ALL
-    SELECT first_name, last_name, null as email, phone_num, company
-    FROM proline.contractor_tab `;
+    SELECT contractor_id, first_name, last_name, null as email, phone_num, company
+    FROM proline.contractor_tab) as users `;
 
 module.exports = {
     keyCount,

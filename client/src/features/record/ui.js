@@ -5,7 +5,7 @@
     minWidth: 120,
     style: {textAlign: 'center'}
     }, {
-    Header: 'Property Address',
+    Header: 'Address',
     accessor: 'address',
     minWidth: 150
     }, {
@@ -77,6 +77,7 @@
 //Arrays to describe the selections available to filter results by id
   export const peopleFilter = [
     { id: 'filterId', text: '', value: ''},
+    { id: 'filterId', text: 'QR Code', value: 'user_id'},
     { id: 'filterId', text: 'First Name', value: 'first_name'},
     { id: 'filterId', text: 'Last Name', value: 'last_name' },
     { id: 'filterId', text: 'E-mail', value: 'email' },
@@ -86,6 +87,7 @@
 
   export const propFilter = [
     { id: 'filterId', text: '', value: ''},
+    { id: 'filterId', text: 'QR Code', value: 'property_id'},
     { id: 'filterId', text: 'Property Name', value: 'property_name'},
     { id: 'filterId', text: 'Property Type', value: 'property_type' },
     { id: 'filterId', text: 'Address', value: 'address' },
@@ -96,8 +98,9 @@
 
   export const keyFilter = [
     { id: 'filterId', text: '', value: ''},
+    { id: 'filterId', text: 'QR Code', value: 'key_id'},
     { id: 'filterId', text: 'Property Type', value: 'property_type'},
-    { id: 'filterId', text: 'Property Name', value: 'property_name' },
+    { id: 'filterId', text: 'Address', value: 'address' },
     { id: 'filterId', text: 'City', value: 'city' },
     { id: 'filterId', text: 'Location', value: 'storage_location' },
     { id: 'filterId', text: 'Office', value: 'office_location'},

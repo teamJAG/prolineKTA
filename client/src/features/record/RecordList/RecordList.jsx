@@ -56,9 +56,10 @@ class RecordList extends Component {
           this.setState({
             loading: true
           });
-          fetchData("keys", this.props.type, this.state.page, this.state.pageSize, this.state.sorted, this.props.filter, (res) => {
+          fetchData("records", this.props.type, this.state.page, this.state.pageSize, this.state.sorted, this.props.filter, (res) => {
             this.setState({
               data: res.data,
+              page: 0,
               pages: res.pages,
               loading: false 
             });
@@ -68,9 +69,10 @@ class RecordList extends Component {
           this.setState({
             loading: true
           });
-          fetchData("keys", this.props.type, this.state.page, this.state.pageSize, this.state.sorted, this.props.filter, (res) => {
+          fetchData("records", this.props.type, this.state.page, this.state.pageSize, this.state.sorted, this.props.filter, (res) => {
             this.setState({
               data: res.data,
+              page: 0,
               pages: res.pages,
               loading: false
             });
@@ -80,9 +82,10 @@ class RecordList extends Component {
           this.setState({
             loading: true
           });
-          fetchData("keys", this.props.type, this.state.page, this.state.pageSize, this.state.sorted, this.props.filter, (res) => {
+          fetchData("records", this.props.type, this.state.page, this.state.pageSize, this.state.sorted, this.props.filter, (res) => {
             this.setState({
               data: res.data,
+              page: 0,
               pages: res.pages,
               loading: false
             });
@@ -102,6 +105,7 @@ class RecordList extends Component {
         <ReactTable
           className = '-highlight'
           data={this.state.data}
+          page={this.state.page}
           pages={this.state.pages}
           columns={this.props.columns}
           minRows={1}
@@ -116,7 +120,7 @@ class RecordList extends Component {
           onPageSizeChange={(pageSize, pageIndex) => {this.setState({ page: pageIndex, pageSize: pageSize});}}
           onFetchData={(state, instance) => {
             this.setState({loading: true});
-            fetchData("keys", this.props.type, state.page, state.pageSize, state.sorted, this.props.filter, (res) => {
+            fetchData("records", this.props.type, state.page, state.pageSize, state.sorted, this.props.filter, (res) => {
             this.setState({
               data: res.data,
               page: state.page,

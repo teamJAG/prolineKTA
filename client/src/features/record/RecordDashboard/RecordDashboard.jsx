@@ -58,19 +58,19 @@ class RecordDashboard extends Component {
 
     return (
       <div>
+        <Dropdown 
+        options={options}
+        placeholder='Category...'
+        onChange={this.handleText}
+        selection
+        value={this.state.filterId}
+        />
         <Input
         id='filterValue'
         icon='search'
         iconPosition='left'
         placeholder='Search...'
         onChange={this.handleText}
-        />
-        <Dropdown 
-        options={options}
-        placeholder='By...'
-        onChange={this.handleText}
-        selection
-        value={this.state.filterId}
         />
         <Divider />
         <div>
