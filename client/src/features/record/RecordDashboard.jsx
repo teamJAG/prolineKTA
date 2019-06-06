@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Input, Divider, Dropdown } from 'semantic-ui-react'
-import RecordList from '../RecordList/RecordList';
-import * as ui from '../ui';
+import RecordList from './RecordList';
+import * as ui from './ui';
 
 import 'semantic-ui-css/semantic.min.css';
 

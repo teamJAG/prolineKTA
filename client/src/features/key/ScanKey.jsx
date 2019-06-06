@@ -1,33 +1,57 @@
 import React, { Component } from 'react';
 import { Form, Input, Label, Header, Divider, Button } from 'semantic-ui-react';
-import Center from 'react-center';
+import KeyPending from './KeyPending';
+import CheckKeyOut from './CheckKeyOut';
+import CheckKeyIn from './CheckKeyIn';
 
 class ScanKey extends Component {
 
+    constructor(props) {
+        super(props);
+        this.state = {
+            scannedKey: '',
+            keyPending: false,
+            keyChecked: true
+        };
+    }
+
+    handleSubmit() {
+        return null;
+    }
+
     render() {
 
-        const flexContainerStyle = {
-            display: 'flex',
-            justifyContent: 'center',
-            paddingTop: '10%'
-        };
+        let scanForm;
+        let pending;
+        let checkIn;
 
-        return (
+        if (this.state.keyPending === false && this.state.keyChecked === true) {
 
-                <div style={flexContainerStyle}>
-                    <Form>
+            const scanIdStyle = {
+                display: 'flex',
+                justifyContent: 'center',
+                paddingTop: '10%'
+            };
+
+            return (
+                <div style={scanIdStyle}>
+                    <Form onSubmit={this.handleSubmit}>
                         <Header>Check Key Status</Header>
                         <Divider />
                         <Form.Field>
                             <Label pointing='below'>Select Box and Scan QR Code</Label>
-                            <Input fluid={false} type='text' size='huge' />
+                            <Form.Input as='input' type='text' size='huge' />
                         </Form.Field>
                         <Divider />
-                        <Button type='submit'>Submit</Button>
+                        <Form.Button content='Submit' />
                     </Form>
                 </div>
-            // </Center>
-        );
+            );
+        } else if (this.state.keyPending === true && this.state.keyChecked === true) {
+
+        } else if (this.state.keyPending === false && this.state.keyChecked === false) {
+
+        }
     }
 }
 

@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { Container } from 'semantic-ui-react';
 import { Route, Switch } from 'react-router-dom';
-import RecordDashboard from '../../features/record/RecordDashboard/RecordDashboard';
+import RecordDashboard from '../../features/record/RecordDashboard';
 import NavBar from '../../features/nav/NavBar/NavBar';
 import UserDetailedPage from '../../features/user/UserDetailed/UserDetailedPage';
 import HomePage from '../../features/home/HomePage';
 import addProperty from '../../features/property/addProperty';
 import CreateReport from '../../features/createReport/CreateReport';
-import Register from '../../features/register/Register';
+import Register from '../../features/testing/register/Register';
 import Testing from '../../features/testing/Testing';
 import ReportList from '../../features/report/ReportList';
 import addKey from '../../features/key/addKey';

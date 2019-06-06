@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ReactTable from 'react-table';
 import 'react-table/react-table.css';
-import * as ui from '../ui';
+import * as ui from './ui';
 
 function handleHTTPErrors(response) {
   if (!response.ok) {
