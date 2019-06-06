@@ -1,33 +1,32 @@
 import React, { Component } from 'react';
-import { Form, Input, Label, Divider, Button } from 'semantic-ui-react';
+import { Form, Input, Label, Header, Divider, Button } from 'semantic-ui-react';
+import Center from 'react-center';
 
 class ScanKey extends Component {
 
     render() {
 
-        const style = {
-            width: '40%',
+        const flexContainerStyle = {
             display: 'flex',
-            flexDirection: 'column',
             justifyContent: 'center',
-            alignItems: 'center',
-            textAlign: 'center',
-            minHeight: '100vh'
-        }
+            paddingTop: '10%'
+        };
 
         return (
-            <div style={style}>
-                <Form>
-                    <Label>Check Key In/Out</Label>
-                    <Divider />
-                    <Form.Field>
-                        <Label pointing='below'>Select and Scan QR Code</Label>
-                        <Input fluid={false} type='text' size='huge' />
-                    </Form.Field>
-                    <Divider />
-                    <Button type='submit'>Submit</Button>
-                </Form>
-            </div>
+
+                <div style={flexContainerStyle}>
+                    <Form>
+                        <Header>Check Key Status</Header>
+                        <Divider />
+                        <Form.Field>
+                            <Label pointing='below'>Select Box and Scan QR Code</Label>
+                            <Input fluid={false} type='text' size='huge' />
+                        </Form.Field>
+                        <Divider />
+                        <Button type='submit'>Submit</Button>
+                    </Form>
+                </div>
+            // </Center>
         );
     }
 }
