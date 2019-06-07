@@ -6,7 +6,7 @@ class NavBar extends Component {
 
   render() {
     return (
-      <Menu inverted fixed="top">
+      <Menu inverted fluid fixed="top">
         <Container>
           <Menu.Item as={Link} to="/" header>
             <img src="/assets/logo.png" alt="logo" />
@@ -19,15 +19,13 @@ class NavBar extends Component {
               <Dropdown.Item as={NavLink} to="/people">People</Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
-
-          <Menu.Item as={NavLink} to="/testing" name="Testing" />
             
-          <Menu.Item as={NavLink} to="/report" name="Reports" />
+          <Menu.Item as={NavLink} to="/reports" name="Reports" />
 
           <Menu.Item>
             <Button
               as={NavLink}
-              to="/key"
+              to="/createkey"
               name="addKey"
               floated="right"
               //positive
@@ -40,7 +38,7 @@ class NavBar extends Component {
           <Menu.Item>
             <Button
               as={NavLink}
-              to="/property"
+              to="/createproperty"
               name="addProperty"
               floated="right"
               //positive
@@ -53,7 +51,7 @@ class NavBar extends Component {
           <Menu.Item>
           <Button
             as={NavLink}
-            to="/checkKey"
+            to="/scankey"
             name="checkKey"
             floated="right"
             //positive

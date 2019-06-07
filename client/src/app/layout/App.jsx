@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
 import { Container } from 'semantic-ui-react';
 import { Route, Switch } from 'react-router-dom';
-import RecordDashboard from '../../features/record/RecordDashboard/RecordDashboard';
+import RecordDashboard from '../../features/record/RecordDashboard';
 import NavBar from '../../features/nav/NavBar/NavBar';
-import RecordForm from '../../features/record/RecordForm/RecordForm';
 import UserDetailedPage from '../../features/user/UserDetailed/UserDetailedPage';
 import HomePage from '../../features/home/HomePage';
 import addProperty from '../../features/property/addProperty';
 import CreateReport from '../../features/createReport/CreateReport';
-import Register from '../../features/register/Register';
+import Register from '../../features/testing/register/Register';
 import Testing from '../../features/testing/Testing';
 import ReportList from '../../features/report/ReportList';
 import addKey from '../../features/key/addKey';
+import ScanKey from '../../features/key/ScanKey';
 
 const KeyRecordDashBoard = (props) => {
   return (
@@ -56,14 +56,16 @@ class App extends Component {
                   <Route path="/records" render={KeyRecordDashBoard} />
                   <Route path="/properties" render={PropertyRecordDashBoard} />
                   <Route path="/people" render={PeopleRecordDashboard} />
+                  <Route path="/reports" component={ReportDashboard} />
+                  <Route path="/createkey" component={addKey} />
+                  <Route path="/createproperty" component={addProperty} />
+                  <Route path="/scankey" component={ScanKey} />
+
                   <Route path="/profile/:id" component={UserDetailedPage} />
-                  <Route path="/createRecord" component={RecordForm} />
-                  <Route path="/property" component={addProperty} />
-                  <Route path="/createReport" component={CreateReport} />
-                  <Route path="/register" component={Register} />
                   <Route path="/testing" component={Testing} />
-                  <Route path="/report" render={ReportDashboard} />
-                  <Route path="/key" component={addKey} />
+                  <Route path="/register" component={Register} />
+                  <Route path="/report" render={CreateReport} />
+
                 </Switch>
               </Container>
             </div>
