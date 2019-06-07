@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form, Label, Header, Divider} from 'semantic-ui-react';
+import { Form, Label, Header, Divider } from 'semantic-ui-react';
 import KeyPending from './KeyPending';
 import CheckKeyOut from './CheckKeyOut';
 import CheckKeyIn from './CheckKeyIn';
@@ -15,13 +15,15 @@ class ScanKey extends Component {
             keyPending: false,
             keyCheckedIn: false,
             keyRecord: null,
-            keyTransaction: null
+            keyTransaction: null,
+            response: null
         };
         this.handleInput = this.handleInput.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handlePending = this.handlePending.bind(this);
     }
 
+    //Moves the scanned key QR Code to state
     handleInput(e) {
         if (e.target.value) {
             this.setState({
@@ -30,13 +32,15 @@ class ScanKey extends Component {
         }
     }
 
+    //Sends POST request to retrieve a key record and [if applicable] a transaction record from the db. Mutates state and UI
+    //according to the key's status
     handleSubmit(e) {
         e.preventDefault();
         const request = {
             id: this.state.scannedKey
         };
         fetchKeyStatus(request, "POST", (res) => {
-            if (res.keyStatus === 1) {
+            if (res.key.keyStatus === 1) {
                 this.setState({
                     keyPending: true,
                     keyCheckedIn: true,
@@ -62,7 +66,9 @@ class ScanKey extends Component {
         });
     }
 
-    handlePending() {
+    //Moves a key record's status into pending, updates the db
+    handlePending(e) {
+        e.preventDefault();
         let request = {
             keyStatus: 1,
             keyId: this.state.scannedKey
@@ -70,10 +76,8 @@ class ScanKey extends Component {
         fetchKeyStatus(request, "PUT", (res) => {
             if (res.status === 200) {
                 this.setState({
-                    disableForm: false,
-                    keyPending: true
+                    disableForm: false
                 });
-                return 
             }
         });
     }

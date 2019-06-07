@@ -1,6 +1,5 @@
 import React from 'react';
-import {Form, Divider, Header, Label } from 'semantic-ui-react';
-import { fetchKey } from '../../app/fetch/fetches';
+import { Button, Divider, Header, Label } from 'semantic-ui-react';
 
 const KeyPending = (props) => {
 
@@ -12,17 +11,9 @@ const KeyPending = (props) => {
     
     return (
         <div style={containerStyle}>
-        <Form>
-            <Header>Place Key Into Pending</Header>
-            <Divider />
-            <Form.Field>
-                <Label pointing='below'>Select and Scan QR Code</Label>
-                <Form.Input id ='keyID' as='input' type='text' />
-            </Form.Field>
-            <Divider />
-            <Form.Button content='Submit' />
-        </Form>
-    </div>
+            <Header>Set Key As Pending</Header>
+            <Button onClick={props.isPending}>Submit</Button>   
+        </div>
     )
 }
 

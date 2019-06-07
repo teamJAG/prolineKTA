@@ -1,7 +1,9 @@
 function handleHTTPErrors(response) {
   if (!response.ok) {
+    window.alert("Error: " + response.statusText);
     throw Error(response.statusText);
   }
+  window.alert("Request OK.");
   return response;
 }
 
@@ -41,7 +43,7 @@ export async function fetchKeyStatus(request, method, handleData) {
     });
     result = await handleHTTPErrors(result);
     const record = await result.json();
-    console.log(record);
+    console.log("Record returned from fetch: " + JSON.stringify(record));
     return handleData(record);
   } catch (err) {
     console.log("fetchKeyStatus failed: " + err);

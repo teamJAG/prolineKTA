@@ -46,8 +46,6 @@ const keyRecord = `SELECT k.storage_location, k.key_quantity, k.creation_date, k
     INNER JOIN proline.property_tab p ON p.property_id = a.property_tab_property_id 
     WHERE key_id = `
 
-var keyPending = () => `UPDATE proline.key_tab SET key_status = ${value} WHERE key_id = ${id}`;
-
 module.exports = {
     keyCount,
     keyRecords,
@@ -55,6 +53,5 @@ module.exports = {
     propRecords,
     peopleCount,
     peopleRecords,
-    keyRecord,
-    keyPending
+    keyRecord
 };

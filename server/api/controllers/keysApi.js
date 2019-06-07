@@ -7,15 +7,15 @@ async function getKeyStatus(req, res) {
     console.log(recordQuery);
     try {
         const rows = await db.dbQuery(recordQuery);
+        let keyRecord  = await rows[0];
         if (rows.length === 1) {
-            keyRecord = rows[0]
         } else {
             throw Error("More than one key matched in database.");
         }
         if (rows[0].active === 0) {
             throw Error("Key has been deactivated.");
         }
-        const payload = {
+        let payload = {
             key: {
                 address: keyRecord.address,
                 city: keyRecord.city,
@@ -42,6 +42,7 @@ async function getKeyStatus(req, res) {
 
         res.status(200).json(payload);
     } catch (err) {
+        console.log(err);
         res.status(404).json(err);
         return;
     }
@@ -49,11 +50,13 @@ async function getKeyStatus(req, res) {
 
 //Switch the key_status in the database to reflect a key being checked in/out/pending
 async function switchKeyStatus(req, res) {
-    let value = req.keyStatus;
-    let id = req.keyId
-    let queryString = queries.keyPending();
+    let value = req.body.keyStatus;
+    let id = req.body.keyId;
+    let queryString = `UPDATE proline.key_tab SET key_status = ${value} WHERE key_id = ${id}`;
+    console.log(queryString);
     try {
         const result = await db.dbQuery(queryString);
+        console.log(result);
         res.status(201).json(result);
     } catch (err) {
         res.status(404).json(err);
