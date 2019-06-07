@@ -7,12 +7,11 @@ async function getKeyStatus(req, res) {
     console.log(recordQuery);
     try {
         const rows = await db.dbQuery(recordQuery);
-        let keyRecord  = await rows[0];
-        if (rows.length === 1) {
-        } else {
+        let keyRecord = rows[0];
+        if (rows.length > 1) {
             throw Error("More than one key matched in database.");
         }
-        if (rows[0].active === 0) {
+        if (keyRecord.active === 0) {
             throw Error("Key has been deactivated.");
         }
         let payload = {
@@ -56,7 +55,6 @@ async function switchKeyStatus(req, res) {
     console.log(queryString);
     try {
         const result = await db.dbQuery(queryString);
-        console.log(result);
         res.status(201).json(result);
     } catch (err) {
         res.status(404).json(err);
