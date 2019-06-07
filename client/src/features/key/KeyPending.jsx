@@ -12,12 +12,12 @@ const KeyPending = (props) => {
     
     return (
         <div style={containerStyle}>
-        <Form onSubmit={this.handleSubmit}>
+        <Form>
             <Header>Place Key Into Pending</Header>
             <Divider />
             <Form.Field>
                 <Label pointing='below'>Select and Scan QR Code</Label>
-                <Form.Input id ='keyID' as='input' type='text' onChange={this.handleInput} />
+                <Form.Input id ='keyID' as='input' type='text' />
             </Form.Field>
             <Divider />
             <Form.Button content='Submit' />

@@ -7,7 +7,40 @@ async function getKeyStatus(req, res) {
     console.log(recordQuery);
     try {
         const rows = await db.dbQuery(recordQuery);
-        res.status(200).json(rows);
+        if (rows.length === 1) {
+            keyRecord = rows[0]
+        } else {
+            throw Error("More than one key matched in database.");
+        }
+        if (rows[0].active === 0) {
+            throw Error("Key has been deactivated.");
+        }
+        const payload = {
+            key: {
+                address: keyRecord.address,
+                city: keyRecord.city,
+                propertyName: keyRecord.property_name,
+                propertyType: keyRecord.property_type,
+                keyType: keyRecord.key_type,
+                keyStatus: keyRecord.key_status,
+                keyStorageLocation: keyRecord.storage_location,
+                keyOfficeLocation: keyRecord.office_location
+            }
+        };
+        if (rows[0].key_status === 0) {
+            payload = Object.assign(payload, {
+                trans: {
+                    checkedOut: keyRecord.checked_out,
+                    dueDate: keyRecord.due_date,
+                    deposit: keyRecord.deposit,
+                    depositType: keyRecord.deposit_type,
+                    notes: keyRecord.notes
+                }
+            });
+        }
+        console.log(payload);
+
+        res.status(200).json(payload);
     } catch (err) {
         res.status(404).json(err);
         return;

@@ -3,7 +3,7 @@ import { Form, Label, Header, Divider} from 'semantic-ui-react';
 import KeyPending from './KeyPending';
 import CheckKeyOut from './CheckKeyOut';
 import CheckKeyIn from './CheckKeyIn';
-import {fetchKeyStatus } from '../../app/fetch/fetches';
+import { fetchKeyStatus } from '../../app/fetch/fetches';
 
 class ScanKey extends Component {
 
@@ -13,7 +13,9 @@ class ScanKey extends Component {
             disableForm: false,
             scannedKey: null,
             keyPending: false,
-            keyCheckedIn: true
+            keyCheckedIn: false,
+            keyRecord: null,
+            keyTransaction: null
         };
         this.handleInput = this.handleInput.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -34,22 +36,21 @@ class ScanKey extends Component {
             id: this.state.scannedKey
         };
         fetchKeyStatus(request, "POST", (res) => {
-            if (res.key_status === 1 && res.key && res.trans) {
+            if (res.keyStatus === 1) {
                 this.setState({
                     keyPending: true,
                     keyCheckedIn: true,
-                    disableForm: true,
                     keyRecord: res.key,
-                    keyTransaction: res.trans
+                    disableForm: true
                 });
-            } else if (res.key_status === 2 && res.key) {
+            } else if (res.key.keyStatus === 2) {
                 this.setState({
                     keyPending: false,
                     keyCheckedIn: true,
                     keyRecord: res.key,
                     disableForm: true
                 });
-            } else if (res.key_status === 0 && res.key && res.trans) {
+            } else if (res.key.keyStatus === 0 && res.trans) {
                 this.setState({
                     keyPending: false,
                     keyCheckedIn: false,
@@ -79,7 +80,7 @@ class ScanKey extends Component {
 
     render() {
 
-        let { scannedKey, disableForm, keyPending, keyCheckedIn } = this.state;
+        let { disableForm, keyPending, keyCheckedIn, keyRecord, keyTransaction } = this.state;
 
         const containerStyle = {
             display: 'flex',
@@ -106,7 +107,7 @@ class ScanKey extends Component {
 
             return (
                 <div style={{containerStyle}}>
-                    <KeyPending isPending={this.handlePending} />
+                    <KeyPending key={keyRecord} isPending={this.handlePending} />
                 </div>
             )
 
@@ -114,7 +115,7 @@ class ScanKey extends Component {
 
             return (
                 <div style={{containerStyle}}>
-                    <CheckKeyOut key={scannedKey} />
+                    <CheckKeyOut key={keyRecord} />
                 </div>
             )
 
@@ -122,7 +123,7 @@ class ScanKey extends Component {
             
             return (
                 <div style={{containerStyle}}>
-                    <CheckKeyIn key={scannedKey} />
+                    <CheckKeyIn key={keyRecord} transaction={keyTransaction} />
                 </div>
             )
         }

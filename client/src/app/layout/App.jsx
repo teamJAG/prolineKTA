@@ -6,7 +6,6 @@ import NavBar from '../../features/nav/NavBar/NavBar';
 import UserDetailedPage from '../../features/user/UserDetailed/UserDetailedPage';
 import HomePage from '../../features/home/HomePage';
 import addProperty from '../../features/property/addProperty';
-import CreateReport from '../../features/createReport/CreateReport';
 import Register from '../../features/testing/register/Register';
 import Testing from '../../features/testing/Testing';
 import ReportList from '../../features/report/ReportList';
@@ -61,10 +60,7 @@ class App extends Component {
                   <Route path="/createproperty" component={addProperty} />
                   <Route path="/scankey" component={ScanKey} />
 
-                  <Route path="/profile/:id" component={UserDetailedPage} />
                   <Route path="/testing" component={Testing} />
-                  <Route path="/register" component={Register} />
-                  <Route path="/report" render={CreateReport} />
 
                 </Switch>
               </Container>

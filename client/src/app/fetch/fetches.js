@@ -41,6 +41,7 @@ export async function fetchKeyStatus(request, method, handleData) {
     });
     result = await handleHTTPErrors(result);
     const record = await result.json();
+    console.log(record);
     return handleData(record);
   } catch (err) {
     console.log("fetchKeyStatus failed: " + err);
