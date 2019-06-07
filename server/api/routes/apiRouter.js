@@ -25,17 +25,31 @@ const OPTS = {
 
 router
 .route("/property")
-.put(propertyAPI.updateProperty)
-.post(propertyAPI.createProperty);
+.post(propertyAPI.createProperty)
+.put(propertyAPI.updateProperty);
 
 router
-.route("/keys")
+.route("/keystatus")
+.post(keysAPI.getKeyStatus)
+.put(keysAPI.switchKeyStatus);
+
+router
+.route("/keycheck")
+.post(keysAPI.checkKeyOut)
+.put(keysAPI.checkKeyIn);
+
+router
+.route("/keyrecord")
 .post(keysAPI.createKey)
-.put(keysAPI.toggleKeyStatus);
+.put(keysAPI.updateKey);
 
 router
 .route("/records")
 .post(recordsAPI.listRecords);
+
+router
+.route("/reports")
+.get(historyAPI.generateReport);
 
 router
 .route("/");

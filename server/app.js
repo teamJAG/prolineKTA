@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
@@ -8,8 +10,6 @@ var cors = require('cors');
 var apiRouter = require('./api/routes/apiRouter');
 
 var app = express();
-
-require('dotenv').config();
 
 app.use(cors());
 app.use(logger('dev'));

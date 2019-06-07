@@ -30,31 +30,13 @@ async function listRecords(req, res) {
     
     //Build queries with WHERE clause, if request body includes an id and a value.
     
-    //Build queries for the people view. A second WHERE clause is required for the UNION ALL.
+    //People view. Requires alias for UNION ALL subselect.
     if (req.body.filter.id && req.body.filter.value) {
         if (req.body.queryType === 'people') {
-            // const countIndex = countQuery.indexOf(' UNION ALL');
-            // const recordIndex = recordQuery.indexOf(' UNION ALL');
-            // let newCount = '';
-            // let newRecord = '';
-            // for (let i=0; i<countQuery.length; i++) {
-            //     newCount += countQuery.charAt(i);
-            //     if (i === countIndex) {
-            //         newCount += 'WHERE ' + req.body.filter.id.id1 + ' LIKE \"' + req.body.filter.value + '%\" ';
-            //     }
-            // }
-            // for (let i=0; i<recordQuery.length; i++) {
-            //     newRecord += recordQuery.charAt(i);
-            //     if (i === recordIndex) {
-            //         newRecord += 'WHERE ' + req.body.filter.id.id1 + ' LIKE \"' + req.body.filter.value + '%\" ';
-            //     }
-            // }
-            // countQuery = newCount;
-            // recordQuery = newRecord;
-
             countQuery += 'WHERE c.' + req.body.filter.id + ' LIKE \"' + req.body.filter.value + '%\" ';
             recordQuery += 'WHERE users.' + req.body.filter.id + ' LIKE \"' + req.body.filter.value + '%\" ';
         } else {
+    //Properties and Keys views.
             countQuery += 'WHERE ' + req.body.filter.id + ' LIKE \"' + req.body.filter.value + '%\" ';
             recordQuery += 'WHERE ' + req.body.filter.id + ' LIKE \"' + req.body.filter.value + '%\" ';
         }
@@ -74,7 +56,7 @@ async function listRecords(req, res) {
 
     console.log(recordQuery);
 
-    //Query database and respond with application state object
+    //Query database and respond with state object
     try {
         const count = await db.dbQuery(countQuery);
         const rows = await db.dbQuery(recordQuery);
