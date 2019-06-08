@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { Form, Label, Header, Divider} from 'semantic-ui-react';
+import { Form, Label, Header, Divider } from 'semantic-ui-react';
 import KeyPending from './KeyPending';
 import CheckKeyOut from './CheckKeyOut';
 import CheckKeyIn from './CheckKeyIn';
-import {fetchKeyStatus } from '../../app/fetch/fetches';
+import { fetchKeyStatus } from '../../app/fetch/fetches';
 
 class ScanKey extends Component {
 
@@ -11,15 +11,18 @@ class ScanKey extends Component {
         super(props);
         this.state = {
             disableForm: false,
-            scannedKey: null,
+            scannedKey: '',
             keyPending: false,
-            keyCheckedIn: true
+            keyCheckedIn: false,
+            keyRecord: {},
+            keyTransaction: {}
         };
         this.handleInput = this.handleInput.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handlePending = this.handlePending.bind(this);
     }
 
+    //Moves the scanned key QR Code to state
     handleInput(e) {
         if (e.target.value) {
             this.setState({
@@ -28,58 +31,63 @@ class ScanKey extends Component {
         }
     }
 
+    //Sends POST request to retrieve a key record and [if applicable] a transaction record from the db. Mutates state and UI
+    //according to the key's status
     handleSubmit(e) {
         e.preventDefault();
         const request = {
             id: this.state.scannedKey
         };
         fetchKeyStatus(request, "POST", (res) => {
-            if (res.key_status === 1 && res.key && res.trans) {
-                this.setState({
-                    keyPending: true,
-                    keyCheckedIn: true,
-                    disableForm: true,
-                    keyRecord: res.key,
-                    keyTransaction: res.trans
+            if (res.key.keyStatus === 1) {
+                this.setState((state) => {
+                    return {
+                        keyPending: true,
+                        keyCheckedIn: true,
+                        keyRecord: res.key,
+                        disableForm: true
+                    }
                 });
-            } else if (res.key_status === 2 && res.key) {
-                this.setState({
-                    keyPending: false,
-                    keyCheckedIn: true,
-                    keyRecord: res.key,
-                    disableForm: true
+            } else if (res.key.keyStatus === 2) {
+                this.setState((state) => {
+                    return {
+                        keyPending: false,
+                        keyCheckedIn: true,
+                        keyRecord: res.key,
+                        disableForm: true
+                    }
                 });
-            } else if (res.key_status === 0 && res.key && res.trans) {
-                this.setState({
-                    keyPending: false,
-                    keyCheckedIn: false,
-                    disableForm: true,
-                    keyRecord: res.key,
-                    keyTransaction: res.trans
+            } else if (res.key.keyStatus === 0 && res.trans) {
+                this.setState((state) => {
+                    return {
+                        keyPending: false,
+                        keyCheckedIn: false,
+                        keyRecord: res.key,
+                        keyTransaction: res.trans,
+                        disableForm: true
+                    }
                 });
             }
         });
     }
 
-    handlePending() {
+    //Moves a key record's status into pending, updates the db
+    handlePending(e) {
+        e.preventDefault();
         let request = {
             keyStatus: 1,
             keyId: this.state.scannedKey
         }
         fetchKeyStatus(request, "PUT", (res) => {
-            if (res.status === 200) {
+            if (res.affectedRows === 1) {
                 this.setState({
-                    disableForm: false,
-                    keyPending: true
+                    disableForm: false
                 });
-                return 
             }
         });
     }
 
     render() {
-
-        let { scannedKey, disableForm, keyPending, keyCheckedIn } = this.state;
 
         const containerStyle = {
             display: 'flex',
@@ -87,7 +95,7 @@ class ScanKey extends Component {
             paddingTop: '10%'
         };
 
-        if (!disableForm) {
+        if (!this.state.disableForm) {
             return (
                 <div style={containerStyle}>
                     <Form onSubmit={this.handleSubmit}>
@@ -102,27 +110,27 @@ class ScanKey extends Component {
                     </Form>
                 </div>
             );
-        } else if (!keyPending && keyCheckedIn) {
+        } else if (!this.state.keyPending && this.state.keyCheckedIn) {
 
             return (
                 <div style={{containerStyle}}>
-                    <KeyPending isPending={this.handlePending} />
+                    <KeyPending keyRecord={this.state.keyRecord} isPending={this.handlePending} />
                 </div>
             )
 
-        } else if (keyPending && keyCheckedIn) {
+        } else if (this.state.keyPending && this.state.keyCheckedIn) {
 
             return (
                 <div style={{containerStyle}}>
-                    <CheckKeyOut key={scannedKey} />
+                    <CheckKeyOut keyRecord={this.state.keyRecord} />
                 </div>
             )
 
-        } else if (!keyPending && !keyCheckedIn) {
+        } else if (!this.state.keyPending && !this.state.keyCheckedIn) {
             
             return (
                 <div style={{containerStyle}}>
-                    <CheckKeyIn key={scannedKey} />
+                    <CheckKeyIn keyRecord={this.state.keyRecord} transaction={this.state.keyTransaction} />
                 </div>
             )
         }

@@ -40,9 +40,12 @@ export async function fetchKeyStatus(request, method, handleData) {
       body: JSON.stringify(request)
     });
     result = await handleHTTPErrors(result);
+    window.alert("Request OK.");
     const record = await result.json();
+    console.log("Record returned from fetch: " + JSON.stringify(record));
     return handleData(record);
   } catch (err) {
+    window.alert("Error: " + JSON.stringify(err.statusText));
     console.log("fetchKeyStatus failed: " + err);
     return err;
   }
@@ -59,8 +62,10 @@ export async function fetchKeyCheck(keyID, method, handleData) {
     });
     result = await handleHTTPErrors(result);
     const record = await result.json();
+    window.alert("Request OK.");
     return handleData(record);
   } catch (err) {
+    window.alert("Error: " + JSON.stringify(err.statusText));
     console.log("fetchKeyCheck failed: " + err);
     return err;
   }
