@@ -46,6 +46,9 @@ const keyRecord = `SELECT k.storage_location, k.key_quantity, k.creation_date, k
     INNER JOIN proline.property_tab p ON p.property_id = a.property_tab_property_id 
     WHERE key_id = `
 
+const createTransaction = `INSERT INTO proline.trans_tab (desposit, deposit_type, notes)
+    VALUES `
+
 module.exports = {
     keyCount,
     keyRecords,
@@ -53,5 +56,6 @@ module.exports = {
     propRecords,
     peopleCount,
     peopleRecords,
-    keyRecord
+    keyRecord,
+    createTransaction
 };

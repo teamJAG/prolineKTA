@@ -3,7 +3,7 @@ import { Form, Label, Header, Divider } from 'semantic-ui-react';
 import KeyPending from './KeyPending';
 import CheckKeyOut from './CheckKeyOut';
 import CheckKeyIn from './CheckKeyIn';
-import { fetchKeyStatus } from '../../app/fetch/fetches';
+import { fetchKeyStatus, fetchKeyCheck } from '../../app/fetch/fetches';
 
 class ScanKey extends Component {
 
@@ -87,6 +87,36 @@ class ScanKey extends Component {
         });
     }
 
+    handleCheckout(e) {
+        e.preventDefault();
+        let request = {
+            keyStatus: 0,
+            keyId: this.state.scannedKey
+        }
+        fetchKeyCheck(request, "POST", (res) => {
+            if (res.affectedRows === 1) {
+                this.setState({
+                    disableForm: false
+                });
+            }
+        });
+    }
+
+    handleCheckIn(e) {
+        e.preventDefault();
+        let request = {
+            keyStatus: 0,
+            keyId: this.state.scannedKey
+        }
+        fetchKeyCheck(request, "PUT", (res) => {
+            if (res.affectedRows === 1) {
+                this.setState({
+                    disableForm: false
+                })
+            }
+        })
+    }
+
     render() {
 
         const containerStyle = {
@@ -122,7 +152,7 @@ class ScanKey extends Component {
 
             return (
                 <div style={{containerStyle}}>
-                    <CheckKeyOut keyRecord={this.state.keyRecord} />
+                    <CheckKeyOut keyRecord={this.state.keyRecord} checkout={this.handleCheckout} />
                 </div>
             )
 
