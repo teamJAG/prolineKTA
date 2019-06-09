@@ -67,13 +67,12 @@ async function checkKeyOut(req, res) {
     console.log(queryString);
     try {
         let result = await db.dbQuery(queryString);
-        result = JSON.stringify(result);
-
+        res.status(201).json(result);
     } catch (err) {
         res.status(404).json(err);
         return;
     }
-    queryString += queries.createTransaction;
+    queryString = queries.createTransaction;
 }
 
 async function checkKeyIn(req, res) {

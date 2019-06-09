@@ -20,6 +20,8 @@ class ScanKey extends Component {
         this.handleInput = this.handleInput.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handlePending = this.handlePending.bind(this);
+        this.handleCheckout = this.handleCheckout.bind(this);
+        this.handleCheckin = this.handleCheckin.bind(this);
     }
 
     //Moves the scanned key QR Code to state
@@ -102,10 +104,10 @@ class ScanKey extends Component {
         });
     }
 
-    handleCheckIn(e) {
+    handleCheckin(e) {
         e.preventDefault();
         let request = {
-            keyStatus: 0,
+            keyStatus: 2,
             keyId: this.state.scannedKey
         }
         fetchKeyCheck(request, "PUT", (res) => {
@@ -114,7 +116,7 @@ class ScanKey extends Component {
                     disableForm: false
                 })
             }
-        })
+        });
     }
 
     render() {
@@ -160,7 +162,7 @@ class ScanKey extends Component {
             
             return (
                 <div style={{containerStyle}}>
-                    <CheckKeyIn keyRecord={this.state.keyRecord} transaction={this.state.keyTransaction} />
+                    <CheckKeyIn keyRecord={this.state.keyRecord} transaction={this.state.keyTransaction} checkin={this.handleCheckin} />
                 </div>
             )
         }
