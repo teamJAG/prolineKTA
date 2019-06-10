@@ -1,3 +1,5 @@
+import React from 'react';
+
 //Objects arrays describing the structure and names of table columns  
   export const keyColumns = [{
     Header: 'Property Type',
@@ -33,6 +35,15 @@
     }, {
     Header: 'Key Status',
     accessor: 'key_status',
+    Cell: (row) => {
+    if (row.value === 2) {
+    return <span>In</span>; 
+    } else if (row.value === 1) {
+      return <span>Pending</span>;
+    } else if (row.value === 0) {
+      return <span>Out</span>;
+    }
+  },
     style: {textAlign: 'center'}
     }
   ];
@@ -72,6 +83,53 @@
   }, {
     Header: 'Comments',
     accessor: 'comments'
+  }];
+
+  export const reportColumns = [{
+    Header:'Building Name',
+    accessor: 'property_name',
+    minWidth: 120,
+    style: {textAlign: 'center'}
+  }, {
+    Header: 'Key Type',
+    accessor: 'key_type'
+  }, {
+    Header: 'Key Number',
+    accessor: 'key_number'
+  }, {
+    Header: 'Office Location',
+    accessor: 'office_location',
+    minWidth: 120,
+    style: {textAlign: 'center'}
+  }, {
+    Header: 'Storage Location',
+    accessor: 'storage_location'
+  }, {
+    Header: 'Date Out',
+    accessor: 'checked_out'
+  }, {
+    Header: 'Due Date',
+    accessor: 'due_date'
+  }, {
+    Header: 'Deposit',
+    accessor: 'deposit'
+  }, {
+    Header: 'Deposit Type',
+    accessor: 'deposit_type'
+  }, {  
+    Header: 'Key Status',
+  accessor: 'key_status',
+  Cell: (row) => {
+  if (row.value === 2) {
+  return <span>In</span>; 
+  } else if (row.value === 1) {
+    return <span>Pending</span>;
+  } else if (row.value === 0) {
+    return <span>Out</span>;
+  }
+},
+  style: {textAlign: 'center'}
+
   }];
 
 //Arrays to describe the selections available to filter results by id
