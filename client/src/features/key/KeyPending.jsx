@@ -47,6 +47,10 @@ const KeyPending = props => {
                     <Table.Cell>Office Location</Table.Cell>
                     <Table.Cell>{props.keyRecord.keyOffice}</Table.Cell>
                   </Table.Row>
+                  <Table.Row>
+                    <Table.Cell>Deposit</Table.Cell>
+                    <Table.Cell>{props.keyRecord.deposit}</Table.Cell>
+                  </Table.Row>
                 </Table.Body>
               </Table>
             </Segment>

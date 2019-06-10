@@ -22,6 +22,7 @@ async function getKeyStatus(req, res) {
                 propertyType: keyRecord.property_type,
                 keyType: keyRecord.key_type,
                 keyStatus: keyRecord.key_status,
+                deposit: keyRecord.deposit,
                 keyStorageLocation: keyRecord.storage_location,
                 keyOfficeLocation: keyRecord.office_location
             }

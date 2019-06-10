@@ -4,7 +4,7 @@ import "react-table/react-table.css";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
-class RecordList extends Component {
+class ReportList extends Component {
   constructor(props) {
     super(props);
     this.state = {
