@@ -1,3 +1,5 @@
+import React from 'react';
+
 //Objects arrays describing the structure and names of table columns  
   export const keyColumns = [{
     Header: 'Property Type',
@@ -33,6 +35,15 @@
     }, {
     Header: 'Key Status',
     accessor: 'key_status',
+    Cell: (row) => {
+      if (row.value === 2) {
+        return <span>In</span>;
+      } else if (row.value === 1) {
+        return <span>Pending</span>;
+      } else if (row.value === 0) {
+        return <span>Out</span>;
+      }
+    },
     style: {textAlign: 'center'}
     }
   ];
@@ -76,35 +87,35 @@
 
 //Arrays to describe the selections available to filter results by id
   export const peopleFilter = [
-    { id: 'filterId', text: '', value: ''},
-    { id: 'filterId', text: 'QR Code', value: 'user_id'},
-    { id: 'filterId', text: 'First Name', value: 'first_name'},
-    { id: 'filterId', text: 'Last Name', value: 'last_name' },
-    { id: 'filterId', text: 'E-mail', value: 'email' },
-    { id: 'filterId', text: 'Phone', value: 'phone_num' },
-    { id: 'filterId', text: 'Company', value: 'company'}
+    { key: '1', text: '', value: ''},
+    { key: '2', text: 'QR Code', value: 'user_id'},
+    { key: '3', text: 'First Name', value: 'first_name'},
+    { key: '4', text: 'Last Name', value: 'last_name' },
+    { key: '5', text: 'E-mail', value: 'email' },
+    { key: '6', text: 'Phone', value: 'phone_num' },
+    { key: '7', text: 'Company', value: 'company'}
   ];
 
   export const propFilter = [
-    { id: 'filterId', text: '', value: ''},
-    { id: 'filterId', text: 'QR Code', value: 'property_id'},
-    { id: 'filterId', text: 'Property Name', value: 'property_name'},
-    { id: 'filterId', text: 'Property Type', value: 'property_type' },
-    { id: 'filterId', text: 'Address', value: 'address' },
-    { id: 'filterId', text: 'City', value: 'city' },
-    { id: 'filterId', text: 'Postal Code', value: 'postal_code'},
-    { id: 'filterId', text: 'Comments', value: 'comments'}
+    { key: '1', text: '', value: ''},
+    { key: '2', text: 'QR Code', value: 'property_id'},
+    { key: '3', text: 'Property Name', value: 'property_name'},
+    { key: '4', text: 'Property Type', value: 'property_type' },
+    { key: '5', text: 'Address', value: 'address' },
+    { key: '6', text: 'City', value: 'city' },
+    { key: '7', text: 'Postal Code', value: 'postal_code'},
+    { key: '8', text: 'Comments', value: 'comments'}
   ];
 
   export const keyFilter = [
-    { id: 'filterId', text: '', value: ''},
-    { id: 'filterId', text: 'QR Code', value: 'key_id'},
-    { id: 'filterId', text: 'Property Type', value: 'property_type'},
-    { id: 'filterId', text: 'Address', value: 'address' },
-    { id: 'filterId', text: 'City', value: 'city' },
-    { id: 'filterId', text: 'Location', value: 'storage_location' },
-    { id: 'filterId', text: 'Office', value: 'office_location'},
-    { id: 'filterId', text: 'Key Number', value: 'key_number'},
-    { id: 'filterId', text: 'Key Type', value: 'key_type'},
-    { id: 'filterId', text: 'Status', value: 'key_status'}
+    { key: '1', text: '', value: ''},
+    { key: '2', text: 'QR Code', value: 'key_id'},
+    { key: '3', text: 'Property Type', value: 'property_type'},
+    { key: '4', text: 'Address', value: 'address' },
+    { key: '5', text: 'City', value: 'city' },
+    { key: '6', text: 'Location', value: 'storage_location' },
+    { key: '7', text: 'Office', value: 'office_location'},
+    { key: '8', text: 'Key Number', value: 'key_number'},
+    { key: '9', text: 'Key Type', value: 'key_type'},
+    { key: '10', text: 'Status', value: 'key_status'}
   ];

@@ -49,7 +49,6 @@ class ReportList extends Component {
         };
     this.handleChangeStart = this.handleChangeStart.bind(this);
     this.handleChangeEnd = this.handleChangeEnd.bind(this);
-    //this.handleChange = this.handleChange.bind(this);
 
     }
 
