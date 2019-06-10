@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Container } from 'semantic-ui-react';
 import { Route, Switch } from 'react-router-dom';
 import RecordDashboard from '../../features/record/RecordDashboard';
+import ReportDashboard from '../../features/report/ReportDashboard';
 import NavBar from '../../features/nav/NavBar/NavBar';
 import UserDetailedPage from '../../features/user/UserDetailed/UserDetailedPage';
 import HomePage from '../../features/home/HomePage';
@@ -30,9 +31,15 @@ const PeopleRecordDashboard = (props) => {
   )
 }
 
-const ReportDashboard = (props) => {
+const KeyReportDashboard = (props) => {
   return (
-    <ReportList tableType="reports" {...props} />
+    <ReportDashboard tableType="keys" {...props} />
+  )
+}
+
+const BuildingReportDashboard = (props) => {
+  return (
+    <ReportDashboard tableType="building" {...props} />
   )
 }
 
@@ -55,7 +62,8 @@ class App extends Component {
                   <Route path="/records" render={KeyRecordDashBoard} />
                   <Route path="/properties" render={PropertyRecordDashBoard} />
                   <Route path="/people" render={PeopleRecordDashboard} />
-                  <Route path="/reports" component={ReportDashboard} />
+                  <Route path="/keyreports" component={KeyReportDashboard} />
+                  <Route path="/buildingreports" component={BuildingReportDashboard} />
                   <Route path="/createkey" component={addKey} />
                   <Route path="/createproperty" component={addProperty} />
                   <Route path="/scankey" component={ScanKey} />
