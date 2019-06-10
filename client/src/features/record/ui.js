@@ -1,3 +1,5 @@
+import React from 'react';
+
 //Objects arrays describing the structure and names of table columns  
   export const keyColumns = [{
     Header: 'Property Type',
@@ -33,6 +35,15 @@
     }, {
     Header: 'Key Status',
     accessor: 'key_status',
+    Cell: (row) => {
+      if (row.value === 2) {
+        return <span>In</span>;
+      } else if (row.value === 1) {
+        return <span>Pending</span>;
+      } else if (row.value === 0) {
+        return <span>Out</span>;
+      }
+    },
     style: {textAlign: 'center'}
     }
   ];
