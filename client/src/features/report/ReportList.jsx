@@ -63,8 +63,6 @@ class ReportList extends Component {
     this.setState({
     endDate: date
     });
-<<<<<<< Updated upstream
-=======
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -116,8 +114,8 @@ class ReportList extends Component {
         default:
           return;
       }
->>>>>>> Stashed changes
     }
+  }
 
     render() {
 
@@ -152,7 +150,7 @@ class ReportList extends Component {
                     className = '-highlight'
                     data={this.state.data}
                     pages={this.state.pages}
-                    columns={ui.peopleColumns}
+                    columns={this.props.columns}
                     minRows={1}
                     defaultPageSize={20}
                     loading={this.state.loading}
