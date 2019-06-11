@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
-import ReactTable from 'react-table';
-import 'react-table/react-table.css';
-import DatePicker from 'react-datepicker'
-import "react-datepicker/dist/react-datepicker.css"
-import * as ui from '../record/ui';
+import React, { Component } from "react";
+import ReactTable from "react-table";
+import "react-table/react-table.css";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import { fetchRecordData } from "../../app/fetch/fetches"
 
 function handleHTTPErrors(response) {
 if (!response.ok) {
@@ -63,6 +63,60 @@ class ReportList extends Component {
     this.setState({
     endDate: date
     });
+<<<<<<< Updated upstream
+=======
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (
+      this.props.type !== prevProps.type ||
+      this.props.filter !== prevProps.filter
+    ) {
+      switch (this.props.type) {
+        case "keys":
+          this.setState({
+            loading: true
+          });
+          fetchRecordData(
+            this.props.type,
+            this.state.page,
+            this.state.pageSize,
+            this.state.sorted,
+            this.props.filter,
+            res => {
+              this.setState({
+                data: res.data,
+                page: 0,
+                pages: res.pages,
+                loading: false
+              });
+            }
+          );
+          break;
+        case "buildings":
+          this.setState({
+            loading: true
+          });
+          fetchRecordData(
+            this.props.type,
+            this.state.page,
+            this.state.pageSize,
+            this.state.sorted,
+            this.props.filter,
+            res => {
+              this.setState({
+                data: res.data,
+                page: 0,
+                pages: res.pages,
+                loading: false
+              });
+            }
+          );
+          break;
+        default:
+          return;
+      }
+>>>>>>> Stashed changes
     }
 
     render() {
