@@ -40,7 +40,6 @@ export async function fetchKeyStatus(request, method, handleData) {
       body: JSON.stringify(request)
     });
     result = await handleHTTPErrors(result);
-    window.alert("Request OK.");
     const record = await result.json();
     console.log("Record returned from fetch: " + JSON.stringify(record));
     return handleData(record);
@@ -61,7 +60,6 @@ export async function fetchKeyCheck(request, method, handleData) {
       body: JSON.stringify(request)
     });
     result = await handleHTTPErrors(result);
-    window.alert("Request OK.");
     const record = await result.json();
     console.log("API response: " + JSON.stringify(record));
     return handleData(record);
@@ -72,14 +70,14 @@ export async function fetchKeyCheck(request, method, handleData) {
   }
 }
 
-export async function fetchBuildingNames(handleData) {
-  try {
-    let result = await fetch(`${process.env.REACT_APP_API_URL}/properties`);
-    result = await handleHTTPErrors(result);
-    const records = await result.json();
-    return handleData(records);
-  } catch (err) {
-    console.log("Building reports fetch failed: " + err);
-    return err; 
-  }
-}
+// export async function fetchBuildingNames(handleData) {
+//   try {
+//     let result = await fetch(`${process.env.REACT_APP_API_URL}/properties`);
+//     result = await handleHTTPErrors(result);
+//     const records = await result.json();
+//     return handleData(records);
+//   } catch (err) {
+//     console.log("Building reports fetch failed: " + err);
+//     return err; 
+//   }
+// }

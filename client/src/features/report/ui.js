@@ -105,20 +105,24 @@ export const keyStatus = [
   { key: '3', text: 'Out', value: '0'},
 ];
 
-export async function propertyNames() {
-  try {
-    let buildingNames = [];
-    buildingNames = await fetchBuildingNames(res => {
-      res.forEach(name => {
-        buildingNames.push({
-          key: `${name.property_id}`, text: `${name.property_name}`, value: `${name.property_name}`
-        });
-      });
-      return buildingNames;
-    });
-    return buildingNames;
-  } catch (err) {
-    console.log(err);
-    return;
-  }
-}
+export const propertyOptions = [
+  { key: '1', text: 'Property Name', value: 'property_name'}
+];
+
+// export async function propertyNames() {
+//   try {
+//     let buildingNames = [];
+//     buildingNames = await fetchBuildingNames(res => {
+//       res.forEach(name => {
+//         buildingNames.push({
+//           key: `${name.property_id}`, text: `${name.property_name}`, value: `${name.property_name}`
+//         });
+//       });
+//       return buildingNames;
+//     });
+//     return buildingNames;
+//   } catch (err) {
+//     console.log(err);
+//     return;
+//   }
+// }

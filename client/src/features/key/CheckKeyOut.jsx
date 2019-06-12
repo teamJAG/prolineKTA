@@ -48,10 +48,10 @@ const CheckKeyOut = props => {
                   <Table.Row>
                     <Table.Cell>Office Location</Table.Cell>
                     <Table.Cell>{props.keyRecord.keyOfficeLocation}</Table.Cell>
-                    <Table.Row>
-                      <Table.Cell>Deposit</Table.Cell>
-                      <Table.Cell>{props.keyRecord.deposit}</Table.Cell>
-                    </Table.Row>
+                  </Table.Row>
+                  <Table.Row>
+                    <Table.Cell>Deposit</Table.Cell>
+                    <Table.Cell>{props.keyRecord.deposit}</Table.Cell>
                   </Table.Row>
                 </Table.Body>
               </Table>
@@ -60,16 +60,31 @@ const CheckKeyOut = props => {
           <Grid.Column>
             <Segment>
               <Form onSubmit={props.checkout}>
-                <Header>Check Out Pending Key</Header>
+                <Header textAlign="center">Check Out Pending Key</Header>
                 <Divider />
                 <Form.Field>
-                    <label>Deposit</label>
+                  <label>First Name</label>
+                  <input id="firstName"></input>
                 </Form.Field>
                 <Form.Field>
-                    <label>Deposit Type</label>
+                  <label>Last Name</label>
+                  <input id="lastName"></input>
                 </Form.Field>
                 <Form.Field>
-                    <label>Notes</label>
+                  <label>Company</label>
+                  <input id="company"></input>
+                </Form.Field>
+                <Form.Field>
+                  <label>Deposit</label>
+                  <input id="deposit"></input>
+                </Form.Field>
+                <Form.Field>
+                  <label>Deposit Type</label>
+                  <input id="depositType"></input>
+                </Form.Field>
+                <Form.Field>
+                  <label>Notes</label>
+                  <input id="notes'"></input>
                 </Form.Field>
                 <Form.Button content="Submit" />
               </Form>

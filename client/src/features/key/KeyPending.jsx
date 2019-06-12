@@ -52,7 +52,7 @@ const KeyPending = props => {
           </Grid.Column>
           <Grid.Column>
             <Segment textAlign="center">
-              <Form>
+              <Form onSubmit={props.isPending}>
                 <Header>Place Key Into Pending</Header>
                 <Divider />
                 <Form.Button content="Submit" />

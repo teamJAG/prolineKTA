@@ -11,6 +11,7 @@ class ScanKey extends Component {
         super(props);
         this.state = {
             disableForm: false,
+            renderDepositSlip: false,
             scannedKey: '',
             keyPending: false,
             keyCheckedIn: false,
@@ -42,6 +43,7 @@ class ScanKey extends Component {
         };
         fetchKeyStatus(request, "POST", (res) => {
             if (res.key.keyStatus === 1) {
+                window.alert("Request OK.");
                 this.setState((state) => {
                     return {
                         keyPending: true,
@@ -51,6 +53,7 @@ class ScanKey extends Component {
                     }
                 });
             } else if (res.key.keyStatus === 2) {
+                window.alert("Request OK.");
                 this.setState((state) => {
                     return {
                         keyPending: false,
@@ -60,6 +63,7 @@ class ScanKey extends Component {
                     }
                 });
             } else if (res.key.keyStatus === 0 && res.trans) {
+                window.alert("Request OK.");
                 this.setState((state) => {
                     return {
                         keyPending: false,
@@ -82,6 +86,7 @@ class ScanKey extends Component {
         }
         fetchKeyStatus(request, "PUT", (res) => {
             if (res.affectedRows === 1) {
+                window.alert("Request OK.");
                 this.setState({
                     disableForm: false
                 });
@@ -89,19 +94,61 @@ class ScanKey extends Component {
         });
     }
 
-    handleCheckout(e) {
+    handleCheckout(e, data) {
         e.preventDefault();
-        let request = {
+        const statusRequest = {
             keyStatus: 0,
             keyId: this.state.scannedKey
-        }
-        fetchKeyCheck(request, "POST", (res) => {
+        };
+        const transRequest = {
+            firstName: data.firstName,
+            lastName: data.lastName,
+            company: data.company,
+            deposit: data.deposit,
+            depositType: data.depositType,
+            notes: data.notes,
+            keyId: this.state.scannedKey
+        } 
+        //Fetch to change key status to 'checked out'.
+        //Delay response alert but track success or failure with boolean.
+        let keyStatusRequest = false;
+        fetchKeyStatus(statusRequest, "PUT", (res) => {
             if (res.affectedRows === 1) {
-                this.setState({
-                    disableForm: false
-                });
+                keyStatusRequest = true;
             }
         });
+        //Fetch to create a transaction record. Alert user with appropriate message.
+        fetchKeyCheck(transRequest, "POST", (res) => {
+            if (res.affectedRows === 1) {
+                if (!keyStatusRequest) {
+                    window.alert("Error: Failed to update key status");
+                    return;
+                }
+                window.alert("Request OK.");
+            }
+        });
+        switch (this.state.keyRecord.keyType) {
+            case ("m1" || "m2"):
+                break;
+            case ("t1" || "t2"):
+                break;
+            case ("FOB"):
+                break;
+            case ("GARAGE"):
+                break;
+            case ("ELEVATOR"):
+                break;
+            case ("PROLINE"):
+                break;
+            default:
+                break;
+        }
+        if (this.state.keyRecord.deposit > 0) {
+            this.setState({
+                disableForm: true,
+                renderDepositSlip: true
+            });
+        }
     }
 
     handleCheckin(e) {
@@ -163,6 +210,13 @@ class ScanKey extends Component {
             return (
                 <div style={{containerStyle}}>
                     <CheckKeyIn keyRecord={this.state.keyRecord} transaction={this.state.keyTransaction} checkin={this.handleCheckin} />
+                </div>
+            )
+        } else if (this.state.renderDepositSlip) {
+
+            return (
+                <div style={{containerStyle}}>
+                    
                 </div>
             )
         }

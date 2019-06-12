@@ -1,11 +1,14 @@
 import React, { Component } from "react";
-import { Input, Divider, Dropdown } from "semantic-ui-react";
+import { Input, Divider, Dropdown, Button } from "semantic-ui-react";
 import ReportList from "./ReportList";
 import * as ui from "./ui";
 
 import "semantic-ui-css/semantic.min.css";
 
 class ReportDashboard extends Component {
+  generateFullReport = () => {
+    return null;
+  }
   handleValue = (e, { value }) => this.setState({ filterValue: value });
   handleId = (e, { value }) => this.setState({ filterId: value });
 
@@ -17,6 +20,7 @@ class ReportDashboard extends Component {
     };
     this.handleId = this.handleId.bind(this);
     this.handleValue = this.handleValue.bind(this);
+    this.generateFullReport = this.generateFullReport.bind(this);
   }
 
   // componentDidUpdate(prevProps) {
@@ -64,11 +68,12 @@ class ReportDashboard extends Component {
         break;
       case "properties":
         columns = ui.propertyColumns;
-        ui.propertyNames().then(response => {
-          options = response;
-          console.log(options);
-        });
-        console.log(options);
+        options = ui.propertyOptions
+        // ui.propertyNames().then(response => {
+        //   options = response;
+        //   console.log(options);
+        // });
+        // console.log(options);
         break;
       default:
         break;
@@ -91,6 +96,11 @@ class ReportDashboard extends Component {
             placeholder="Search..."
             onChange={this.handleValue}
           />
+          <Button
+             floated="right"
+             onClick={this.generateFullReport}
+             color="teal"
+             >Full Report</Button>
         </div>
         <Divider />
         <div>

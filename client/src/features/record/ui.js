@@ -12,7 +12,7 @@ import { NavLink } from 'react-router-dom';
     }, {
     Header: 'Address',
     accessor: 'address',
-    minWidth: 150
+    minWidth: 150,
     }, {
     Header: 'City/Municipality',
     accessor: 'city',
@@ -79,7 +79,12 @@ import { NavLink } from 'react-router-dom';
     accessor: 'email'
   }, {
     Header: 'Phone',
-    accessor: 'phone_num'
+    accessor: 'phone_num',
+    Cell: (row) => {
+      const phone = row.value.replace(/(\d{3})(\d{3})(\d{4})/, "$1-$2-$3");
+      return <span>{phone}</span>
+    },
+    style: {textAlign:'center'}
   }, {
     Header: 'Company',
     accessor: 'company'
@@ -87,72 +92,44 @@ import { NavLink } from 'react-router-dom';
 
   export const propertyColumns = [{
     Header: "Property Name",
-    accessor: 'property_name'
+    accessor: 'property_name',
+      minWidth: 120
   }, {
     Header: "Property Number",
-    accessor: 'property_number'
+    accessor: 'property_number',
+    minWidth: 70,
+    style: {textAlign: 'center'}
   }, {
     Header: 'Property Type',
-    accessor: 'property_type'
+    accessor: 'property_type',
+    minWidth: 120,
+    style: {textAlign: 'center'}
   }, {
     Header: 'Address',
-    accessor: 'address'
+    accessor: 'address',
+    minWidth: 150
   }, {
-    Header: 'City',
-    accessor: 'city'
-  }, {
+    Header: 'City/Municipality',
+    accessor: 'city',
+    minWidth: 120,
+    style: {textAlign: 'center'}
+    }, {
     Header: 'Postal Code',
     accessor: 'postal_code'
   }, {
     Header: 'Comments',
     accessor: 'comments'
-  }];
-
-  export const reportColumns = [{
-    Header:'Building Name',
-    accessor: 'property_name',
-    minWidth: 120,
-    style: {textAlign: 'center'}
   }, {
-    Header: 'Key Type',
-    accessor: 'key_type'
-  }, {
-    Header: 'Key Number',
-    accessor: 'key_number'
-  }, {
-    Header: 'Office Location',
-    accessor: 'office_location',
-    minWidth: 120,
-    style: {textAlign: 'center'}
-  }, {
-    Header: 'Storage Location',
-    accessor: 'storage_location'
-  }, {
-    Header: 'Date Out',
-    accessor: 'checked_out'
-  }, {
-    Header: 'Due Date',
-    accessor: 'due_date'
-  }, {
-    Header: 'Deposit',
-    accessor: 'deposit'
-  }, {
-    Header: 'Deposit Type',
-    accessor: 'deposit_type'
-  }, {  
-    Header: 'Key Status',
-  accessor: 'key_status',
-  Cell: (row) => {
-  if (row.value === 2) {
-  return <span>In</span>; 
-  } else if (row.value === 1) {
-    return <span>Pending</span>;
-  } else if (row.value === 0) {
-    return <span>Out</span>;
-  }
-},
-  style: {textAlign: 'center'}
-
+    Cell: (row) => {
+      return <Button 
+      as={NavLink} 
+      to={{
+        pathname:"/editproperty",
+        keyRecord: row.original
+       }}>Edit</Button>;
+    },
+    style: {textAlign: 'center'},
+    sortable: false
   }];
 
 //Arrays to describe the selections available to filter results by id

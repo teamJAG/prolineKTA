@@ -4,15 +4,13 @@ import { Route, Switch } from 'react-router-dom';
 import RecordDashboard from '../../features/record/RecordDashboard';
 import ReportDashboard from '../../features/report/ReportDashboard';
 import NavBar from '../../features/nav/NavBar/NavBar';
-import UserDetailedPage from '../../features/user/UserDetailed/UserDetailedPage';
 import HomePage from '../../features/home/HomePage';
 import addProperty from '../../features/property/addProperty';
-import Register from '../../features/testing/register/Register';
-import Testing from '../../features/testing/Testing';
-import ReportList from '../../features/report/ReportList';
 import addKey from '../../features/key/addKey';
+import Testing from '../../features/testing/Testing';
 import ScanKey from '../../features/key/ScanKey';
 import EditKey from '../../features/key/EditKey';
+import EditProperty from '../../features/property/EditPropety';
 
 const KeyRecordDashBoard = (props) => {
   return (
@@ -69,6 +67,7 @@ class App extends Component {
                   <Route path="/createproperty" component={addProperty} />
                   <Route path="/scankey" component={ScanKey} />
                   <Route path="/editkey" component={EditKey} />
+                  <Route path="/editproperty" component={EditProperty} />
                   <Route path="/testing" component={Testing} />
 
                 </Switch>
