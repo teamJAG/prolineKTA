@@ -5,7 +5,7 @@ import * as ui from './ui';
 
 import 'semantic-ui-css/semantic.min.css';
 
-class RecordDashboard extends Component {
+class ReportDashboard extends Component {
 
   handleValue = (e, { value }) => this.setState({ filterValue: value});
   handleId = (e, { value }) => this.setState({ filterId: value })
@@ -31,16 +31,12 @@ class RecordDashboard extends Component {
     
       switch (this.props.tableType) {
       case "keys":
-        columns = ui.keyColumns;
-        options = ui.keyFilter;
+        columns = ui.reportColumns;
+        options = ui.reportFilter;
         break;
-      case "properties":
-        columns = ui.propertyColumns;
-        options = ui.propFilter;
-        break;
-      case "people":
-        columns = ui.peopleColumns;
-        options = ui.peopleFilter;
+      case "buildings":
+        columns = ui.buildingColumns;
+        options = ui.buildingFilter;
         break;
       default:
         break;
@@ -68,11 +64,11 @@ class RecordDashboard extends Component {
         </div>
         <Divider/>
         <div>
-          <RecordList type={this.props.tableType} columns={columns} filter={filter} />
+          <ReportList type={this.props.tableType} columns={columns} filter={filter} />
         </div>
       </div>
     )
   }
 }
 
-export default RecordDashboard;
+export default ReportDashboard;

@@ -39,7 +39,7 @@ const KeyReportDashboard = (props) => {
 
 const BuildingReportDashboard = (props) => {
   return (
-    <ReportDashboard tableType="building" {...props} />
+    <ReportDashboard tableType="buildings" {...props} />
   )
 }
 
@@ -62,8 +62,8 @@ class App extends Component {
                   <Route path="/records" render={KeyRecordDashBoard} />
                   <Route path="/properties" render={PropertyRecordDashBoard} />
                   <Route path="/people" render={PeopleRecordDashboard} />
-                  <Route path="/keyreports" component={KeyReportDashboard} />
-                  <Route path="/buildingreports" component={BuildingReportDashboard} />
+                  <Route path="/keyreports" render={KeyReportDashboard} />
+                  <Route path="/buildingreports" render={BuildingReportDashboard} />
                   <Route path="/createkey" component={addKey} />
                   <Route path="/createproperty" component={addProperty} />
                   <Route path="/scankey" component={ScanKey} />

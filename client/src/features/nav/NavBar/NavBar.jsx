@@ -20,7 +20,12 @@ class NavBar extends Component {
             </Dropdown.Menu>
           </Dropdown>
             
-          <Menu.Item as={NavLink} to="/reports" name="Reports" />
+          <Dropdown item text="Reports">
+          <Dropdown.Menu>
+              <Dropdown.Item as={NavLink} to="/keyreports">Keys</Dropdown.Item>
+              <Dropdown.Item as={NavLink} to="/buildingreports">Buildings</Dropdown.Item>
+          </Dropdown.Menu>
+          </Dropdown>
 
           <Menu.Item>
             <Button
