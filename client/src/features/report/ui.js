@@ -1,10 +1,12 @@
 import React from 'react';
 import { Button } from 'semantic-ui-react';
 import { NavLink } from 'react-router-dom';
+import { fetchBuildingNames } from '../../app/fetch/fetches';
+import { amber } from '@material-ui/core/colors';
 
 //Objects arrays describing the structure and names of table columns  
 
-  export const reportColumns = [{
+  export const keyColumns = [{
     Header:'Building Name',
     accessor: 'property_name',
     minWidth: 200,
@@ -63,7 +65,7 @@ import { NavLink } from 'react-router-dom';
     }
   }];
 
-export const buildingColumns = [{
+export const propertyColumns = [{
     Header: 'Key Type',
     accessor: 'key_type'
   }, {
@@ -81,41 +83,42 @@ export const buildingColumns = [{
     Header: 'Key Status',
   accessor: 'key_status',
   Cell: (row) => {
-  if (row.value === 2) {
-  return <span>In</span>; 
-  } else if (row.value === 1) {
-    return <span>Pending</span>;
-  } else if (row.value === 0) {
-    return <span>Out</span>;
-  }
+    if (row.value === 4) {
+      return <span>Lost</span>;
+    } else if (row.value === 3) {
+      return <span>Sold</span>;
+    } else if (row.value === 2) {
+      return <span>In</span>;
+    } else if (row.value === 1) {
+      return <span>Pending</span>;
+    } else if (row.value === 0) {
+      return <span>Out</span>;
+    }
 },
   style: {textAlign: 'center'}
   
 }];
 
-  export const reportFilter = [
-    { id: 'filterId', text: '', value: ''},
-    { id: 'filterId', text: 'QR Code', value: 'key_id'},
-    { id: 'filterId', text: 'Building Name', value: 'property_name'},
-    { id: 'filterId', text: 'Key Type', value: 'key_type' },
-    { id: 'filterId', text: 'Key Number', value: 'key_number' },
-    { id: 'filterId', text: 'Office Location', value: 'office_location' },
-    { id: 'filterId', text: 'Storage Location', value: 'storage_location'},
-    { id: 'filterId', text: 'Date OUt', value: 'checked_out'},
-    { id: 'filterId', text: 'Due Date', value: 'due_date'},
-    { id: 'filterId', text: 'Deposit', value: 'deposit'},
-    { id: 'filterId', text: 'Deposit Type', value: 'deposit_type'},
-    { id: 'filterId', text: 'Key Status', value: 'key_status'},
-  ];
+export const keyStatus = [
+  { key: '1', text: 'In', value: '2'},
+  { key: '2', text: 'Pending', value: '1'},
+  { key: '3', text: 'Out', value: '0'},
+];
 
-  export const buildingFilter = [
-    { id: 'filterId', text: '', value: ''},
-    { id: 'filterId', text: 'QR Code', value: 'key_id'},
-    { id: 'filterId', text: 'Key Type', value: 'key_type'},
-    { id: 'filterId', text: 'Key Number', value: 'key_number' },
-    { id: 'filterId', text: 'Office Location', value: 'office_location' },
-    { id: 'filterId', text: 'Storage Location', value: 'storage_location' },
-    { id: 'filterId', text: 'Key Status', value: 'key_status' },
-  ];
-
-  ];
+export async function propertyNames() {
+  try {
+    let buildingNames = [];
+    buildingNames = await fetchBuildingNames(res => {
+      res.forEach(name => {
+        buildingNames.push({
+          key: `${name.property_id}`, text: `${name.property_name}`, value: `${name.property_name}`
+        });
+      });
+      return buildingNames;
+    });
+    return buildingNames;
+  } catch (err) {
+    console.log(err);
+    return;
+  }
+}

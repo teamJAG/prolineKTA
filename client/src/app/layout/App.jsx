@@ -40,7 +40,7 @@ const KeyReportDashboard = (props) => {
 
 const BuildingReportDashboard = (props) => {
   return (
-    <ReportDashboard tableType="buildings" {...props} />
+    <ReportDashboard tableType="properties" {...props} />
   )
 }
 

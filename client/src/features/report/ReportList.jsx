@@ -130,7 +130,7 @@ class ReportList extends Component {
                     manual
                     onFetchData={(state, instance) => {
                         this.setState({loading: true});
-                        fetchData("keys", state.page, state.pageSize, state.sorted, state.filtered, (res) => {
+                        fetchRecordData("keys", state.page, state.pageSize, state.sorted, state.filtered, (res) => {
                             this.setState({
                             data: res.data,
                             pages: res.pages,

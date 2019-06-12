@@ -47,6 +47,8 @@ router.route("/records").post(recordsAPI.listRecords);
 
 router.route("/reports").get(historyAPI.generateReport);
 
+router.route("/properties").get(propertyAPI.listPropertyNames);
+
 router.route("/");
 
 module.exports = router;

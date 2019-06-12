@@ -31,21 +31,9 @@ async function updateProperty(req,res) {
     }
 }
 
-async function deleteProperty(req,res) {
-    //Delete existing record
-    const deleteQueryString = "DELETE FROM property_tab WHERE property_id=" + req.body.property_id;
-    try {
-        let result = await db.dbQuery(deleteQueryString);
-        res.status(204).json(result);
-    } catch (err) {
-        res.status(422).json(err);
-    }
-}
-
-async function listProperty(req, res) {
+async function listPropertyNames(req, res) {
     //Return rows from SELECT of requested properties
-    const listQueryString = "SELECT * FROM proline.property_tab WHERE property_id LIKE \"" + req.body.property_id + "\"";
-    console.log(listQueryString);
+    const listQueryString = "SELECT property_id, property_name FROM proline.property_tab";
     try {
         const result =  await db.dbQuery(listQueryString);
         res.status(200).json(result);
@@ -55,8 +43,7 @@ async function listProperty(req, res) {
 }
 
 module.exports = {
-    listProperty,
+    listPropertyNames,
     createProperty,
-    updateProperty,
-    deleteProperty
+    updateProperty
 };
