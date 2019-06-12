@@ -22,6 +22,7 @@ async function getKeyStatus(req, res) {
                 propertyType: keyRecord.property_type,
                 keyType: keyRecord.key_type,
                 keyStatus: keyRecord.key_status,
+                deposit: keyRecord.deposit,
                 keyStorageLocation: keyRecord.storage_location,
                 keyOfficeLocation: keyRecord.office_location
             }
@@ -49,9 +50,8 @@ async function getKeyStatus(req, res) {
 
 //Switch the key_status in the database to reflect a key being checked in/out/pending
 async function switchKeyStatus(req, res) {
-    let value = req.body.keyStatus;
-    let id = req.body.keyId;
-    let queryString = `UPDATE proline.key_tab SET key_status = ${value} WHERE key_id = ${id}`;
+    const { keyStatus, keyId } = req.body
+    let queryString = `UPDATE proline.key_tab SET key_status = ${keyStatus} WHERE key_id = ${keyId}`;
     console.log(queryString);
     try {
         const result = await db.dbQuery(queryString);
@@ -63,7 +63,17 @@ async function switchKeyStatus(req, res) {
 }
 
 async function checkKeyOut(req, res) {
-    return;
+    const {keyStatus, keyId } = req.body
+    let queryString = `UPDATE proline.key_tab SET key_status = ${keyStatus} WHERE key_id = ${keyId}`;
+    console.log(queryString);
+    try {
+        let result = await db.dbQuery(queryString);
+        res.status(201).json(result);
+    } catch (err) {
+        res.status(404).json(err);
+        return;
+    }
+    queryString = queries.createTransaction;
 }
 
 async function checkKeyIn(req, res) {

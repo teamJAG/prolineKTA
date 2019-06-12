@@ -5,63 +5,32 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { fetchRecordData } from "../../app/fetch/fetches"
 
-function handleHTTPErrors(response) {
-if (!response.ok) {
-throw Error(response.statusText);
-}
-return response;
-}
-
-async function fetchData(endpoint, page, pageSize, sorted, filtered, handleData) {
-    let requestBody = {
-    page: page,
-    pageSize: pageSize,
-    sorted: sorted,
-    filtered: filtered,
-    };
-    try {
-        let result = await fetch(`${process.env.REACT_APP_API_URL}/${endpoint}`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-            body: JSON.stringify(requestBody)
-        });
-        result = await handleHTTPErrors(result);
-        const records = await result.json();
-        return handleData(records);
-    } catch (err) {
-        console.log("fetchData failed: " + err);
-        return err;
-    }
-}
-
 class ReportList extends Component {
-
-    constructor(props) {
-        super(props);
-        this.state = {
-            startDate: new Date(),
-            endDate: new Date(),
-            data: [],
-            pages: 0,
-            loading: false
-        };
+  constructor(props) {
+    super(props);
+    this.state = {
+      data: [],
+      page: 0,
+      pages: 0,
+      pageSize: 20,
+      sorted: [],
+      loading: false,
+      startDate: new Date(),
+      endDate: new Date()
+    };
     this.handleChangeStart = this.handleChangeStart.bind(this);
     this.handleChangeEnd = this.handleChangeEnd.bind(this);
-    //this.handleChange = this.handleChange.bind(this);
+  }
 
-    }
-
-    handleChangeStart(date) {
+  handleChangeStart(date) {
     this.setState({
-    startDate: date
+      startDate: date
     });
-    }
+  }
 
-    handleChangeEnd(date) {
+  handleChangeEnd(date) {
     this.setState({
-    endDate: date
+      endDate: date
     });
   }
 
@@ -172,10 +141,8 @@ class ReportList extends Component {
                     />  
                 </container>
             </div>
-        )
-
-    }
+        );
+  }
 }
-
 
 export default ReportList;
