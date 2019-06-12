@@ -14,7 +14,7 @@ const HomePage = ({history}) => {
             <div className="content">Proline KTA</div>
           </h1>
           <h2>Start Tracking Keys</h2>
-          <div onClick={() => history.push('/records')} className="ui huge white inverted button">
+          <div onClick={() => history.push('/keys')} className="ui huge white inverted button">
             Proceed
             <i className="right arrow icon" />
           </div>

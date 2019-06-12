@@ -62,6 +62,15 @@ const CheckKeyOut = props => {
               <Form onSubmit={props.checkout}>
                 <Header>Check Out Pending Key</Header>
                 <Divider />
+                <Form.Field>
+                    <label>Deposit</label>
+                </Form.Field>
+                <Form.Field>
+                    <label>Deposit Type</label>
+                </Form.Field>
+                <Form.Field>
+                    <label>Notes</label>
+                </Form.Field>
                 <Form.Button content="Submit" />
               </Form>
             </Segment>

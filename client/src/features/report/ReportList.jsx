@@ -3,6 +3,7 @@ import ReactTable from "react-table";
 import "react-table/react-table.css";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { fetchRecordData } from '../../app/fetch/fetches';
 
 class ReportList extends Component {
   constructor(props) {

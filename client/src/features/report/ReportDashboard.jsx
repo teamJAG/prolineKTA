@@ -34,13 +34,9 @@ class RecordDashboard extends Component {
         columns = ui.keyColumns;
         options = ui.keyFilter;
         break;
-      case "properties":
+      case "buildings":
         columns = ui.propertyColumns;
         options = ui.propFilter;
-        break;
-      case "people":
-        columns = ui.peopleColumns;
-        options = ui.peopleFilter;
         break;
       default:
         break;
@@ -68,7 +64,7 @@ class RecordDashboard extends Component {
         </div>
         <Divider/>
         <div>
-          <RecordList type={this.props.tableType} columns={columns} filter={filter} />
+          <ReportList type={this.props.tableType} columns={columns} filter={filter} />
         </div>
       </div>
     )

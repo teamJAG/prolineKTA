@@ -1,9 +1,8 @@
-import React, { Component } from 'react';
-import { Menu, Dropdown, Container, Button } from 'semantic-ui-react';
-import { NavLink, Link, withRouter } from 'react-router-dom';
+import React, { Component } from "react";
+import { Menu, Dropdown, Container, Button } from "semantic-ui-react";
+import { NavLink, Link, withRouter } from "react-router-dom";
 
 class NavBar extends Component {
-
   render() {
     return (
       <Menu inverted fluid fixed="top">
@@ -14,13 +13,27 @@ class NavBar extends Component {
           </Menu.Item>
           <Dropdown item text="Records">
             <Dropdown.Menu>
-              <Dropdown.Item as={NavLink} to="/records">Keys</Dropdown.Item>
-              <Dropdown.Item as={NavLink} to="/properties">Properties</Dropdown.Item>
-              <Dropdown.Item as={NavLink} to="/people">People</Dropdown.Item>
+              <Dropdown.Item as={NavLink} to="/keys">
+                Keys
+              </Dropdown.Item>
+              <Dropdown.Item as={NavLink} to="/properties">
+                Properties
+              </Dropdown.Item>
+              <Dropdown.Item as={NavLink} to="/people">
+                People
+              </Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
-            
-          <Menu.Item as={NavLink} to="/reports" name="Reports" />
+          <Dropdown item text="Reports">
+            <Dropdown.Menu>
+              <Dropdown.Item as={NavLink} to="/keyreports">
+                Keys
+              </Dropdown.Item>
+              <Dropdown.Item as={NavLink} to="/properties">
+                Buildings
+              </Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
 
           <Menu.Item>
             <Button
@@ -31,7 +44,7 @@ class NavBar extends Component {
               //positive
               inverted
               color="teal"
-              content="Add/Edit Key"
+              content="Add Key"
             />
           </Menu.Item>
 
@@ -44,22 +57,22 @@ class NavBar extends Component {
               //positive
               inverted
               color="teal"
-              content="Add/Edit Property"
+              content="Add Property"
             />
           </Menu.Item>
 
           <Menu.Item>
-          <Button
-            as={NavLink}
-            to="/scankey"
-            name="checkKey"
-            floated="right"
-            //positive
-            inverted
-            color="teal"
-            content="Scan Key"
-          />
-        </Menu.Item>
+            <Button
+              as={NavLink}
+              to="/scankey"
+              name="checkKey"
+              floated="right"
+              //positive
+              inverted
+              color="teal"
+              content="Scan Key"
+            />
+          </Menu.Item>
         </Container>
       </Menu>
     );

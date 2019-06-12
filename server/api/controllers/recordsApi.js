@@ -30,15 +30,26 @@ async function listRecords(req, res) {
     
     //Build queries with WHERE clause, if request body includes an id and a value.
     
-    //People view. Requires alias for UNION ALL subselect.
     if (req.body.filter.id && req.body.filter.value) {
+        //People view. Requires alias for UNION ALL subselect.
         if (req.body.queryType === 'people') {
             countQuery += 'WHERE c.' + req.body.filter.id + ' LIKE \"' + req.body.filter.value + '%\" ';
             recordQuery += 'WHERE users.' + req.body.filter.id + ' LIKE \"' + req.body.filter.value + '%\" ';
         } else {
-    //Properties and Keys views.
+        //Properties and Keys views.
             countQuery += 'WHERE ' + req.body.filter.id + ' LIKE \"' + req.body.filter.value + '%\" ';
             recordQuery += 'WHERE ' + req.body.filter.id + ' LIKE \"' + req.body.filter.value + '%\" ';
+        }
+        //The key view has a special QR Code input, which will always take
+        //a specially formatted string consisting of 4 values
+        if ( req.body.filter.id === 'qr') {
+            const filterArray = req.body.filter.value.split("-");
+            countQuery += `WHERE property_number LIKE ${filterArray[0]} AND
+                office_location LIKE ${filterArray[1]} AND key_type LIKE
+                ${filterArray[2]} AND key_number LIKE ${filterArray[3]} `;
+            recordQuery += `WHERE property_number LIKE ${filterArray[0]} AND
+            office_location LIKE ${filterArray[1]} AND key_type LIKE
+            ${filterArray[2]} AND key_number LIKE ${filterArray[3]} `;
         }
     }
 
@@ -60,6 +71,7 @@ async function listRecords(req, res) {
     try {
         const count = await db.dbQuery(countQuery);
         const rows = await db.dbQuery(recordQuery);
+        //Placeholder for toUpper() conversion (only for capstone demo)
         let pageCount = Math.ceil(parseFloat(count[0].count) / parseFloat(req.body.pageSize));
         const payload = {
             data: rows,
