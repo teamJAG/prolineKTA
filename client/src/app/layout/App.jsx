@@ -12,6 +12,7 @@ import Testing from '../../features/testing/Testing';
 import ReportList from '../../features/report/ReportList';
 import addKey from '../../features/key/addKey';
 import ScanKey from '../../features/key/ScanKey';
+import EditKey from '../../features/key/EditKey';
 
 const KeyRecordDashBoard = (props) => {
   return (
@@ -59,7 +60,7 @@ class App extends Component {
               <NavBar />
               <Container className="main">
                 <Switch>
-                  <Route path="/records" render={KeyRecordDashBoard} />
+                  <Route path="/keys" render={KeyRecordDashBoard} />
                   <Route path="/properties" render={PropertyRecordDashBoard} />
                   <Route path="/people" render={PeopleRecordDashboard} />
                   <Route path="/keyreports" render={KeyReportDashboard} />
@@ -67,7 +68,7 @@ class App extends Component {
                   <Route path="/createkey" component={addKey} />
                   <Route path="/createproperty" component={addProperty} />
                   <Route path="/scankey" component={ScanKey} />
-
+                  <Route path="/editkey" component={EditKey} />
                   <Route path="/testing" component={Testing} />
 
                 </Switch>

@@ -1,4 +1,6 @@
 import React from 'react';
+import { Button } from 'semantic-ui-react';
+import { NavLink } from 'react-router-dom';
 
 //Objects arrays describing the structure and names of table columns  
 
@@ -33,20 +35,32 @@ import React from 'react';
   }, {
     Header: 'Deposit Type',
     accessor: 'deposit_type'
-  }, {  
+  }, {
     Header: 'Key Status',
-  accessor: 'key_status',
-  Cell: (row) => {
-  if (row.value === 2) {
-  return <span>In</span>; 
-  } else if (row.value === 1) {
-    return <span>Pending</span>;
-  } else if (row.value === 0) {
-    return <span>Out</span>;
-  }
-},
-  style: {textAlign: 'center'}
-
+    accessor: 'key_status',
+    Cell: (row) => {
+      if (row.value === 4) {
+        return <span>Lost</span>;
+      } else if (row.value === 3) {
+        return <span>Sold</span>;
+      } else if (row.value === 2) {
+        return <span>In</span>;
+      } else if (row.value === 1) {
+        return <span>Pending</span>;
+      } else if (row.value === 0) {
+        return <span>Out</span>;
+      }
+    },
+    style: {textAlign: 'center'}
+    }, {
+    Cell: (row) => {
+      return <Button 
+      as={NavLink} 
+      to={{
+        pathname:"/editkey",
+        keyRecord: row.original
+       }} />;
+    }
   }];
 
 export const buildingColumns = [{

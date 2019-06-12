@@ -2,14 +2,9 @@ import React from "react";
 import { Form, Divider, Header, Grid, Table, Segment } from "semantic-ui-react";
 
 const KeyPending = props => {
-  const containerStyle = {
-    display: "flex",
-    justifyContent: "center",
-    paddingTop: "10%"
-  };
 
   return (
-    <div style={{ containerStyle }}>
+    <div>
       <Grid columns={2} divided>
         <Grid.Row stretched>
           <Grid.Column>
@@ -29,23 +24,23 @@ const KeyPending = props => {
                   </Table.Row>
                   <Table.Row>
                     <Table.Cell>Property Name</Table.Cell>
-                    <Table.Cell>{props.keyRecord.address}</Table.Cell>
+                    <Table.Cell>{props.keyRecord.propertyName}</Table.Cell>
                   </Table.Row>
                   <Table.Row>
                     <Table.Cell>Property Type</Table.Cell>
-                    <Table.Cell>{props.keyRecord.property_type}</Table.Cell>
+                    <Table.Cell>{props.keyRecord.propertyType}</Table.Cell>
                   </Table.Row>
                   <Table.Row>
                     <Table.Cell>Key Type</Table.Cell>
-                    <Table.Cell>{props.keyRecord.key_type}</Table.Cell>
+                    <Table.Cell>{props.keyRecord.keyType}</Table.Cell>
                   </Table.Row>
                   <Table.Row>
                     <Table.Cell>Storage Location</Table.Cell>
-                    <Table.Cell>{props.keyRecord.storage_location}</Table.Cell>
+                    <Table.Cell>{props.keyRecord.keyStorageLocation}</Table.Cell>
                   </Table.Row>
                   <Table.Row>
                     <Table.Cell>Office Location</Table.Cell>
-                    <Table.Cell>{props.keyRecord.keyOffice}</Table.Cell>
+                    <Table.Cell>{props.keyRecord.keyOfficeLocation}</Table.Cell>
                   </Table.Row>
                   <Table.Row>
                     <Table.Cell>Deposit</Table.Cell>
@@ -56,8 +51,8 @@ const KeyPending = props => {
             </Segment>
           </Grid.Column>
           <Grid.Column>
-            <Segment>
-              <Form onSubmit={props.isPending}>
+            <Segment textAlign="center">
+              <Form>
                 <Header>Place Key Into Pending</Header>
                 <Divider />
                 <Form.Button content="Submit" />

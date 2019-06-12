@@ -1,4 +1,7 @@
 import React from 'react';
+import { Button } from 'semantic-ui-react';
+import { NavLink } from 'react-router-dom';
+
 
 //Objects arrays describing the structure and names of table columns  
   export const keyColumns = [{
@@ -36,16 +39,33 @@ import React from 'react';
     Header: 'Key Status',
     accessor: 'key_status',
     Cell: (row) => {
-    if (row.value === 2) {
-    return <span>In</span>; 
-    } else if (row.value === 1) {
-      return <span>Pending</span>;
-    } else if (row.value === 0) {
-      return <span>Out</span>;
-    }
-  },
+      if (row.value === 4) {
+        return <span>Lost</span>;
+      } else if (row.value === 3) {
+        return <span>Sold</span>;
+      } else if (row.value === 2) {
+        return <span>In</span>;
+      } else if (row.value === 1) {
+        return <span>Pending</span>;
+      } else if (row.value === 0) {
+        return <span>Out</span>;
+      } else {
+        return null;
+      }
+    },
     style: {textAlign: 'center'}
-    }
+    }, {
+      Cell: (row) => {
+        return <Button 
+        as={NavLink} 
+        to={{
+          pathname:"/editkey",
+          keyRecord: row.original
+         }}>Edit</Button>;
+      },
+      style: {textAlign: 'center'},
+      sortable: false
+    },
   ];
 
   export const peopleColumns = [{
@@ -68,6 +88,9 @@ import React from 'react';
   export const propertyColumns = [{
     Header: "Property Name",
     accessor: 'property_name'
+  }, {
+    Header: "Property Number",
+    accessor: 'property_number'
   }, {
     Header: 'Property Type',
     accessor: 'property_type'
@@ -135,7 +158,6 @@ import React from 'react';
 //Arrays to describe the selections available to filter results by id
   export const peopleFilter = [
     { key: '1', text: '', value: ''},
-    { key: '2', text: 'QR Code', value: 'user_id'},
     { key: '3', text: 'First Name', value: 'first_name'},
     { key: '4', text: 'Last Name', value: 'last_name' },
     { key: '5', text: 'E-mail', value: 'email' },
@@ -145,7 +167,6 @@ import React from 'react';
 
   export const propFilter = [
     { key: '1', text: '', value: ''},
-    { key: '2', text: 'QR Code', value: 'property_id'},
     { key: '3', text: 'Property Name', value: 'property_name'},
     { key: '4', text: 'Property Type', value: 'property_type' },
     { key: '5', text: 'Address', value: 'address' },
@@ -156,7 +177,7 @@ import React from 'react';
 
   export const keyFilter = [
     { key: '1', text: '', value: ''},
-    { key: '2', text: 'QR Code', value: 'key_id'},
+    { key: '2', text: 'QR Code', value: 'qr'},
     { key: '3', text: 'Property Type', value: 'property_type'},
     { key: '4', text: 'Address', value: 'address' },
     { key: '5', text: 'City', value: 'city' },

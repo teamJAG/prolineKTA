@@ -3,7 +3,11 @@ const queries = require('../db/queries');
 
 //Returns the status of a requested key
 async function getKeyStatus(req, res) {
-    const recordQuery = queries.keyRecord + req.body.id;
+    const filterArray = req.body.id.split("-");
+    let recordQuery = queries.keyRecord;
+    recordQuery += `property_number LIKE ${filterArray[0]} AND
+    office_location LIKE '${filterArray[1]}' AND key_type LIKE
+    '${filterArray[2]}' AND key_number LIKE ${filterArray[3]} `;
     console.log(recordQuery);
     try {
         const rows = await db.dbQuery(recordQuery);
@@ -51,7 +55,11 @@ async function getKeyStatus(req, res) {
 //Switch the key_status in the database to reflect a key being checked in/out/pending
 async function switchKeyStatus(req, res) {
     const { keyStatus, keyId } = req.body
-    let queryString = `UPDATE proline.key_tab SET key_status = ${keyStatus} WHERE key_id = ${keyId}`;
+    const filterArray = keyId.split('-');
+    let queryString = `UPDATE proline.key_tab SET key_status = ${keyStatus} 
+        WHERE property_number LIKE ${filterArray[0]} AND
+        office_location LIKE '${filterArray[1]}' AND key_type LIKE
+        '${filterArray[2]}' AND key_number LIKE ${filterArray[3]} `;
     console.log(queryString);
     try {
         const result = await db.dbQuery(queryString);
