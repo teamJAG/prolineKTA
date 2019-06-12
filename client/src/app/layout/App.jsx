@@ -32,9 +32,6 @@ const PeopleRecordDashboard = (props) => {
 
 const ReportDashboard = (props) => {
   return (
-<<<<<<< Updated upstream
-    <ReportList tableType="reports" {...props} />
-=======
     <ReportDashboard tableType="keys" {...props} />
   )
 }
@@ -42,7 +39,6 @@ const ReportDashboard = (props) => {
 const BuildingReportDashboard = (props) => {
   return (
     <ReportDashboard tableType="buildings" {...props} />
->>>>>>> Stashed changes
   )
 }
 

@@ -132,7 +132,10 @@ import React from 'react';
 
   }];
 
-export const buildingColumns = [{
+export const propertyColumns = [{
+    Header: 'Building Name',
+    accessor: 'property_name'
+}, {
     Header: 'Key Type',
     accessor: 'key_type'
   }, {
