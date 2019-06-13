@@ -1,34 +1,8 @@
-// Im still workin on this page
-
-import React from 'react';
-import TextField from '@material-ui/core/TextField';
-import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
-import Button from '@material-ui/core/Button';
-
-// import FormButton from 'semantic-ui-react';
-
-
-// const type = [
-//   {
-//     value: 0,
-//     label: 'Condo',
-//   },
-//   {
-//     value: 1,
-//     label: 'Strata',
-//   },
-//   {
-//     value: 2,
-//     label: 'Rental',
-//   },
-//   {
-//     value: 3,
-//     label: 'Fob',
-//   },
-// ];
+import React, { Component } from 'react'
+import {Form, Dropdown, Input} from 'semantic-ui-react-form-validator'
+import {TextArea, Button} from 'semantic-ui-react';
 
 export default class AddPropertyForm extends React.Component {
-  
 // state
 state = {
   formData: {
@@ -40,17 +14,6 @@ state = {
   },
   submitted: false,
 };
-
-componentDidMount() {
-  // checking if postal code is valid
-  ValidatorForm.addValidationRule('isPostalCodeValid', (value) => {
-    const { formData } = this.state;
-    if (value.postalCode !== "^(?!.*[DFIOQU])[A-VXY][0-9][A-Z]●?[0-9][A-Z][0-9]$"){
-      return false;
-    }
-      return true;
-  });
-}
 
 handleChange = (event) => {
   const { formData } = this.state;
@@ -65,78 +28,89 @@ handleSubmit = () => {
 };
   
 render() {
+  const propTypeOptions = [
+    {
+      key: 'Strata',
+      text: 'Strata',
+      value: 'Strata',
+    },
+    {
+      key: 'Condo',
+      text: 'Condo',
+      value: 'Condo',
+    },
+    {
+      key: 'Saundry',
+      text: 'Saundry',
+      value: 'Saundry',
+    },
+    {
+      key: 'FOB',
+      text: 'FOB',
+      value: 'FOB',
+    }
+  ];
   // ------------------------------------- Add Property Form -------------------------------------------
   const { formData, submitted } = this.state;
   return (
-    <ValidatorForm ref="form" onSubmit={this.handleSubmit}>
+    <Form ref="form" onSubmit={this.handleSubmit}>
       <div style={{ marginTop: 10, padding: 20 }}>
       <h1 class = "ui horizontal divider header"> Create Property</h1> 
-      
-      <TextValidator
+
+      <Input
         label="City"
+        placeholder="City"
         onChange={this.handleChange}
         name="city"
         value={formData.city}
         validators={['required']}
         errorMessages={['this field is required']}
-        fullWidth
-        margin="normal"
-        variant="outlined"
       />
-      <TextValidator
+      <Dropdown
         label="Property Type"
-        onChange={this.handleChange}
         name="propType"
-        value={formData.propType}
-        validators={['required']}
-        errorMessages={['this field is required']}
-        fullWidth
-        margin="normal"
-        variant="outlined"
+        fluid
+        selection
+        placeholder="Property Type"
+        onChange={(e,{value})=>{this.setState({dropdown:value})}}
+        value={this.state.dropdown} 
+        validators={['required']} 
+        errorMessages={['this field is required']} 
+        options={propTypeOptions}
       />
-      <TextValidator
+      <Input
         label="Property Name"
+        placeholder="Property Name"
         onChange={this.handleChange}
         name="propName"
         value={formData.propName}
         validators={['required']}
         errorMessages={['this field is required']}
-        fullWidth
-        margin="normal"
-        variant="outlined"
       />
-      <TextValidator
+      <Input
         label="Property Address"
+        placeholder="Property Address"
         onChange={this.handleChange}
         name="propAddr"
         value={formData.propAddr}
         validators={['required']}
         errorMessages={['this field is required']}
-        fullWidth
-        margin="normal"
-        variant="outlined"
       />
-      <TextValidator
+      <Input
         label="Postal Code"
+        placeholder="Postal Code"
         onChange={this.handleChange}
         name="postalCode"
         value={formData.postalCode}
-        validators={['required', 'isPostalCodeValid']}
-        errorMessages={['this field is required', 'postal code is not valid']}
-        fullWidth
-        margin="normal"
-        variant="outlined"
+        validators={['required', 'matchRegexp:[A-Za-z][0-9][A-Za-z] [0-9][A-Za-z][0-9]']}
+        errorMessages={['this field is required', 'postalcode is invalid']}
       />
-      <TextField
-        name="comment"
+      <TextArea
+        style={{ minHeight: 100 }}
+        name="additionalComment"
         label="Additional Comment"
+        placeholder="Additional Comment"
         onChange={this.handleChange}
-        hintText="Additional Comment"
-        fullWidth
-        multiline
-        rows="4"
-        margin="normal"
-        variant="outlined"
       />
       <br />
 
@@ -144,7 +118,7 @@ render() {
       {(submitted && 'Your form is submitted!') || (!submitted && 'Submit')}
       </Button>      
       </div>
-    </ValidatorForm>
+    </Form>
     );
   }
 }
