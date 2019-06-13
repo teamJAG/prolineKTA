@@ -83,7 +83,9 @@ export const propertyColumns = [{
     Header: 'Key Status',
   accessor: 'key_status',
   Cell: (row) => {
-    if (row.value === 4) {
+    if (row.value === 5) {
+      return <span>Destroyed</span>;
+    } else if (row.value === 4) {
       return <span>Lost</span>;
     } else if (row.value === 3) {
       return <span>Sold</span>;

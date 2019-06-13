@@ -39,7 +39,9 @@ import { NavLink } from 'react-router-dom';
     Header: 'Key Status',
     accessor: 'key_status',
     Cell: (row) => {
-      if (row.value === 4) {
+      if (row.value === 5) {
+        return <span>Destroyed</span>;
+      } else if (row.value === 4) {
         return <span>Lost</span>;
       } else if (row.value === 3) {
         return <span>Sold</span>;
@@ -81,8 +83,10 @@ import { NavLink } from 'react-router-dom';
     Header: 'Phone',
     accessor: 'phone_num',
     Cell: (row) => {
+      if (row.value) {
       const phone = row.value.replace(/(\d{3})(\d{3})(\d{4})/, "$1-$2-$3");
       return <span>{phone}</span>
+      } else return null;
     },
     style: {textAlign:'center'}
   }, {

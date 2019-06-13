@@ -1,7 +1,30 @@
 import React from "react";
-import { Grid, Segment, Table, Form, Divider, Header } from "semantic-ui-react";
+import {
+  Grid,
+  Segment,
+  Table,
+  Form,
+  Divider,
+  Header,
+  Input
+} from "semantic-ui-react";
+import AutoComplete from "./AutoComplete";
 
 const CheckKeyOut = props => {
+  // constructor(props) {
+  //   super(props);
+  //   this.state = {
+  //     firstName: '',
+  //     lastName: '',
+  //     company: '',
+  //     deposit: null,
+  //     depositType: null,
+  //     fees: null,
+  //     notes: null,
+  //     sale: false
+  //   }
+  // }
+
   const containerStyle = {
     display: "flex",
     justifyContent: "center",
@@ -64,29 +87,46 @@ const CheckKeyOut = props => {
                 <Divider />
                 <Form.Field>
                   <label>First Name</label>
-                  <input id="firstName"></input>
+                  <input id="firstName" />
                 </Form.Field>
                 <Form.Field>
                   <label>Last Name</label>
-                  <input id="lastName"></input>
+                  <input id="lastName"  />
                 </Form.Field>
                 <Form.Field>
                   <label>Company</label>
-                  <input id="company"></input>
+                  <AutoComplete
+                    table="contractor_tab"
+                    id="company"
+                    as={Input}
+                  />
                 </Form.Field>
                 <Form.Field>
                   <label>Deposit</label>
-                  <input id="deposit"></input>
+                  <input id="deposit" />
                 </Form.Field>
                 <Form.Field>
                   <label>Deposit Type</label>
-                  <input id="depositType"></input>
+                  <input id="depositType" />
+                </Form.Field>
+                <Form.Field>
+                  <label>Fees</label>
+                  <input id="fees" />
                 </Form.Field>
                 <Form.Field>
                   <label>Notes</label>
-                  <input id="notes'"></input>
+                  <input id="notes" />
                 </Form.Field>
-                <Form.Button content="Submit" />
+                <Form.Group>
+                  <Form.Button content="Submit" />
+                  <Form.Field
+                    label="This is a sale"
+                    inline={true}
+                    control="input"
+                    id="sale"
+                    type="checkbox"
+                  />
+                </Form.Group>
               </Form>
             </Segment>
           </Grid.Column>
