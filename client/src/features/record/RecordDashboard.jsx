@@ -1,23 +1,14 @@
 import React, { Component } from 'react';
-import { Input, Divider, Dropdown } from 'semantic-ui-react'
-import RecordList from '../RecordList/RecordList';
-import * as ui from '../ui';
+import { Input, Divider, Dropdown, Menu } from 'semantic-ui-react'
+import RecordList from './RecordList';
+import * as ui from './ui';
 
 import 'semantic-ui-css/semantic.min.css';
 
 class RecordDashboard extends Component {
 
-  handleText(event, data) {
-    if (event.target.id === "filterId") {
-      this.setState({
-        filterId: data.value
-      });
-    } else {
-      this.setState({
-        filterValue: event.target.value
-      });
-    }
-  }
+  handleValue = (e, { value }) => this.setState({ filterValue: value});
+  handleId = (e, { value }) => this.setState({ filterId: value })
 
   constructor(props) {
     super(props);
@@ -25,7 +16,8 @@ class RecordDashboard extends Component {
       filterId: '',
       filterValue: ''
     };
-    this.handleText = this.handleText.bind(this);
+    this.handleId = this.handleId.bind(this);
+    this.handleValue = this.handleValue.bind(this);
   }
 
   render() {
@@ -58,23 +50,25 @@ class RecordDashboard extends Component {
 
     return (
       <div>
-        <Dropdown 
-        options={options}
-        placeholder='Category...'
-        onChange={this.handleText}
-        selection
-        value={this.state.filterId}
-        />
-        <Input
-        id='filterValue'
-        icon='search'
-        iconPosition='left'
-        placeholder='Search...'
-        onChange={this.handleText}
-        />
-        <Divider />
         <div>
-          <RecordList columns={columns} type={this.props.tableType} filter={filter}/>
+          <Dropdown 
+          options={options}
+          selection
+          onChange={this.handleId}
+          value={this.state.value}
+          placeholder='Category...'
+          />
+          <Input
+          style={{paddingLeft: '5px'}}
+          icon='search'
+          iconPosition='left'
+          placeholder='Search...'
+          onChange={this.handleValue}
+          />
+        </div>
+        <Divider/>
+        <div>
+          <RecordList type={this.props.tableType} columns={columns} filter={filter} />
         </div>
       </div>
     )
