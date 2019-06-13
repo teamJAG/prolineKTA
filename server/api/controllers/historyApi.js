@@ -1,13 +1,10 @@
 const db = require('../db/connection');
 
-// Writes activity to the database
-function writeLog(log) {
-    return;
-}
-
-// Returns a report of logs queried against the database
+// Returns a report of the entire database
 function generateReport() {
     return;
 }
 
-module.exports = generateReport;
+module.exports = {
+    generateReport
+};
