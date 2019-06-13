@@ -31,7 +31,7 @@ const initialState = {
   passwordError: ''
 }
 
-export default  class TestingForm extends React.Component {
+export default class TestingForm extends React.Component {
   // -------------- Create user Functions ------------------------
   createState = initialCreateState;
 
