@@ -38,6 +38,7 @@ const KeyReportDashboard = (props) => {
 
 const BuildingReportDashboard = (props) => {
   return (
+
     <ReportDashboard tableType="properties" {...props} />
   )
 }

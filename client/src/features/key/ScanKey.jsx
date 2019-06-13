@@ -4,6 +4,13 @@ import KeyPending from "./KeyPending";
 import CheckKeyOut from "./CheckKeyOut";
 import CheckKeyIn from "./CheckKeyIn";
 import { fetchKeyStatus, fetchKeyCheck } from "../../app/fetch/fetches";
+import CohoSlip from '../slips/CohoSlip';
+import ElevatorSlip from '../slips/ElevatorSlip';
+import FobSlip from '../slips/FobSlip';
+import GuestSlip from '../slips/GuestSlip';
+import PurchaseSlip from '../slips/PurchaseSlip';
+import RentalSlip from '../slips/RentalSlip';
+import TradeSlip from '../slips/TradeSlip';
 
 class ScanKey extends Component {
   constructor(props) {

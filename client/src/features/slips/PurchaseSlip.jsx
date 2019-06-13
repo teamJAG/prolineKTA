@@ -1,0 +1,110 @@
+import React from "react";
+import { Grid, Segment, Radio, Checkbox, Label, Input, Button, Form, Divider, Header } from "semantic-ui-react";
+import ReactToPrint from "react-to-print";
+
+
+
+
+class FobSlip extends React.Component {
+    state = {}
+  handleChange = (e, { value }) => this.setState({ value })
+
+  render() {
+    const containerStyle = {
+      display: "flex",
+      justifyContent: "center",
+      paddingTop: "10%"
+    };
+
+  return (
+    <div style={{ containerStyle }}>
+      <Grid columns={1}>
+        <Grid.Row stretched>
+          <Grid.Column>
+          </Grid.Column>
+          <Grid.Column>
+            <Segment>
+              <Form>
+                <Header textAlign="center">Proline Keys/Fobs</Header>
+                <Divider />
+
+                <Form.Field>
+                  <label>Building</label>
+                  <input type="text" id="propertyName"></input>
+                </Form.Field>
+
+                <Form.Field>
+                  <div class="two fields">
+                    <div class="field">
+                      <label>Building Address</label>
+                      <input type="text" id="propertyName"></input>
+                    </div>
+                    <div class="field">
+                      <label>Unit</label>
+                      <input type="text" id="unit"></input>
+                    </div>
+                  </div>
+                </Form.Field>
+
+                <Form.Field>
+                  <label>Purchase Description</label>
+                  <input style={{minHeight:"5em"}} id="notes"></input>
+                </Form.Field>
+
+                <Form.Field>
+                    <Header textAlign="center">Party Picking Up</Header>
+                  <div class="three fields">
+                    <div class="field">
+                      <label>Company</label>
+                      <input type="text" id="firstName"></input>
+                    </div>
+                    <div class="field">
+                        <label>First Name</label>
+                        <input type="text" id="firstName"></input>
+                    </div>
+                    <div class="field">
+                      <label>Last Name</label>
+                      <input type="text" id="lastName"></input>
+                    </div>
+                    </div>
+                </Form.Field>
+
+                <Form.Field>
+                      <label>Amount</label>
+                      <Input labelPosition='right' type="text" id="deposit">
+                        <Label basic>$</Label>
+                        <input />
+                        <Label>.00</Label>
+                      </Input>
+                </Form.Field>
+
+                <Form.Field>
+                    <label>Date Out:</label>
+                    <input type="date" id="outDate"></input>
+                </Form.Field>
+
+              </Form>
+            </Segment>
+          </Grid.Column>
+        </Grid.Row>
+      </Grid>
+    </div>
+  );
+};
+};
+
+const PrintSlip = () => {
+  const slipRef = React.useRef()
+    return (
+    <div>
+      <ReactToPrint
+        trigger={() => <Button color="teal">Print Slip</Button>}
+        content={() => slipRef.current}
+        />
+        <FobSlip style={{ marginLeft: "10px" }} ref={slipRef} />
+    </div>
+  );
+};
+
+
+export default PrintSlip;
