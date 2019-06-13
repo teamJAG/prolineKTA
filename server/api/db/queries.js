@@ -45,6 +45,10 @@ const keyRecord = `SELECT k.storage_location, k.key_quantity, k.creation_date, k
     INNER JOIN proline.property_tab p ON p.property_id = a.property_tab_property_id 
     WHERE `;
 
+const transactionQuery = `SELECT t.trans_id, t.checked_out, t.due_date, t.deposit, t.deposit_type, t.fees,
+t.notes, c.first_name, c.last_name, c.company FROM proline.trans_tab t
+INNER JOIN proline.contractor_tab c ON t.contractor_tab_contractor_id = c.contractor_id `
+
 module.exports = {
   keyCount,
   keyRecords,
@@ -52,5 +56,6 @@ module.exports = {
   propRecords,
   peopleCount,
   peopleRecords,
-  keyRecord
+  keyRecord,
+  transactionQuery
 };

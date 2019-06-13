@@ -79,30 +79,37 @@ class ScanKey extends Component {
   }
 
   //Moves a key record's status into pending, updates the db
-  handlePending(e) {
+  async handlePending(e) {
     e.preventDefault();
     let request = {
       keyStatus: 1,
       keyId: this.state.scannedKey
     };
-    fetchKeyStatus(request, "PUT", res => {
-      if (res.affectedRows === 1) {
-        window.alert("Request OK.");
-        this.setState({
-          disableForm: false
-        });
-      }
-    });
+    try {
+      await fetchKeyStatus(request, "PUT", res => {
+        if (res.affectedRows === 1) {
+          window.alert("Request OK.");
+          this.setState({
+            disableForm: false,
+            keyPending: true
+          });
+        } else {
+          throw new Error("Failed to place key into pending.");
+        }
+      });
+    } catch (err) {
+      console.log(err);
+      window.alert(err.message);
+    }
   }
 
-  handleCheckout(e) {
+  async handleCheckout(e) {
     e.preventDefault();
 
     const statusRequest = {
       keyStatus: 0,
       keyId: this.state.scannedKey
     };
-
     let target = e.target;
     let firstName, lastName, company, deposit, depositType, fees, notes;
     target.firstName.value === ""
@@ -136,59 +143,63 @@ class ScanKey extends Component {
 
     try {
       //Fetch to create a transaction record.
-      fetchKeyCheck(transRequest, "POST", res => {
+      await fetchKeyCheck(transRequest, "POST", res => {
         if (res.affectedRows !== 1) {
           throw new Error("Error: Failed to create transaction");
         }
       });
-    } catch (err) {
-      window.alert(err);
-      return;
-    }
-    try {
       //Fetch to change key status to 'checked out'.
-      fetchKeyStatus(statusRequest, "PUT", res => {
+      await fetchKeyStatus(statusRequest, "PUT", res => {
         if (res.affectedRows !== 1) {
           throw new Error("Error: key is still in pending");
         }
       });
+
+      //Wait half a second before triggering a transaction slip render so that
+      //fetch statements can propogate errors if necessary.
+      setTimeout(() => {
+        window.alert("Request OK.");
+        if (this.state.keyRecord.deposit > 0) {
+          this.setState({
+            keyCheckedIn: false,
+            renderTransactionSlip: true,
+            renderDepositSlip: true
+          });
+        } else {
+          this.setState({
+            renderTransactionSlip: true
+          });
+        }
+      }, 500);
     } catch (err) {
-      window.alert(err);
+      console.log(err);
+      window.alert(err.message);
       return;
     }
-    window.alert("Request OK.");
-
-    //Wait half a second before triggering a transaction slip render so that
-    //fetch statements can propogate errors if necessary.
-    setTimeout(() => {
-      if (this.state.keyRecord.deposit > 0) {
-        this.setState({
-          disableForm: true,
-          renderTransactionSlip: true,
-          renderDepositSlip: true
-        });
-      } else {
-        this.setState({
-          disableForm: true,
-          renderTransactionSlip: true
-        });
-      }
-    }, 500);
   }
 
-  handleCheckin(e) {
+  async handleCheckin(e) {
     e.preventDefault();
     let request = {
       keyStatus: 2,
-      keyId: this.state.scannedKey
+      keyId: this.state.keyRecord.keyId,
+      transId: this.state.keyTransaction.id
     };
-    fetchKeyCheck(request, "PUT", res => {
-      if (res.affectedRows === 1) {
-        this.setState({
-          disableForm: false
-        });
-      }
-    });
+    try {
+      await fetchKeyCheck(request, "PUT", res => {
+        if (res.affectedRows === 1) {
+          window.alert("Request OK.");
+          this.setState({
+            disableForm: false
+          });
+        } else {
+          throw new Error("Failed to update key status.");
+        }
+      });
+    } catch (err) {
+      console.log(err);
+      window.alert(err.message);
+    }
   }
 
   render() {

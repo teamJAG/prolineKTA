@@ -88,11 +88,11 @@ const CheckKeyIn = props => {
                   </Table.Row>
                   <Table.Row>
                     <Table.Cell>Notes</Table.Cell>
-                    <Table.Cell>{props.keyRecord.keyOfficeLocation}</Table.Cell>
+                    <Table.Cell>{props.transaction.notes}</Table.Cell>
                   </Table.Row>
                   <Table.Row>
                     <Table.Cell>Deposit</Table.Cell>
-                    <Table.Cell>{props.keyRecord.deposit}</Table.Cell>
+                    <Table.Cell>{props.transaction.deposit}</Table.Cell>
                   </Table.Row>
                 </Table.Body>
               </Table>
@@ -102,7 +102,7 @@ const CheckKeyIn = props => {
       </Grid>
       <div style={{ display: "inline-block", paddingTop: "2%" }}>
         <Segment compact floated="right" textAlign="center">
-          <Form onSubmit={props.handleCheckin}>
+          <Form onSubmit={props.checkin}>
             <Header>Check Key Back In</Header>
             <Divider />
             <Form.Button content="Submit" />
