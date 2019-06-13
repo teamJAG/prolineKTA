@@ -133,7 +133,11 @@ import React from 'react';
   }];
 
 export const propertyColumns = [{
+<<<<<<< Updated upstream
     Header: 'Building Name',
+=======
+    Header: "Bulding Name",
+>>>>>>> Stashed changes
     accessor: 'property_name'
 }, {
     Header: 'Key Type',
