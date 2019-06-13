@@ -20,6 +20,7 @@ async function getKeyStatus(req, res) {
         }
         let payload = {
             key: {
+                keyId: keyRecord.key_id,
                 address: keyRecord.address,
                 city: keyRecord.city,
                 propertyName: keyRecord.property_name,
@@ -74,13 +75,12 @@ async function switchKeyStatus(req, res) {
 }
 
 async function checkKeyOut(req, res) {
-    const { keyId, deposit, depositType, notes } = req.body
-    const filterArray = keyId.split('-');
-    let queryString = `INSERT INTO proline.trans_tab (deposit, deposit_type, notes, key_tab_key_id, `
-    if (req.body.user) {
-        const userId = req.body.user.userId;
-        queryString += 'user_tab_user_id'
-    }
+    const { firstName, lastName, company, deposit, depositType, fees, notes, keyId } = req.body
+    let queryString = `INSERT INTO proline.trans_tab (deposit, deposit_type, fees, notes, key_tab_key_id, 
+        contractor_tab_contractor_id) VALUES (${deposit}, '${depositType}', ${fees}, '${notes}', ${keyId}, (SELECT 
+        contractor_id FROM proline.contractor_tab WHERE '${firstName}' LIKE first_name AND '${lastName}' 
+        LIKE last_name AND '${company}' LIKE company))`
+
     console.log(queryString);
     try {
         let result = await db.dbQuery(queryString);

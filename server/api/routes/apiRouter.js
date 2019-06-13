@@ -24,6 +24,10 @@ const OPTS = {
 };
 
 router
+  .route("/search")
+  .post(recordsAPI.getSearchOptions);
+
+router
   .route("/property")
   .post(propertyAPI.createProperty)
   .put(propertyAPI.updateProperty);
@@ -43,12 +47,15 @@ router
   .post(keysAPI.createKey)
   .put(keysAPI.updateKey);
 
-router.route("/records").post(recordsAPI.listRecords);
+router
+  .route("/fullreport")
+  .get(historyAPI.generateReport);
 
-router.route("/reports").get(historyAPI.generateReport);
+router
+  .route("/records")
+  .post(recordsAPI.listRecords);
 
-// router.route("/properties").get(propertyAPI.listPropertyNames);
-
-router.route("/");
+router
+  .route("/");
 
 module.exports = router;

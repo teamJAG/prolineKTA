@@ -38,15 +38,12 @@ const peopleRecords = `SELECT user_id, first_name, last_name, email, phone_num, 
 //Queries for the keysAPI
 
 const keyRecord = `SELECT k.storage_location, k.key_quantity, k.creation_date, k.key_status, k.active, k.key_type, 
-    k.key_number, k.office_location, k.deposit, a.address, c.city, p.property_name, p.property_number, p.property_type
+    k.key_number, k.key_id, k.office_location, k.deposit, a.address, c.city, p.property_name, p.property_number, p.property_type
     FROM proline.key_tab k
     INNER JOIN proline.address_tab a ON a.address_id = k.address_tab_address_id
     INNER JOIN proline.city_tab c ON c.city_id = a.city_tab_city_id
     INNER JOIN proline.property_tab p ON p.property_id = a.property_tab_property_id 
     WHERE `;
-
-const createTransaction = `INSERT INTO proline.trans_tab (desposit, deposit_type, notes)
-    VALUES `;
 
 module.exports = {
   keyCount,
@@ -55,6 +52,5 @@ module.exports = {
   propRecords,
   peopleCount,
   peopleRecords,
-  keyRecord,
-  createTransaction
+  keyRecord
 };

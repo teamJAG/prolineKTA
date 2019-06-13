@@ -9,7 +9,7 @@ class GeneratedQRCode extends React.Component {
       <div >
         <QRCode
           style={{ paddingLeft: "10px", paddingTop: "15px" }}
-          value="this is a QR code"
+          value=":3"
           level="H"
           renderAs="svg"
           size="92"

@@ -70,14 +70,20 @@ export async function fetchKeyCheck(request, method, handleData) {
   }
 }
 
-// export async function fetchBuildingNames(handleData) {
-//   try {
-//     let result = await fetch(`${process.env.REACT_APP_API_URL}/properties`);
-//     result = await handleHTTPErrors(result);
-//     const records = await result.json();
-//     return handleData(records);
-//   } catch (err) {
-//     console.log("Building reports fetch failed: " + err);
-//     return err; 
-//   }
-// }
+export async function fetchNames(request, handleData) {
+  try {
+    let result = await fetch(`${process.env.REACT_APP_API_URL}/search`, {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(request)
+    });
+    result = await handleHTTPErrors(result);
+    const records = await result.json();
+    return handleData(records);
+  } catch (err) {
+    console.log("Autocomplete field fetch failed: " + err);
+    return err; 
+  }
+}
