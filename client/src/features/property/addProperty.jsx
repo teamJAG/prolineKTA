@@ -1,135 +1,124 @@
-// Im still workin on this page
+import React, { Component } from 'react'
+import {Form, Dropdown, Input} from 'semantic-ui-react-form-validator'
+import {TextArea, Button} from 'semantic-ui-react';
 
-import React from 'react';
-import { withStyles } from '@material-ui/core/styles';
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
+export default class AddPropertyForm extends React.Component {
+// state
+state = {
+  formData: {
+    city: '',
+    propType: '',
+    propName: '',
+    propAddr: '',
+    postalCode: '',
+  },
+  submitted: false,
+};
 
-const useStyles = withStyles(theme => ({
-  root: {
-    display: 'flex',
-    flexWrap: 'wrap',
-  },
-  margin: {
-    margin: theme.spacing(1),
-  },
-  withoutLabel: {
-    marginTop: theme.spacing(3),
-  },
-  textField: {
-    flexBasis: 200,
-  },
-  button: {
-    margin: theme.spacing(5),
-  },
-  input: {
-    display: 'none',
-  },
-}));
+handleChange = (event) => {
+  const { formData } = this.state;
+  formData[event.target.name] = event.target.value;
+  this.setState({ formData });
+};
 
-function AddPropertyForm() {
-  const classes = withStyles();
-  const [values, setValues] = React.useState({
-    // amount: '',
-    // password: '',
-    // weight: '',
-    // weightRange: '',
-    // showPassword: false,
+handleSubmit = () => {
+  this.setState({ submitted: true }, () => {
+    setTimeout(() => this.setState({ submitted: false }), 5000);
   });
-
-  const handleChange = prop => event => {
-    setValues({ ...values, [prop]: event.target.value });
-  };
-
-  const propType = [
+};
+  
+render() {
+  const propTypeOptions = [
     {
-      label: 'Strata',
+      key: 'Strata',
+      text: 'Strata',
+      value: 'Strata',
     },
     {
-      label: 'Rental',
+      key: 'Condo',
+      text: 'Condo',
+      value: 'Condo',
     },
     {
-      label: 'Saundry',
+      key: 'Saundry',
+      text: 'Saundry',
+      value: 'Saundry',
     },
+    {
+      key: 'FOB',
+      text: 'FOB',
+      value: 'FOB',
+    }
   ];
-
-
+  // ------------------------------------- Add Property Form -------------------------------------------
+  const { formData, submitted } = this.state;
   return (
+    <Form ref="form" onSubmit={this.handleSubmit}>
       <div style={{ marginTop: 10, padding: 20 }}>
       <h1 class = "ui horizontal divider header"> Create Property</h1> 
-      
-      <form className={classes.container} noValidate autoComplete="off">
-      <TextField
-        id="city"
-        label="City"
-        fullWidth
-        className={classes.textField}
-        margin="normal"
-        variant="outlined"
-      />
-      <TextField
-        id="propType"
-        select
-        label="Property Type"
-        fullWidth
-        value={values.propType}
-        onChange={handleChange('propType')}
-        SelectProps={{
-          native: true,
-          MenuProps: {
-            className: classes.menu,
-          },
-        }}
-        className={classes.textField}
-        margin="normal"
-        variant="outlined"
-      >
-        {propType.map(option => (
-          <option key={option.value} value={option.value}>
-            {option.label}
-          </option>
-        ))}
-      </TextField> 
-      <TextField
-        id="propName"
-        label="Poperty Name"
-        fullWidth
-        className={classes.textField}
-        margin="normal"
-        variant="outlined"
-      />
-      <TextField
-        id="propAddress"
-        label="Property Address"
-        fullWidth
-        className={classes.textField}
-        margin="normal"
-        variant="outlined"
-      />
-      <TextField
-        id="propAddress"
-        label="Postal Code"
-        fullWidth
-        className={classes.textField}
-        margin="normal"
-        variant="outlined"
-      />
-      <TextField
-        id="comment"
-        label="Additional Comments"
-        fullWidth
-        multiline
-        rows="4"
-        className={classes.textField}
-        margin="normal"
-        variant="outlined"
-      />
-    <Button variant="contained" color="primary" className={classes.button}>
-        Submit
-    </Button>      
-    </form>
-    </div>
-  );
-}
 
-export default useStyles(AddPropertyForm);
+      <Input
+        label="City"
+        placeholder="City"
+        onChange={this.handleChange}
+        name="city"
+        value={formData.city}
+        validators={['required']}
+        errorMessages={['this field is required']}
+      />
+      <Dropdown
+        label="Property Type"
+        name="propType"
+        fluid
+        selection
+        placeholder="Property Type"
+        onChange={(e,{value})=>{this.setState({dropdown:value})}}
+        value={this.state.dropdown} 
+        validators={['required']} 
+        errorMessages={['this field is required']} 
+        options={propTypeOptions}
+      />
+      <Input
+        label="Property Name"
+        placeholder="Property Name"
+        onChange={this.handleChange}
+        name="propName"
+        value={formData.propName}
+        validators={['required']}
+        errorMessages={['this field is required']}
+      />
+      <Input
+        label="Property Address"
+        placeholder="Property Address"
+        onChange={this.handleChange}
+        name="propAddr"
+        value={formData.propAddr}
+        validators={['required']}
+        errorMessages={['this field is required']}
+      />
+      <Input
+        label="Postal Code"
+        placeholder="Postal Code"
+        onChange={this.handleChange}
+        name="postalCode"
+        value={formData.postalCode}
+        validators={['required', 'matchRegexp:[A-Za-z][0-9][A-Za-z] [0-9][A-Za-z][0-9]']}
+        errorMessages={['this field is required', 'postalcode is invalid']}
+      />
+      <TextArea
+        style={{ minHeight: 100 }}
+        name="additionalComment"
+        label="Additional Comment"
+        placeholder="Additional Comment"
+        onChange={this.handleChange}
+      />
+      <br />
+
+      <Button type="submit" variant="contained" color="primary" disabled={submitted}>
+      {(submitted && 'Your form is submitted!') || (!submitted && 'Submit')}
+      </Button>      
+      </div>
+    </Form>
+    );
+  }
+}

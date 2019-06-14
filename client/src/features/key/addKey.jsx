@@ -1,114 +1,137 @@
-import React from "react";
-import { withStyles, responsiveFontSizes } from "@material-ui/core/styles";
-import TextField from "@material-ui/core/TextField";
-import Button from "@material-ui/core/Button";
-import Grid from "@material-ui/core/Grid";
+import React, { Component } from 'react'
+import {Form, Dropdown, Input} from 'semantic-ui-react-form-validator'
+import {Button} from 'semantic-ui-react';
 import PrintQRCode from "./PrintQRCode";
 
-const useStyles = withStyles(theme => ({
-  root: {
-    display: "flex",
-    flexWrap: "wrap"
+export default class AddPropertyForm extends React.Component {
+// state
+state = {
+  formData: {
+    address:'',
+    city: '',
+    storageLocation: '',
+    keyQuantity: '',
+    keyType: '',
+    postalCode: '',
+    showQR: false,
   },
-  margin: {
-    margin: theme.spacing(1)
-  },
-  withoutLabel: {
-    marginTop: theme.spacing(3)
-  },
-  textField: {
-    flexBasis: 200
-  },
-  button: {
-    margin: theme.spacing(10)
-  },
-  input: {
-    display: "none"
-  }
-}));
+  submitted: false,
+};
 
-function AddKeyForm() {
-  const classes = withStyles();
-  const [values, setValues] = React.useState({
-    amount: "",
-    password: "",
-    weight: "",
-    weightRange: "",
-    showPassword: false,
-    showQR: false
+handleChange = (event) => {
+  const { formData } = this.state;
+  formData[event.target.name] = event.target.value;
+  this.setState({ formData });
+};
+
+handleSubmit = () => {
+  this.setState({ submitted: true, showQR: true }, () => {
+    // formData({ showQR: true });
+    setTimeout(() => this.setState({ submitted: false }), 5000);
   });
-
-  const submit = () => {
-    setValues({ showQR: true });
-  };
-
-  const handleChange = prop => event => {
-    setValues({ ...values, [prop]: event.target.value });
-  };
-
-  if (!values.showQR) {
+};
+  
+render() {
+  const keyTypeOptions = [
+    {
+      key: 'Master',
+      text: 'Master',
+      value: 'Master',
+    },
+    {
+      key: 'Trades',
+      text: 'Trades',
+      value: 'Trades',
+    },
+    {
+      key: 'FOB',
+      text: 'FOB',
+      value: 'FOB',
+    },
+    {
+      key: 'Garage',
+      text: 'Garage',
+      value: 'Garage',
+    },
+    {
+      key: 'Elevator',
+      text: 'Elevator',
+      value: 'Elevator',
+    },
+    {
+      key: 'Proline',
+      text: 'Proline',
+      value: 'Proline',
+    },
+  ];
+  // ------------------------------------- Add Property Form -------------------------------------------
+  const { formData, submitted } = this.state;
+  // if (!values.showQR) {
+    if (!this.state.showQR) {
     return (
-      <div style={{ marginTop: 10, padding: 20 }}>
-        <Grid container spacing={40} justify="center">
-          <h1 class="ui horizontal divider header"> Create Key</h1>
-          <TextField
-            id="address"
-            label="Address"
-            fullWidth
-            className={classes.textField}
-            margin="normal"
-            variant="outlined"
-          />
-          <TextField
-            id="city"
-            label="City"
-            fullWidth
-            className={classes.textField}
-            margin="normal"
-            variant="outlined"
-          />
-          <TextField
-            id="storageLoc"
-            label="Storage Location"
-            fullWidth
-            className={classes.textField}
-            margin="normal"
-            variant="outlined"
-          />
-          <TextField
-            id="keyQuantity"
-            label="Key Quantity"
-            fullWidth
-            onChange={handleChange("quantity")}
-            type="number"
-            className={classes.textField}
-            InputLabelProps={{
-              shrink: true
-            }}
-            margin="normal"
-            variant="outlined"
-          />
-          <TextField
-            id="keyType"
-            label="Key Type"
-            fullWidth
-            className={classes.textField}
-            margin="normal"
-            variant="outlined"
-          />
-        </Grid>
-        <Button
-          variant="contained"
-          color="primary"
-          className={classes.button}
-          onClick={submit}
-        >
-          Submit
-        </Button>
-      </div>
-    );
-  } else {
-    return <PrintQRCode />;
+      <Form ref="form" onSubmit={this.handleSubmit}>
+        <div style={{ marginTop: 10, padding: 20 }}>
+        <h1 class = "ui horizontal divider header"> Create Property</h1> 
+
+        <Input
+          label="Address"
+          placeholder="Address"
+          onChange={this.handleChange}
+          name="address"
+          value={formData.address}
+          validators={['required']}
+          errorMessages={['this field is required']}
+        />
+        <Input
+          label="City"
+          placeholder="City"
+          onChange={this.handleChange}
+          name="city"
+          value={formData.city}
+          validators={['required']}
+          errorMessages={['this field is required']}
+        />
+        <Input
+          label="Storage Location"
+          placeholder="Storage Location"
+          onChange={this.handleChange}
+          name="storageLocation"
+          value={formData.storageLocation}
+          validators={['required']}
+          errorMessages={['this field is required']}
+        />
+        <Input
+          type="number"
+          label="Key Quantity"
+          placeholder="Key Quantity"
+          onChange={this.handleChange}
+          name="keyQuantity"
+          value={formData.keyQuantity}
+          validators={['required']}
+          errorMessages={['this field is required']}
+        />
+        <Dropdown
+          label="Key Type"
+          name="keyType"
+          fluid
+          selection
+          placeholder="Key Type"
+          onChange={(e,{value})=>{this.setState({dropdown:value})}}
+          value={this.state.dropdown} 
+          validators={['required']} 
+          errorMessages={['this field is required']} 
+          options={keyTypeOptions}
+        />
+        <br />
+
+        <Button type="submit" variant="contained" color="primary" disabled={submitted}>
+        {(submitted && 'Your form is submitted!') || (!submitted && 'Submit')}
+        </Button>      
+        </div>
+      </Form>
+      );
+      } else {
+       return <PrintQRCode/>;
+     }
   }
 }
-export default useStyles(AddKeyForm);
