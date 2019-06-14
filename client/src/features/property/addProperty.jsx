@@ -1,124 +1,145 @@
-import React, { Component } from 'react'
-import {Form, Dropdown, Input} from 'semantic-ui-react-form-validator'
-import {TextArea, Button} from 'semantic-ui-react';
+import React, { Component } from "react";
+import { Form, Dropdown, Input } from "semantic-ui-react-form-validator";
+import { TextArea, Button, Divider } from "semantic-ui-react";
+import { fetchRecord } from '../../app/fetch/fetches';
 
 export default class AddPropertyForm extends React.Component {
-// state
-state = {
-  formData: {
-    city: '',
-    propType: '',
-    propName: '',
-    propAddr: '',
-    postalCode: '',
-  },
-  submitted: false,
-};
+  constructor(props) {
+    super(props);
+    this.state = {
+      address: "",
+      city: "",
+      postalCode: "",
+      propertyName: "",
+      propertyNumber: "",
+      propertyType: "",
+      comments: ""
+    };
+  }
 
-handleChange = (event) => {
-  const { formData } = this.state;
-  formData[event.target.name] = event.target.value;
-  this.setState({ formData });
-};
+  handleChange(e, data) {
+    this.setState({
+      [data.name]: data.value
+    });
+  }
 
-handleSubmit = () => {
-  this.setState({ submitted: true }, () => {
-    setTimeout(() => this.setState({ submitted: false }), 5000);
-  });
-};
-  
-render() {
-  const propTypeOptions = [
-    {
-      key: 'Strata',
-      text: 'Strata',
-      value: 'Strata',
-    },
-    {
-      key: 'Condo',
-      text: 'Condo',
-      value: 'Condo',
-    },
-    {
-      key: 'Saundry',
-      text: 'Saundry',
-      value: 'Saundry',
-    },
-    {
-      key: 'FOB',
-      text: 'FOB',
-      value: 'FOB',
-    }
-  ];
-  // ------------------------------------- Add Property Form -------------------------------------------
-  const { formData, submitted } = this.state;
-  return (
-    <Form ref="form" onSubmit={this.handleSubmit}>
+  async handleSubmit(e) {
+    e.preventDefault();
+    const { address, city, postalCode, propertyName, propertyNumber, propertyType, comments } = this.state;
+    const request = {
+      address: address,
+      city: city,
+      postalCode: postalCode,
+      propertyName: propertyName,
+      propertyNumber: propertyNumber,
+      propertyType: propertyType,
+      comments: comments
+    };
+    await fetchRecord(request, "POST", "/propertyrecord", res => {
+      return;
+    });
+  }
+
+  render() {
+    const propTypeOptions = [
+      {
+        key: "Strata",
+        text: "Strata",
+        value: "STRATA"
+      },
+      {
+        key: "Rental",
+        text: "Rental",
+        value: "RENTAL"
+      },
+      {
+        key: "Sundry",
+        text: "Sundry",
+        value: "SUNDRY"
+      },
+      {
+        key: "Office",
+        text: "Office",
+        value: "OFFICE"
+      }
+    ];
+
+    return (
       <div style={{ marginTop: 10, padding: 20 }}>
-      <h1 class = "ui horizontal divider header"> Create Property</h1> 
-
-      <Input
-        label="City"
-        placeholder="City"
-        onChange={this.handleChange}
-        name="city"
-        value={formData.city}
-        validators={['required']}
-        errorMessages={['this field is required']}
-      />
-      <Dropdown
-        label="Property Type"
-        name="propType"
-        fluid
-        selection
-        placeholder="Property Type"
-        onChange={(e,{value})=>{this.setState({dropdown:value})}}
-        value={this.state.dropdown} 
-        validators={['required']} 
-        errorMessages={['this field is required']} 
-        options={propTypeOptions}
-      />
-      <Input
-        label="Property Name"
-        placeholder="Property Name"
-        onChange={this.handleChange}
-        name="propName"
-        value={formData.propName}
-        validators={['required']}
-        errorMessages={['this field is required']}
-      />
-      <Input
-        label="Property Address"
-        placeholder="Property Address"
-        onChange={this.handleChange}
-        name="propAddr"
-        value={formData.propAddr}
-        validators={['required']}
-        errorMessages={['this field is required']}
-      />
-      <Input
-        label="Postal Code"
-        placeholder="Postal Code"
-        onChange={this.handleChange}
-        name="postalCode"
-        value={formData.postalCode}
-        validators={['required', 'matchRegexp:[A-Za-z][0-9][A-Za-z] [0-9][A-Za-z][0-9]']}
-        errorMessages={['this field is required', 'postalcode is invalid']}
-      />
-      <TextArea
-        style={{ minHeight: 100 }}
-        name="additionalComment"
-        label="Additional Comment"
-        placeholder="Additional Comment"
-        onChange={this.handleChange}
-      />
-      <br />
-
-      <Button type="submit" variant="contained" color="primary" disabled={submitted}>
-      {(submitted && 'Your form is submitted!') || (!submitted && 'Submit')}
-      </Button>      
+        <h1 className="ui horizontal divider header">Create Property</h1>
+        <Form onSubmit={this.handleSubmit}>
+          <Input
+            label="Name"
+            placeholder="Property Name"
+            onChange={this.handleChange}
+            name="propertyName"
+            value={this.state.propertyName}
+            validators={["required"]}
+            errorMessages={["this field is required"]}
+          />
+          <Input
+            label="Building Number"
+            placeholder="####"
+            onChange={this.handleChange}
+            name="propertyNumber"
+            value={this.state.propertyNumber}
+            validators={["required"]}
+            errorMessages={["this field is required"]}
+          />
+          <Input
+            label="Address"
+            placeholder="Address"
+            onChange={this.handleChange}
+            name="address"
+            value={this.state.address}
+            validators={["required"]}
+            errorMessages={["this field is required"]}
+          />
+          <Input
+            label="City"
+            placeholder="City"
+            onChange={this.handleChange}
+            name="city"
+            value={this.state.city}
+            validators={["required"]}
+            errorMessages={["this field is required"]}
+          />
+          <Input
+            label="Postal Code"
+            placeholder="Postal Code"
+            onChange={this.handleChange}
+            name="postalCode"
+            value={this.state.postalCode}
+            validators={[
+              "required",
+              "matchRegexp:[A-Za-z][0-9][A-Za-z] [0-9][A-Za-z][0-9]"
+            ]}
+            errorMessages={["this field is required", "postalcode is invalid"]}
+          />
+          <Dropdown
+            label="Property Type"
+            name="propertyType"
+            selection
+            placeholder="Property Type"
+            onChange={this.handleChange}
+            value={this.state.propertyType}
+            validators={["required"]}
+            errorMessages={["this field is required"]}
+            options={propTypeOptions}
+          />
+          <TextArea
+            style={{ minHeight: 100 }}
+            name="comments"
+            label="Comments"
+            fluid
+            placeholder="Additional Comments..."
+            onChange={this.handleChange}
+            value={this.state.comments}
+          />
+          <Divider />
+          <Button type="submit" color="teal">Submit</Button>
+        </Form>
       </div>
-    </Form>
     );
   }
 }

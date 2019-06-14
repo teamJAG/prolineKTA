@@ -28,7 +28,7 @@ router
   .post(recordsAPI.getSearchOptions);
 
 router
-  .route("/property")
+  .route("/propertyrecord")
   .post(propertyAPI.createProperty)
   .put(propertyAPI.updateProperty);
 
