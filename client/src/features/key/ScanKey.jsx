@@ -4,13 +4,13 @@ import KeyPending from "./KeyPending";
 import CheckKeyOut from "./CheckKeyOut";
 import CheckKeyIn from "./CheckKeyIn";
 import { fetchKeyStatus, fetchKeyCheck } from "../../app/fetch/fetches";
-import CohoSlip from '../slips/CohoSlip';
-import ElevatorSlip from '../slips/ElevatorSlip';
-import FobSlip from '../slips/FobSlip';
-import GuestSlip from '../slips/GuestSlip';
-import PurchaseSlip from '../slips/PurchaseSlip';
-import RentalSlip from '../slips/RentalSlip';
-import TradeSlip from '../slips/TradeSlip';
+import CohoSlip from "../slips/CohoSlip";
+import ElevatorSlip from "../slips/ElevatorSlip";
+import FobSlip from "../slips/FobSlip";
+import GuestSlip from "../slips/GuestSlip";
+import PurchaseSlip from "../slips/PurchaseSlip";
+import RentalSlip from "../slips/RentalSlip";
+import TradeSlip from "../slips/TradeSlip";
 
 class ScanKey extends Component {
   constructor(props) {
@@ -44,14 +44,13 @@ class ScanKey extends Component {
 
   //Sends POST request to retrieve a key record and [if applicable] a transaction record from the db. Mutates state and UI
   //according to the key's status
-  handleKeyScan(e) {
+  async handleKeyScan(e) {
     e.preventDefault();
     const request = {
       id: this.state.scannedKey
     };
-    fetchKeyStatus(request, "POST", res => {
+    await fetchKeyStatus(request, "POST", res => {
       if (res.key.keyStatus === 1) {
-        window.alert("Request OK.");
         this.setState(state => {
           return {
             keyPending: true,
@@ -61,7 +60,6 @@ class ScanKey extends Component {
           };
         });
       } else if (res.key.keyStatus === 2) {
-        window.alert("Request OK.");
         this.setState(state => {
           return {
             keyPending: false,
@@ -71,7 +69,6 @@ class ScanKey extends Component {
           };
         });
       } else if (res.key.keyStatus === 0 && res.trans) {
-        window.alert("Request OK.");
         this.setState(state => {
           return {
             keyPending: false,
@@ -92,33 +89,20 @@ class ScanKey extends Component {
       keyStatus: 1,
       keyId: this.state.scannedKey
     };
-    try {
-      await fetchKeyStatus(request, "PUT", res => {
-        if (res.affectedRows === 1) {
-          window.alert("Request OK.");
-          this.setState({
-            disableForm: false,
-            keyPending: true
-          });
-        } else {
-          throw new Error("Failed to place key into pending.");
-        }
+    await fetchKeyStatus(request, "PUT", res => {
+      this.setState({
+        disableForm: false,
+        keyPending: true
       });
-    } catch (err) {
-      console.log(err);
-      window.alert(err.message);
-    }
+    });
   }
 
   async handleCheckout(e) {
     e.preventDefault();
 
-    const statusRequest = {
-      keyStatus: 0,
-      keyId: this.state.scannedKey
-    };
+    //Extract the form data from the CheckOut submit and assign NULLs for the database record where needed
     let target = e.target;
-    let firstName, lastName, company, deposit, depositType, fees, notes;
+    let firstName, lastName, company, deposit, depositType, fees, notes, sale;
     target.firstName.value === ""
       ? (firstName = null)
       : (firstName = target.firstName.value);
@@ -136,6 +120,7 @@ class ScanKey extends Component {
       : (depositType = target.depositType.value);
     target.fees.value === "" ? (fees = null) : (fees = target.fees.value);
     target.notes.value === "" ? (notes = null) : (notes = e.target.notes.value);
+    target.sale.checked ? (sale = true) : (sale = false);
 
     const transRequest = {
       firstName: firstName,
@@ -145,68 +130,42 @@ class ScanKey extends Component {
       depositType: depositType,
       fees: fees,
       notes: notes,
+      sale: sale,
       keyId: this.state.keyRecord.keyId
     };
 
-    try {
-      //Fetch to create a transaction record.
-      await fetchKeyCheck(transRequest, "POST", res => {
-        if (res.affectedRows !== 1) {
-          throw new Error("Error: Failed to create transaction");
-        }
-      });
-      //Fetch to change key status to 'checked out'.
-      await fetchKeyStatus(statusRequest, "PUT", res => {
-        if (res.affectedRows !== 1) {
-          throw new Error("Error: key is still in pending");
-        }
-      });
-
-      //Wait half a second before triggering a transaction slip render so that
-      //fetch statements can propogate errors if necessary.
-      setTimeout(() => {
-        window.alert("Request OK.");
-        if (this.state.keyRecord.deposit > 0) {
-          this.setState({
-            keyCheckedIn: false,
-            renderTransactionSlip: true,
-            renderDepositSlip: true
-          });
-        } else {
-          this.setState({
-            renderTransactionSlip: true
-          });
-        }
-      }, 500);
-    } catch (err) {
-      console.log(err);
-      window.alert(err.message);
-      return;
-    }
+    //Fetch to create a transaction record and change key status to '0'/'Checked Out'
+    await fetchKeyCheck(transRequest, "POST", res => {
+      if (this.state.keyRecord.deposit > 0) {
+        this.setState({
+          disableForm: true,
+          keyCheckedIn: false,
+          keyPending: false,
+          renderTransactionSlip: true,
+          renderDepositSlip: true
+        });
+      } else {
+        this.setState({
+          disableForm: true,
+          keyCheckedIn: false,
+          keyPending: false,
+          renderTransactionSlip: true
+        });
+      }
+    });
   }
 
   async handleCheckin(e) {
     e.preventDefault();
     let request = {
-      keyStatus: 2,
       keyId: this.state.keyRecord.keyId,
       transId: this.state.keyTransaction.id
     };
-    try {
-      await fetchKeyCheck(request, "PUT", res => {
-        if (res.affectedRows === 1) {
-          window.alert("Request OK.");
-          this.setState({
-            disableForm: false
-          });
-        } else {
-          throw new Error("Failed to update key status.");
-        }
+    await fetchKeyCheck(request, "PUT", res => {
+      this.setState({
+        disableForm: false
       });
-    } catch (err) {
-      console.log(err);
-      window.alert(err.message);
-    }
+    });
   }
 
   render() {
@@ -216,7 +175,7 @@ class ScanKey extends Component {
       paddingTop: "10%"
     };
 
-    if (!this.state.disableForm) {
+    if (!this.state.disableForm && !this.state.renderTransactionSlip) {
       return (
         <div style={containerStyle}>
           <Form onSubmit={this.handleKeyScan}>
@@ -254,7 +213,64 @@ class ScanKey extends Component {
           />
         </div>
       );
-    } else if (!this.state.keyPending && !this.state.keyCheckedIn) {
+    } else if (
+      this.state.renderTransactionSlip &&
+      !this.state.keyPending &&
+      !this.state.keyCheckedIn
+    ) {
+      switch (this.state.keyRecord.keyType) {
+        case "MASTER":
+          return (
+            <div style={{ containerStyle }}>
+              <FobSlip />
+            </div>
+          );
+        case "TRADES":
+          return (
+            <div style={{ containerStyle }}>
+              <TradeSlip />
+            </div>
+          )
+        case "FOB":
+          return (
+            <div style={{ containerStyle }}>
+              <FobSlip />
+            </div>
+          );
+        case "GARAGE":
+          return (
+            <div style={{ containerStyle }}>
+              <ElevatorSlip />
+            </div>
+          );
+        case "ELEVATOR":
+          return (
+            <div style={{ containerStyle }}>
+              <ElevatorSlip />
+            </div>
+          );
+        case "PROLINE":
+          return (
+            <div style={{ containerStyle }}>
+              <FobSlip />
+            </div>
+          );
+          case "GUEST-ROOM":
+            let guest;
+            this.state.keyRecord.propertyName === "COHO (Phase 1 & 2)" ? (guest = <CohoSlip />) : (guest = <GuestSlip />)
+            return (
+              <div style={{ containerStyle }}>
+                {guest}
+              </div>
+            )
+        default:
+          return null;
+      }
+    } else if (
+      !this.state.renderTransactionSlip &&
+      !this.state.keyPending &&
+      !this.state.keyCheckedIn
+    ) {
       return (
         <div style={{ containerStyle }}>
           <CheckKeyIn
@@ -264,24 +280,8 @@ class ScanKey extends Component {
           />
         </div>
       );
-    } else if (this.state.renderDepositSlip) {
-      switch (this.state.keyRecord.keyType) {
-        case "MASTER":
-          break;
-        case "TRADES":
-          break;
-        case "FOB":
-          break;
-        case "GARAGE":
-          break;
-        case "ELEVATOR":
-          break;
-        case "PROLINE":
-          break;
-        default:
-          break;
-      }
-      return <div style={{ containerStyle }} />;
+    } else {
+      return null;
     }
   }
 }

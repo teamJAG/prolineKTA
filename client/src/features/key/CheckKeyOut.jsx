@@ -6,25 +6,13 @@ import {
   Form,
   Divider,
   Header,
-  Input
+  Input,
+  Checkbox
 } from "semantic-ui-react";
 import AutoComplete from "./AutoComplete";
 
 const CheckKeyOut = props => {
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {
-  //     firstName: '',
-  //     lastName: '',
-  //     company: '',
-  //     deposit: null,
-  //     depositType: null,
-  //     fees: null,
-  //     notes: null,
-  //     sale: false
-  //   }
-  // }
-
+  let checkboxValue = false;
   const containerStyle = {
     display: "flex",
     justifyContent: "center",
@@ -91,7 +79,7 @@ const CheckKeyOut = props => {
                 </Form.Field>
                 <Form.Field>
                   <label>Last Name</label>
-                  <input id="lastName"  />
+                  <input id="lastName" />
                 </Form.Field>
                 <Form.Field>
                   <label>Company</label>
@@ -119,13 +107,13 @@ const CheckKeyOut = props => {
                 </Form.Field>
                 <Form.Group>
                   <Form.Button content="Submit" />
-                  <Form.Field
-                    label="This is a sale"
-                    inline={true}
-                    control="input"
-                    id="sale"
-                    type="checkbox"
-                  />
+                  <Form.Field>
+                    <Checkbox
+                      label="This is a sale"
+                      inline
+                      id="sale"
+                    />
+                  </Form.Field>
                 </Form.Group>
               </Form>
             </Segment>
