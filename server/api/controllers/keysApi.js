@@ -41,7 +41,7 @@ async function getKeyStatus(req, res) {
       transaction = transaction[0];
       payload = Object.assign(payload, {
         trans: {
-            id: transaction.trans_id,
+          id: transaction.trans_id,
           firstName: transaction.first_name,
           lastName: transaction.last_name,
           company: transaction.company,
@@ -93,18 +93,34 @@ async function checkKeyOut(req, res) {
     depositType,
     fees,
     notes,
+    sale,
     keyId
   } = req.body;
-  let queryString = `INSERT INTO proline.trans_tab (deposit, deposit_type, fees, notes, key_tab_key_id, 
+
+  //Is this transaction a sale? Update key status appropriately.
+  let newStatus;
+  sale ? (newStatus = 3) : (newStatus = 0);
+  console.log(sale);
+
+  //Database queries to create a new record in the transaction table, and to update the key's status in the key table
+  let transString = `INSERT INTO proline.trans_tab (deposit, deposit_type, fees, notes, key_tab_key_id, 
         contractor_tab_contractor_id) VALUES (${deposit}, '${depositType}', ${fees}, "${notes}", ${keyId}, (SELECT 
         contractor_id FROM proline.contractor_tab WHERE '${firstName}' LIKE first_name AND '${lastName}' 
         LIKE last_name AND '${company}' LIKE company))`;
+  let keyString = `UPDATE proline.key_tab SET key_status = ${newStatus} WHERE key_id = ${keyId}`;
+  console.log(transString);
+  console.log(keyString);
 
-  console.log(queryString);
   try {
-    let result = await db.dbQuery(queryString);
+    let transResult = await db.dbQuery(transString);
+    let keyResult = await db.dbQuery(keyString);
+    const result = {
+      transResult,
+      keyResult
+    };
     res.status(201).json(result);
   } catch (err) {
+    console.log(err);
     res.status(404).json(err);
     return;
   }
@@ -117,13 +133,17 @@ async function checkKeyIn(req, res) {
   console.log(transString);
   console.log(keyString);
   try {
-      let transResult = await db.dbQuery(transString);
-      let keyResult = await dbQuery(keyString);
-      const result = await transResult + keyResult;
-      res.status(201).result(json);
-  } catch(err) {
-      res.status(404).json(err);
-      return;
+    let transResult = await db.dbQuery(transString);
+    let keyResult = await db.dbQuery(keyString);
+    const result = {
+      transResult,
+      keyResult
+    };
+    res.status(201).json(result);
+  } catch (err) {
+    console.log(err);
+    res.status(404).json(err);
+    return;
   }
 }
 

@@ -16,7 +16,7 @@ class AutoComplete extends Component {
   handleResultSelect = (e, { result }) =>
     this.setState({ value: result.title });
 
-  handleSearchChange = (e, data) => {
+  handleSearchChange(e, data) {
     this.setState({ isLoading: true, value: data.value }, () => {
       const request = {
         tableName: this.props.table,
@@ -30,7 +30,7 @@ class AutoComplete extends Component {
         });
       });
     });
-  };
+  }
 
   render() {
     const { isLoading, value, results } = this.state;

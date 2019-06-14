@@ -83,16 +83,16 @@ const CheckKeyIn = props => {
                     <Table.Cell>{props.transaction.deposit}</Table.Cell>
                   </Table.Row>
                   <Table.Row>
-                    <Table.Cell>Paid By</Table.Cell>
+                    <Table.Cell>Fees</Table.Cell>
+                    <Table.Cell>{props.transaction.fees}</Table.Cell>
+                  </Table.Row>
+                  <Table.Row>
+                    <Table.Cell>Payment Type</Table.Cell>
                     <Table.Cell>{props.transaction.depositType}</Table.Cell>
                   </Table.Row>
                   <Table.Row>
                     <Table.Cell>Notes</Table.Cell>
                     <Table.Cell>{props.transaction.notes}</Table.Cell>
-                  </Table.Row>
-                  <Table.Row>
-                    <Table.Cell>Deposit</Table.Cell>
-                    <Table.Cell>{props.transaction.deposit}</Table.Cell>
                   </Table.Row>
                 </Table.Body>
               </Table>
