@@ -1,33 +1,43 @@
 import React from "react";
-import { Button } from "semantic-ui-react";
+import { Button, Divider } from "semantic-ui-react";
 import ReactToPrint from "react-to-print";
 import QRCode from "qrcode.react";
 
 class GeneratedQRCode extends React.Component {
   render() {
     return (
-      <div >
+      <div>
         <QRCode
           style={{ paddingLeft: "10px", paddingTop: "15px" }}
-          value=":3"
+          value={this.props.qrCode}
           level="H"
           renderAs="svg"
-          size="92"
+          size={92}
         />
       </div>
     );
   }
 }
 
-const PrintQRCode = () => {
+const PrintQRCode = (props) => {
+  const containerStyle = {
+    display: "flex",
+    alignContent: "center",
+    paddingTop: "10%"
+  };
+  const qrCode = `${props.propertyNumber}*${
+    props.keyOfficeLocation
+  }*${props.keyType}*${props.keyNumber}`;
+  console.log(qrCode);
   const qrRef = React.useRef();
   return (
-    <div>
+    <div style={{ containerStyle }}>
       <ReactToPrint
         trigger={() => <Button>Print QR Code</Button>}
         content={() => qrRef.current}
       />
-      <GeneratedQRCode style={{ marginLeft: "10px" }} ref={qrRef} />
+      <Divider />
+      <GeneratedQRCode style={{ marginLeft: "10px" }} qrCode={qrCode} ref={qrRef} />
     </div>
   );
 };

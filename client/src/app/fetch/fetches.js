@@ -86,8 +86,27 @@ export async function fetchNames(request, handleData) {
     const records = await result.json();
     return handleData(records);
   } catch (err) {
-    console.log("fetchNames failed: " + JSON.stringify(err));
+    console.log("fetch failed: " + JSON.stringify(err));
     window.alert("Failure: " + JSON.stringify(err.message));
     return; 
+  }
+}
+
+export async function fetchRecord(request, method, endpoint, handleData) {
+  try {
+    let result = await fetch(`${process.env.REACT_APP_API_URL}/${endpoint}`, {
+      method: method,
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(request)
+    });
+    result = await handleHTTPErrors(result);
+    const records = await result.json();
+    return handleData(records);
+  } catch(err) {
+    console.log("fetch failed: " + JSON.stringify(err));
+    window.alert("Failure: " + JSON.stringify(err.message));
+    return;
   }
 }

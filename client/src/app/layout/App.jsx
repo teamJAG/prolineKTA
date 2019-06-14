@@ -5,8 +5,8 @@ import RecordDashboard from '../../features/record/RecordDashboard';
 import ReportDashboard from '../../features/report/ReportDashboard';
 import NavBar from '../../features/nav/NavBar/NavBar';
 import HomePage from '../../features/home/HomePage';
-import addProperty from '../../features/property/addProperty';
-import addKey from '../../features/key/addKey';
+import AddProperty from '../../features/property/AddProperty';
+import AddKey from '../../features/key/AddKey';
 import Testing from '../../features/testing/Testing';
 import ScanKey from '../../features/key/ScanKey';
 import EditKey from '../../features/key/EditKey';
@@ -64,8 +64,8 @@ class App extends Component {
                   <Route path="/people" render={PeopleRecordDashboard} />
                   <Route path="/keyreports" render={KeyReportDashboard} />
                   <Route path="/buildingreports" render={BuildingReportDashboard} />
-                  <Route path="/createkey" component={addKey} />
-                  <Route path="/createproperty" component={addProperty} />
+                  <Route path="/createkey" component={AddKey} />
+                  <Route path="/createproperty" component={AddProperty} />
                   <Route path="/scankey" component={ScanKey} />
                   <Route path="/editkey" component={EditKey} />
                   <Route path="/editproperty" component={EditProperty} />
