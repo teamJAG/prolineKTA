@@ -1,3 +1,5 @@
+
+
 import React, { Component } from "react";
 import { Form, Label, Header, Divider } from "semantic-ui-react";
 import KeyPending from "./KeyPending";
@@ -99,16 +101,15 @@ class ScanKey extends Component {
 
   async handleCheckout(e) {
     e.preventDefault();
-
     //Extract the form data from the CheckOut submit and assign NULLs for the database record where needed
     let target = e.target;
     let firstName, lastName, company, deposit, depositType, fees, notes, sale;
-    target.firstName.value === ""
+    target.first_name.value === ""
       ? (firstName = null)
-      : (firstName = target.firstName.value);
-    target.lastName.value === ""
+      : (firstName = target.first_name.value);
+    target.last_name.value === ""
       ? (lastName = null)
-      : (lastName = target.lastName.value);
+      : (lastName = target.last_name.value);
     target.company.value === ""
       ? (company = null)
       : (company = target.company.value);
@@ -182,10 +183,11 @@ class ScanKey extends Component {
             <Header>Check Key Status</Header>
             <Divider />
             <Form.Field>
-              <Label pointing="below">Select and Scan QR Code</Label>
+              <Label pointing="below">Scan QR Code</Label>
               <Form.Input
                 id="keyID"
                 as="input"
+                autoFocus
                 type="text"
                 onChange={this.handleInput}
               />

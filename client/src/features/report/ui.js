@@ -54,15 +54,18 @@ import { amber } from '@material-ui/core/colors';
       }
     },
     style: {textAlign: 'center'}
-    }, {
-    Cell: (row) => {
-      return <Button 
-      as={NavLink} 
-      to={{
-        pathname:"/editkey",
-        keyRecord: row.original
-       }} />;
-    }
+  
+  //Edit button disabled for demo
+
+  //   }, {
+  //   Cell: (row) => {
+  //     return <Button 
+  //     as={NavLink} 
+  //     to={{
+  //       pathname:"/editkey",
+  //       keyRecord: row.original
+  //      }} />;
+  //   }
   }];
 
 export const propertyColumns = [{

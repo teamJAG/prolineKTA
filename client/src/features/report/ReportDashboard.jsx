@@ -23,33 +23,15 @@ class ReportDashboard extends Component {
     this.generateFullReport = this.generateFullReport.bind(this);
   }
 
-  // componentDidUpdate(prevProps) {
-
-  //   let columns = [];
-  //   let options = [];
-  //   let filter = {
-  //     id: this.state.filterId,
-  //     value: this.state.filterValue
-  //   };
-
-  //   if (this.props !== prevProps) {
-  //     switch (this.props.tableType) {
-  //       case "keys":
-  //         columns = ui.keyColumns;
-  //         options = ui.keyStatus;
-  //         break;
-  //       case "properties":
-  //         columns = ui.propertyColumns;
-  //         options = ui.propertyNames().then(names => {
-  //           return names;
-  //         });
-  //         break;
-  //       default:
-  //         break;
-  //     }
-  //   }
-  // }
-
+  componentDidUpdate(prevProps) {
+    console.log("fired");
+    if (this.props !== prevProps) {
+      this.setState({
+        filterId: "",
+        filterValue: ""
+      });
+    }
+  }
 
   render() {
 

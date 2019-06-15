@@ -2,19 +2,18 @@
 //or needs to be changed and made unique, a 'Key Number' input needs to be added, and the props being passed
 //to <PrintQRCode> needs to be renamed from 'keyNumber={...keyQuantity}' to an appropriate value.
 
-import React, { Component } from "react";
+import React from "react";
 import { Form, Dropdown, Input } from "semantic-ui-react-form-validator";
 import { Button } from "semantic-ui-react";
 import PrintQRCode from "./PrintQRCode";
 import { fetchRecord } from "../../app/fetch/fetches";
 
-export default class AddKey extends React.Component {
+class AddKey extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       address: "",
       city: "",
-      postalCode: "",
       keyStorageLocation: "",
       keyOfficeLocation: "",
       keyQuantity: 0,
@@ -40,7 +39,6 @@ export default class AddKey extends React.Component {
     const {
       address,
       city,
-      postalCode,
       keyStorageLocation,
       keyOfficeLocation,
       keyQuantity,
@@ -50,7 +48,6 @@ export default class AddKey extends React.Component {
     const request = {
       address: address,
       city: city,
-      postalCode: postalCode,
       keyStorageLocation: keyStorageLocation,
       keyOfficeLocation: keyOfficeLocation,
       keyQuantity: keyQuantity,
@@ -61,6 +58,7 @@ export default class AddKey extends React.Component {
       this.setState({
         showQR: true,
         propertyNumber: res.property_number,
+        keyNumber: res.key_number
       });
     });
   }
@@ -103,11 +101,19 @@ export default class AddKey extends React.Component {
         value: "GUEST-ROOM"
       }
     ];
+    const containerStyle = {
+      display: "inline-block",
+      margin: 'auto',
+      paddingTop: 20,
+      textAlign: "left",
+      width: '50%'
+    };
 
     if (!this.state.showQR) {
       return (
-        <div style={{ marginTop: 10, padding: 20 }}>
+        <div style={{ marginTop: 10, padding: 20, display: 'block', textAlign: 'center' }}>
           <h1 className="ui horizontal divider header">Create Key</h1>
+          <div style={containerStyle}>
           <Form onSubmit={this.handleSubmit}>
             <Input
               onChange={this.handleChange}
@@ -115,15 +121,6 @@ export default class AddKey extends React.Component {
               label="Street Address"
               placeholder="Address"
               name="address"
-              validators={["required"]}
-              errorMessages={["this field is required"]}
-            />
-            <Input
-              onChange={this.handleChange}
-              value={this.state.postalCode}
-              label="Postal Code"
-              placeholder="Postal Code"
-              name="postalCode"
               validators={["required"]}
               errorMessages={["this field is required"]}
             />
@@ -190,6 +187,7 @@ export default class AddKey extends React.Component {
               Submit
             </Button>
           </Form>
+          </div>
         </div>
       );
     } else {
@@ -198,9 +196,12 @@ export default class AddKey extends React.Component {
           propertyNumber={this.state.propertyNumber}
           keyOfficeLocation={this.state.keyOfficeLocation}
           keyType={this.state.keyType}
-          keyNumber={this.state.keyQuantity}
+          keyNumber={this.state.keyNumber}
+          keyQuantity={this.state.keyQuantity}
         />
       );
     }
   }
 }
+
+export default AddKey;
