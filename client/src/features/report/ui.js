@@ -101,9 +101,7 @@ export const propertyColumns = [{
 }];
 
 export const keyStatus = [
-  { key: '1', text: 'In', value: '2'},
-  { key: '2', text: 'Pending', value: '1'},
-  { key: '3', text: 'Out', value: '0'},
+  { key: '1', text: 'Out', value: '0'}
 ];
 
 export const propertyOptions = [
