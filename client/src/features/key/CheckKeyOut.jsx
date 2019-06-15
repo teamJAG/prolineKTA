@@ -74,20 +74,20 @@ const CheckKeyOut = props => {
                 <Header textAlign="center">Check Out Pending Key</Header>
                 <Divider />
                 <Form.Field>
+                <label>Company</label>
+                <AutoComplete
+                  table="contractor_tab"
+                  id="company"
+                  as={Input}
+                />
+              </Form.Field>
+                <Form.Field>
                   <label>First Name</label>
-                  <input id="firstName" />
-                </Form.Field>
+                  <input id="first_name"/>
+                </Form.Field >
                 <Form.Field>
                   <label>Last Name</label>
-                  <input id="lastName" />
-                </Form.Field>
-                <Form.Field>
-                  <label>Company</label>
-                  <AutoComplete
-                    table="contractor_tab"
-                    id="company"
-                    as={Input}
-                  />
+                  <input id="last_name" />
                 </Form.Field>
                 <Form.Field>
                   <label>Deposit</label>
@@ -108,11 +108,7 @@ const CheckKeyOut = props => {
                 <Form.Group>
                   <Form.Button content="Submit" />
                   <Form.Field>
-                    <Checkbox
-                      label="This is a sale"
-                      inline
-                      id="sale"
-                    />
+                    <Checkbox label="This is a sale" inline id="sale" />
                   </Form.Field>
                 </Form.Group>
               </Form>

@@ -56,17 +56,19 @@ import { NavLink } from 'react-router-dom';
       }
     },
     style: {textAlign: 'center'}
-    }, {
-      Cell: (row) => {
-        return <Button 
-        as={NavLink} 
-        to={{
-          pathname:"/editkey",
-          keyRecord: row.original
-         }}>Edit</Button>;
-      },
-      style: {textAlign: 'center'},
-      sortable: false
+
+    //Edit button disabled for demo
+    // }, {
+    //   Cell: (row) => {
+    //     return <Button 
+    //     as={NavLink} 
+    //     to={{
+    //       pathname:"/editkey",
+    //       keyRecord: row.original
+    //      }}>Edit</Button>;
+    //   },
+    //   style: {textAlign: 'center'},
+    //   sortable: false
     },
   ];
 
@@ -123,17 +125,19 @@ import { NavLink } from 'react-router-dom';
   }, {
     Header: 'Comments',
     accessor: 'comments'
-  }, {
-    Cell: (row) => {
-      return <Button 
-      as={NavLink} 
-      to={{
-        pathname:"/editproperty",
-        keyRecord: row.original
-       }}>Edit</Button>;
-    },
-    style: {textAlign: 'center'},
-    sortable: false
+  // },
+  //Edit button disabled for demo
+  //  {
+  //   Cell: (row) => {
+  //     return <Button 
+  //     as={NavLink} 
+  //     to={{
+  //       pathname:"/editproperty",
+  //       keyRecord: row.original
+  //      }}>Edit</Button>;
+  //   },
+  //   style: {textAlign: 'center'},
+  //   sortable: false
   }];
 
 //Arrays to describe the selections available to filter results by id
