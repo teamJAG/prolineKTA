@@ -24,6 +24,7 @@ async function getKeyStatus(req, res) {
         address: keyRecord.address,
         city: keyRecord.city,
         propertyName: keyRecord.property_name,
+        propertyNumber: keyRecord.property_number,
         propertyType: keyRecord.property_type,
         keyType: keyRecord.key_type,
         keyStatus: keyRecord.key_status,
@@ -85,7 +86,7 @@ async function switchKeyStatus(req, res) {
 }
 
 async function checkKeyOut(req, res) {
-  const {
+  let {
     firstName,
     lastName,
     company,
@@ -102,9 +103,23 @@ async function checkKeyOut(req, res) {
   sale ? (newStatus = 3) : (newStatus = 0);
   console.log(sale);
 
+  //If there is a deposit type and/or notes, treat them as a string.
+  if (depositType !== null) {
+    depositType = `'${depositType}'`;
+  }
+  if (notes !== null) {
+    notes = `'${notes}'`;
+  }
+
+  //IF EXISTS: FIRST NAME AND LAST NAME IN COMPANY
+  //CONTINUE
+  //IF NOT:
+  //INSERT INTO CONTRACTOR TABLE (NULL PHONE NUMBER)
+  //IF INSERT, RESPONSE INCLUDES FLAG FOR WINDOW.ALERT(NEW CONTRACTOR - NO CONTACT INFORMATION)
+
   //Database queries to create a new record in the transaction table, and to update the key's status in the key table
   let transString = `INSERT INTO proline.trans_tab (deposit, deposit_type, fees, notes, key_tab_key_id, 
-        contractor_tab_contractor_id) VALUES (${deposit}, '${depositType}', ${fees}, "${notes}", ${keyId}, (SELECT 
+        contractor_tab_contractor_id) VALUES (${deposit}, ${depositType}, ${fees}, ${notes}, ${keyId}, (SELECT 
         contractor_id FROM proline.contractor_tab WHERE '${firstName}' LIKE first_name AND '${lastName}' 
         LIKE last_name AND '${company}' LIKE company))`;
   let keyString = `UPDATE proline.key_tab SET key_status = ${newStatus} WHERE key_id = ${keyId}`;
@@ -152,31 +167,25 @@ async function createKey(req, res) {
   const {
     address,
     city,
-    postalCode,
     keyStorageLocation,
     keyOfficeLocation,
     keyQuantity,
-    keyNumber,
     keyType,
     deposit
   } = req.body;
 
-  // address = address.toUpperCase();
-  // city = city.toUpperCase();
-  // postalCode = postalCode.toUpperCase();
-  // keyStorageLocation = keyStorageLocation.toUpperCase();
-
   const keyQueryString = `INSERT INTO proline.key_tab (storage_location, key_quantity, key_type, key_number, 
     deposit, office_location, address_tab_address_id) VALUES ('${keyStorageLocation}', ${keyQuantity}, 
-    '${keyType}', ${keyQuantity}, ${deposit}, '${keyOfficeLocation}', (SELECT a.address_id FROM 
+    '${keyType}', 1, ${deposit}, '${keyOfficeLocation}', (SELECT a.address_id FROM 
       proline.address_tab a INNER JOIN proline.city_tab c ON c.city_id = a.city_tab_city_id 
-      WHERE address LIKE '${address}' AND postal_code LIKE '${postalCode}' AND 
-      city LIKE '${city}'))`;
+      WHERE address LIKE '${address}' AND city LIKE '${city}'))`;
 
-  const qrQueryString = `SELECT p.property_number FROM proline.property_tab p
-    INNER JOIN proline.address_tab a ON a.property_tab_property_id = p.property_id
+  const qrQueryString = `SELECT p.property_number, MAX(k.key_number) as key_number FROM proline.key_tab k
+    INNER JOIN proline.address_tab a ON k.address_tab_address_id = a.address_id
+    INNER JOIN proline.property_tab p ON a.property_tab_property_id = p.property_id
     INNER JOIN proline.city_tab c ON c.city_id = a.city_tab_city_id
-    WHERE address LIKE '${address}' AND city LIKE '${city}' AND postal_code LIKE '${postalCode}'`;
+    WHERE address LIKE '${address}' AND city LIKE '${city}' AND key_type LIKE '${keyType}'
+    GROUP BY property_number`;
 
   console.log(keyQueryString);
   console.log(qrQueryString);

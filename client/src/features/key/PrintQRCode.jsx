@@ -10,34 +10,52 @@ class GeneratedQRCode extends React.Component {
         <QRCode
           style={{ paddingLeft: "10px", paddingTop: "15px" }}
           value={this.props.qrCode}
-          level="H"
+          level="L"
           renderAs="svg"
           size={92}
         />
+        <div
+          style={{
+            position: 'absolute',
+            top: '32%',
+            left: '12%',
+            fontSize: '25px',
+            fontWeight: 'bold',
+            transform: "rotate(90deg)"
+          }}
+        >
+          <p>
+            {this.props.propNumber}-{this.props.keyType.charAt(0)}{this.props.keyNumber}-{this.props.keyQuantity}
+          </p>
+        </div>
       </div>
     );
   }
 }
 
-const PrintQRCode = (props) => {
-  const containerStyle = {
-    display: "flex",
-    alignContent: "center",
-    paddingTop: "10%"
-  };
-  const qrCode = `${props.propertyNumber}*${
-    props.keyOfficeLocation
-  }*${props.keyType}*${props.keyNumber}`;
+const PrintQRCode = props => {
+  const qrCode = `${props.propertyNumber}*${props.keyOfficeLocation}*${
+    props.keyType
+  }*${props.keyNumber}`;
   console.log(qrCode);
   const qrRef = React.useRef();
   return (
-    <div style={{ containerStyle }}>
+    <div>
+      <GeneratedQRCode
+        style={{ marginLeft: "10px" }}
+        propNumber={props.propertyNumber}
+        keyType={props.keyType}
+        keyQuantity={props.keyQuantity}
+        keyNumber={props.keyNumber}
+        qrCode={qrCode}
+        ref={qrRef}
+      />
+
+      <Divider style={{marginTop: '30%'}} />
       <ReactToPrint
         trigger={() => <Button>Print QR Code</Button>}
         content={() => qrRef.current}
       />
-      <Divider />
-      <GeneratedQRCode style={{ marginLeft: "10px" }} qrCode={qrCode} ref={qrRef} />
     </div>
   );
 };

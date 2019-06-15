@@ -2,7 +2,6 @@ import React from "react";
 import { Form, Divider, Header, Grid, Table, Segment } from "semantic-ui-react";
 
 const KeyPending = props => {
-
   return (
     <div>
       <Grid columns={2} divided>
@@ -27,6 +26,10 @@ const KeyPending = props => {
                     <Table.Cell>{props.keyRecord.propertyName}</Table.Cell>
                   </Table.Row>
                   <Table.Row>
+                    <Table.Cell>Property Number</Table.Cell>
+                    <Table.Cell>{props.keyRecord.propertyNumber}</Table.Cell>
+                  </Table.Row>
+                  <Table.Row>
                     <Table.Cell>Property Type</Table.Cell>
                     <Table.Cell>{props.keyRecord.propertyType}</Table.Cell>
                   </Table.Row>
@@ -36,7 +39,9 @@ const KeyPending = props => {
                   </Table.Row>
                   <Table.Row>
                     <Table.Cell>Storage Location</Table.Cell>
-                    <Table.Cell>{props.keyRecord.keyStorageLocation}</Table.Cell>
+                    <Table.Cell>
+                      {props.keyRecord.keyStorageLocation}
+                    </Table.Cell>
                   </Table.Row>
                   <Table.Row>
                     <Table.Cell>Office Location</Table.Cell>
