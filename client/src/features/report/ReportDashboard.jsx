@@ -82,12 +82,13 @@ class ReportDashboard extends Component {
     return (
       <div>
         <div>
-          <Dropdown
+          <Input
             options={options}
-            selection
-            onChange={this.handleId}
-            value={this.state.value}
-            placeholder="Category..."
+            disabled
+            readonly=""
+            // onChange={this.handleId}
+            // value={this.state.value}
+            placeholder="Key's Out"
           />
           <Input
             style={{ paddingLeft: "5px" }}

@@ -27,10 +27,40 @@ class NavBar extends Component {
           <Dropdown item text="Reports">
             <Dropdown.Menu>
               <Dropdown.Item as={NavLink} to="/keyreports">
-                Keys
+                Keys Out
               </Dropdown.Item>
               <Dropdown.Item as={NavLink} to="/buildingreports">
                 Buildings
+              </Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
+          
+
+          <Dropdown item text="Forms">
+            <Dropdown.Menu>
+              <Dropdown.Item as={NavLink} to="/guest">
+                Guest
+              </Dropdown.Item>
+              <Dropdown.Item as={NavLink} to="/coho">
+                Guest - Coho
+              </Dropdown.Item>
+              <Dropdown.Item as={NavLink} to="/elevator">
+                Elevator
+              </Dropdown.Item>
+              <Dropdown.Item as={NavLink} to="/fob">
+                Fob
+              </Dropdown.Item>
+              <Dropdown.Item as={NavLink} to="/trade">
+                Trades
+              </Dropdown.Item>
+              <Dropdown.Item as={NavLink} to="/rental">
+                Final Rental
+              </Dropdown.Item>
+              <Dropdown.Item as={NavLink} to="/purchase">
+                Purchase
+              </Dropdown.Item>
+              <Dropdown.Item as={NavLink} to="/trade">
+                Generic
               </Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
