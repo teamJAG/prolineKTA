@@ -3,7 +3,7 @@ import { Form, Dropdown, Input } from "semantic-ui-react-form-validator";
 import { TextArea, Button, Divider } from "semantic-ui-react";
 import { fetchRecord } from '../../app/fetch/fetches';
 
-export default class AddPropertyForm extends React.Component {
+export default class AddProperty extends React.Component {
   constructor(props) {
     super(props);
     this.state = {

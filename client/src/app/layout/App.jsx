@@ -6,6 +6,7 @@ import ReportDashboard from '../../features/report/ReportDashboard';
 import NavBar from '../../features/nav/NavBar/NavBar';
 import HomePage from '../../features/home/HomePage';
 import AddProperty from '../../features/property/AddProperty';
+import AddContractor from '../../features/user/AddContractor';
 import AddKey from '../../features/key/AddKey';
 import Testing from '../../features/testing/Testing';
 import ScanKey from '../../features/key/ScanKey';
@@ -62,6 +63,7 @@ class App extends Component {
                   <Route path="/keys" render={KeyRecordDashBoard} />
                   <Route path="/properties" render={PropertyRecordDashBoard} />
                   <Route path="/people" render={PeopleRecordDashboard} />
+                  <Route path="/createcontractor" component={AddContractor}/>
                   <Route path="/keyreports" render={KeyReportDashboard} />
                   <Route path="/buildingreports" render={BuildingReportDashboard} />
                   <Route path="/createkey" component={AddKey} />
