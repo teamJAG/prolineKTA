@@ -64,12 +64,12 @@ class ReportDashboard extends Component {
     return (
       <div>
         <div>
-          <Dropdown
-            options={options}
-            selection
-            onChange={this.handleId}
-            value={this.state.value}
-            placeholder="Category..."
+          <Dropdown 
+          options={options}
+          selection
+          onChange={this.handleId}
+          value={this.state.value}
+          placeholder='Category...'
           />
           <Input
             style={{ paddingLeft: "5px" }}

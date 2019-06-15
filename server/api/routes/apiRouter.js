@@ -56,6 +56,8 @@ router
   .post(recordsAPI.listRecords);
 
 router
-  .route("/");
+  .route("/contractorrecord")
+  .post(usersAPI.createContractor)
+  .put(usersAPI.updateContractor);
 
 module.exports = router;

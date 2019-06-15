@@ -33,7 +33,7 @@ class FobSlip extends React.Component {
             <Grid.Column>
               <Segment>
                 <Form>
-                  <Header textAlign="center">Proline Keys/Fobs</Header>
+                  <Header textAlign="center">Purchase Form</Header>
                   <Divider />
 
                   <Form.Field>

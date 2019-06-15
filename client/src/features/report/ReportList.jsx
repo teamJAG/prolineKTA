@@ -91,7 +91,7 @@ class ReportList extends Component {
         return (
             <div>
                 <container>
-                    Select start and end dates
+                    {/* Select start and end dates
                     <DatePicker
                     selected={this.state.startDate}
                     selectsStart
@@ -114,7 +114,7 @@ class ReportList extends Component {
                     showMonthDropdown
                     withPortal
                     placeholderText="Ending Date"
-                    />
+                    /> */}
                     <ReactTable
                     className = '-highlight'
                     data={this.state.data}
