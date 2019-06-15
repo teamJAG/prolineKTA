@@ -43,6 +43,10 @@ const CheckKeyOut = props => {
                     <Table.Cell>{props.keyRecord.propertyName}</Table.Cell>
                   </Table.Row>
                   <Table.Row>
+                    <Table.Cell>Property Number</Table.Cell>
+                    <Table.Cell>{props.keyRecord.propertyNumber}</Table.Cell>
+                  </Table.Row>
+                  <Table.Row>
                     <Table.Cell>Property Type</Table.Cell>
                     <Table.Cell>{props.keyRecord.propertyType}</Table.Cell>
                   </Table.Row>
@@ -74,20 +78,28 @@ const CheckKeyOut = props => {
                 <Header textAlign="center">Check Out Pending Key</Header>
                 <Divider />
                 <Form.Field>
-                <label>Company</label>
-                <AutoComplete
-                  table="contractor_tab"
-                  id="company"
-                  as={Input}
-                />
-              </Form.Field>
+                  <label>Company</label>
+                  <AutoComplete
+                    table="contractor_tab"
+                    id="company"
+                    as={Input}
+                  />
+                </Form.Field>
                 <Form.Field>
                   <label>First Name</label>
-                  <input id="first_name"/>
-                </Form.Field >
+                  <AutoComplete
+                    table="contractor_tab"
+                    id="first_name"
+                    as={Input}
+                  />
+                </Form.Field>
                 <Form.Field>
                   <label>Last Name</label>
-                  <input id="last_name" />
+                  <AutoComplete
+                    table="contractor_tab"
+                    id="last_name"
+                    as={Input}
+                  />
                 </Form.Field>
                 <Form.Field>
                   <label>Deposit</label>

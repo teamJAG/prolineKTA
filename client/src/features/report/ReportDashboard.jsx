@@ -16,21 +16,23 @@ class ReportDashboard extends Component {
     super(props);
     this.state = {
       filterId: "",
-      filterValue: ""
+      filterValue: "",
+      tableType: this.props.tableType
     };
     this.handleId = this.handleId.bind(this);
     this.handleValue = this.handleValue.bind(this);
     this.generateFullReport = this.generateFullReport.bind(this);
   }
 
-  componentDidUpdate(prevProps) {
-    console.log("fired");
-    if (this.props !== prevProps) {
-      this.setState({
-        filterId: "",
-        filterValue: ""
-      });
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if (nextProps.tableType !== prevState.tableType) {
+      console.log("firing");
+      return {
+        filterValue: '',
+        tableType: nextProps.tableType
+      };
     }
+    return null;
   }
 
   render() {

@@ -7,6 +7,7 @@ import { Form, Dropdown, Input } from "semantic-ui-react-form-validator";
 import { Button } from "semantic-ui-react";
 import PrintQRCode from "./PrintQRCode";
 import { fetchRecord } from "../../app/fetch/fetches";
+import AutoComplete from "./AutoComplete";
 
 class AddKey extends React.Component {
   constructor(props) {
@@ -103,90 +104,98 @@ class AddKey extends React.Component {
     ];
     const containerStyle = {
       display: "inline-block",
-      margin: 'auto',
+      margin: "auto",
       paddingTop: 20,
       textAlign: "left",
-      width: '50%'
+      width: "50%"
     };
 
     if (!this.state.showQR) {
       return (
-        <div style={{ marginTop: 10, padding: 20, display: 'block', textAlign: 'center' }}>
+        <div
+          style={{
+            marginTop: 10,
+            padding: 20,
+            display: "block",
+            textAlign: "center"
+          }}
+        >
           <h1 className="ui horizontal divider header">Create Key</h1>
           <div style={containerStyle}>
-          <Form onSubmit={this.handleSubmit}>
-            <Input
-              onChange={this.handleChange}
-              value={this.state.address}
-              label="Street Address"
-              placeholder="Address"
-              name="address"
-              validators={["required"]}
-              errorMessages={["this field is required"]}
-            />
-            <Input
-              onChange={this.handleChange}
-              value={this.state.city}
-              label="City"
-              placeholder="City"
-              name="city"
-              o
-              validators={["required"]}
-              errorMessages={["this field is required"]}
-            />
-            <Input
-              onChange={this.handleChange}
-              value={this.state.keyStorageLocation}
-              label="Storage Location"
-              placeholder="Storage Location"
-              name="keyStorageLocation"
-              validators={["required"]}
-              errorMessages={["this field is required"]}
-            />
-            <Input
-              onChange={this.handleChange}
-              value={this.state.keyOfficeLocation}
-              label="Office Location"
-              placeholder="Office Location"
-              name="keyOfficeLocation"
-              validators={["required"]}
-              errorMessages={["this field is required"]}
-            />
-            <Input
-              onChange={this.handleChange}
-              value={this.state.keyQuantity}
-              type="number"
-              label="Key Quantity"
-              placeholder="Key Quantity"
-              name="keyQuantity"
-              validators={["required"]}
-              errorMessages={["this field is required"]}
-            />
-            <Dropdown
-              options={keyTypeOptions}
-              onChange={this.handleChange}
-              value={this.state.keyType}
-              selection
-              label="Key Type"
-              name="keyType"
-              placeholder="Key Type"
-              validators={["required"]}
-              errorMessages={["this field is required"]}
-            />
+            <Form onSubmit={this.handleSubmit}>
+              <AutoComplete 
+                table="address_tab"
+                id="address"
+                as={Input}
+                label="Street Address"
+                placeholder="Address"
+                name="address"
+                validators={["required"]}
+                errorMessages={["this field is required"]}
+              />
+              <Input
+                onChange={this.handleChange}
+                value={this.state.city}
+                label="City"
+                placeholder="City"
+                name="city"
+                o
+                validators={["required"]}
+                errorMessages={["this field is required"]}
+              />
+              <Input
+                onChange={this.handleChange}
+                value={this.state.keyStorageLocation}
+                label="Storage Location"
+                placeholder="Storage Location"
+                name="keyStorageLocation"
+                validators={["required"]}
+                errorMessages={["this field is required"]}
+              />
+              <Input
+                onChange={this.handleChange}
+                value={this.state.keyOfficeLocation}
+                label="Office Location"
+                placeholder="Office Location"
+                name="keyOfficeLocation"
+                validators={["required"]}
+                errorMessages={["this field is required"]}
+              />
+              <Input
+                onChange={this.handleChange}
+                value={this.state.keyQuantity}
+                type="number"
+                label="Key Quantity"
+                placeholder="Key Quantity"
+                name="keyQuantity"
+                validators={["required"]}
+                errorMessages={["this field is required"]}
+              />
+              <Dropdown
+                options={keyTypeOptions}
+                onChange={this.handleChange}
+                value={this.state.keyType}
+                selection
+                label="Key Type"
+                name="keyType"
+                placeholder="Key Type"
+                validators={["required"]}
+                errorMessages={["this field is required"]}
+              />
 
-            <Input
-              onChange={this.handleChange}
-              value={this.state.deposit}
-              type="number"
-              label="Deposit"
-              placeholder="Is there a deposit on the key?"
-              name="deposit"
-            />
-            <br />
-            <Button type="submit" color="teal">
-              Submit
-            </Button>
-          </Form>
+              <Input
+                onChange={this.handleChange}
+                value={this.state.deposit}
+                type="number"
+                label="Deposit"
+                placeholder="Is there a deposit on the key?"
+                name="deposit"
+              />
+              <br />
+              <Button type="submit" color="teal">
+                Submit
+              </Button>
+            </Form>
           </div>
         </div>
       );
