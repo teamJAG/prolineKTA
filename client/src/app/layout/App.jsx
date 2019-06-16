@@ -11,6 +11,7 @@ import Testing from '../../features/testing/Testing';
 import ScanKey from '../../features/key/ScanKey';
 import EditKey from '../../features/key/EditKey';
 import EditProperty from '../../features/property/EditPropety';
+import PrintQRCode from '../../features/key/PrintQRCode';
 
 const KeyRecordDashBoard = (props) => {
   return (
@@ -69,7 +70,7 @@ class App extends Component {
                   <Route path="/scankey" component={ScanKey} />
                   <Route path="/editkey" component={EditKey} />
                   <Route path="/editproperty" component={EditProperty} />
-                  <Route path="/testing" component={Testing} />
+                  <Route path="/testing" component={PrintQRCode} />
 
                 </Switch>
               </Container>
