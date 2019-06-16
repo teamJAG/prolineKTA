@@ -49,29 +49,29 @@ export default class AddProperty extends React.Component {
   render() {
     const propTypeOptions = [
       {
-        key: "Strata",
+        key: "1",
         text: "Strata",
         value: "STRATA"
       },
       {
-        key: "Rental",
+        key: "2",
         text: "Rental",
         value: "RENTAL"
       },
       {
-        key: "Sundry",
+        key: "3",
         text: "Sundry",
         value: "SUNDRY"
       },
       {
-        key: "Office",
+        key: "4",
         text: "Office",
         value: "OFFICE"
       }
     ];
     const containerStyle = {
       display: "inline-block",
-      margin: 'auto',
+      marginLeft: "12%",
       paddingTop: 20,
       textAlign: "left",
       width: '50%'

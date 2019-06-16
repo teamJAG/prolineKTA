@@ -122,7 +122,7 @@ async function listRecords(req, res) {
 async function getSearchOptions(req, res) {
   //Return rows from SELECT of requested properties
   const { filterId, filterValue, tableName } = req.body;
-  const listQueryString = `SELECT ${filterId} as title FROM proline.${tableName} WHERE ${filterId} LIKE '%${filterValue}%' LIMIT 20`;
+  const listQueryString = `SELECT DISTINCT ${filterId} as title FROM proline.${tableName} WHERE ${filterId} LIKE '%${filterValue}%'  LIMIT 10`;
   console.log(listQueryString);
   try {
     const result = await db.dbQuery(listQueryString);

@@ -20,7 +20,6 @@ import PurchaseSlip from '../../features/slips/PurchaseSlip';
 import RentalSlip from '../../features/slips/RentalSlip';
 import TradeSlip from '../../features/slips/TradeSlip';
 
-
 const KeyRecordDashBoard = (props) => {
   return (
     <RecordDashboard tableType="keys" {...props} />
@@ -87,9 +86,6 @@ class App extends Component {
                   <Route path="/purchase" component={PurchaseSlip} />
                   <Route path="/rental" component={RentalSlip} />
                   <Route path="/trade" component={TradeSlip} />
-
-
-
                 </Switch>
               </Container>
             </div>
