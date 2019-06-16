@@ -12,7 +12,7 @@ import {
 import AutoComplete from "./AutoComplete";
 
 const CheckKeyOut = props => {
-  let checkboxValue = false;
+
   const containerStyle = {
     display: "flex",
     justifyContent: "center",
@@ -103,7 +103,7 @@ const CheckKeyOut = props => {
                 </Form.Field>
                 <Form.Field>
                   <label>Deposit</label>
-                  <input id="deposit" />
+                  <input id="deposit" type="number" min="0" />
                 </Form.Field>
                 <Form.Field>
                   <label>Deposit Type</label>
@@ -111,7 +111,7 @@ const CheckKeyOut = props => {
                 </Form.Field>
                 <Form.Field>
                   <label>Fees</label>
-                  <input id="fees" />
+                  <input id="fees" type="number" min="0" />
                 </Form.Field>
                 <Form.Field>
                   <label>Notes</label>

@@ -71,7 +71,7 @@ export default class AddPropertyForm extends React.Component {
     ];
     const containerStyle = {
       display: "inline-block",
-      margin: 'auto',
+      marginLeft: "12%",
       paddingTop: 20,
       textAlign: "left",
       width: '50%'

@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import { Input, Divider, Dropdown, Button } from "semantic-ui-react";
 import ReportList from "./ReportList";
 import * as ui from "./ui";
-
 import "semantic-ui-css/semantic.min.css";
+import AutoComplete from "../key/AutoComplete";
 
 class ReportDashboard extends Component {
   generateFullReport = () => {
@@ -66,6 +66,14 @@ class ReportDashboard extends Component {
     return (
       <div>
         <div>
+          <AutoComplete
+          table="property_tab"
+          id="property_name"
+          as={Input}
+          style={{ paddingRight: "5px"}}
+          inline
+          placeholder="Building Name..."
+          />
           <Dropdown
             options={options}
             selection

@@ -104,7 +104,7 @@ class AddKey extends React.Component {
     ];
     const containerStyle = {
       display: "inline-block",
-      margin: "auto",
+      marginLeft: "12%",
       paddingTop: 20,
       textAlign: "left",
       width: "50%"
@@ -130,6 +130,7 @@ class AddKey extends React.Component {
                 label="Street Address"
                 placeholder="Address"
                 name="address"
+                value={this.state.address}
                 validators={["required"]}
                 errorMessages={["this field is required"]}
               />
@@ -165,6 +166,7 @@ class AddKey extends React.Component {
                 onChange={this.handleChange}
                 value={this.state.keyQuantity}
                 type="number"
+                min="0"
                 label="Key Quantity"
                 placeholder="Key Quantity"
                 name="keyQuantity"
@@ -187,6 +189,7 @@ class AddKey extends React.Component {
                 onChange={this.handleChange}
                 value={this.state.deposit}
                 type="number"
+                min="0"
                 label="Deposit"
                 placeholder="Is there a deposit on the key?"
                 name="deposit"
