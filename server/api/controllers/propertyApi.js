@@ -1,37 +1,51 @@
-const db = require('../db/connection');
+const db = require("../db/connection");
 
 //Create new property
 async function createProperty(req, res) {
-    //Insert address if none exists
-    const addrQueryString = "INSERT";
-    try {
-        let result = await db.dbQuery(addrQueryString);
-        res.status(201).json(result);
-    } catch (err) {
-        res.status(422).json(err);
-    }
-    //Insert property if none exists
-    const propQueryString = "INSERT";
-    try {
-        let result = db.dbQuery(propQueryString);
-        res.status(201).json(result);
-    } catch (err) {
-        res.status(422).json(err);
-    }
+  const {
+    address,
+    city,
+    postalCode,
+    propertyName,
+    propertyNumber,
+    propertyType,
+    comments
+  } = req.body;
+
+  const propertyString = `INSERT INTO proline.property_tab (property_number, property_name, property_type) VALUES `;
+
+  const addressString = ``;
+
+  console.log(propertyString);
+  console.log(addressString);
+
+  try {
+    let propertyResult = await db.dbQuery(propertyString);
+    let addressString = await db.dbQuery(addressString);
+    let result = {
+      propertyResult,
+      addressResult
+    };
+    console.log(result);
+    res.status(201).json(result);
+  } catch (err) {
+    console.log(err);
+    res.status(400).json(err);
+  }
 }
 
-async function updateProperty(req,res) {
-    //Update existing record
-    const propQueryString = "UPDATE";
-    try {
-        let result = await db.dbQuery(propQueryString);
-        res.status(201).json(result);
-    } catch (err) {
-        res.status(422).json(err);
-    }
+async function updateProperty(req, res) {
+  //Update existing record
+  const propQueryString = "UPDATE";
+  try {
+    let result = await db.dbQuery(propQueryString);
+    res.status(201).json(result);
+  } catch (err) {
+    res.status(422).json(err);
+  }
 }
 
 module.exports = {
-    createProperty,
-    updateProperty
+  createProperty,
+  updateProperty
 };

@@ -23,10 +23,12 @@ export async function fetchRecordData(queryType, page, pageSize, sorted, filter,
       });
       result = await handleHTTPErrors(result);
       const records = await result.json();
+      console.log("API response OK.");
       return handleData(records);
     } catch (err) {
-      console.log("fetchData failed: " + err);
-      return err;
+      console.log("fetchData failed: " + JSON.stringify(err));
+      window.alert("Failure: " + JSON.stringify(err.message));
+      return;
     }
   }
 
@@ -41,12 +43,13 @@ export async function fetchKeyStatus(request, method, handleData) {
     });
     result = await handleHTTPErrors(result);
     const record = await result.json();
-    console.log("Record returned from fetch: " + JSON.stringify(record));
+    console.log("API response: " + JSON.stringify(record));
     return handleData(record);
   } catch (err) {
     window.alert(err);
-    console.log("fetchKeyStatus failed: " + err.statusText);
-    return err;
+    console.log("fetchKeyStatus failed: " + JSON.stringify(err));
+    window.alert("Failure: " + JSON.stringify(err.message));
+    return;
   }
 }
 
@@ -64,9 +67,9 @@ export async function fetchKeyCheck(request, method, handleData) {
     console.log("API response: " + JSON.stringify(record));
     return handleData(record);
   } catch (err) {
-    window.alert(err);
-    console.log("fetchKeyCheck failed: " + err);
-    return err;
+    console.log("fetchKeyCheck failed: " + JSON.stringify(err));
+    window.alert("Failure: " + JSON.stringify(err.message));
+    return;
   }
 }
 
@@ -83,7 +86,27 @@ export async function fetchNames(request, handleData) {
     const records = await result.json();
     return handleData(records);
   } catch (err) {
-    console.log("Autocomplete field fetch failed: " + err);
-    return err; 
+    console.log("fetch failed: " + JSON.stringify(err));
+    window.alert("Failure: " + JSON.stringify(err.message));
+    return; 
+  }
+}
+
+export async function fetchRecord(request, method, endpoint, handleData) {
+  try {
+    let result = await fetch(`${process.env.REACT_APP_API_URL}/${endpoint}`, {
+      method: method,
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(request)
+    });
+    result = await handleHTTPErrors(result);
+    const records = await result.json();
+    return handleData(records);
+  } catch(err) {
+    console.log("fetch failed: " + JSON.stringify(err));
+    window.alert("Failure: " + JSON.stringify(err.message));
+    return;
   }
 }

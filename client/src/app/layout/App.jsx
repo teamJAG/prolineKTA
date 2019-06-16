@@ -5,12 +5,20 @@ import RecordDashboard from '../../features/record/RecordDashboard';
 import ReportDashboard from '../../features/report/ReportDashboard';
 import NavBar from '../../features/nav/NavBar/NavBar';
 import HomePage from '../../features/home/HomePage';
-import addProperty from '../../features/property/addProperty';
-import addKey from '../../features/key/addKey';
+import AddProperty from '../../features/property/AddProperty';
+import AddContractor from '../../features/user/AddContractor';
+import AddKey from '../../features/key/AddKey';
 import Testing from '../../features/testing/Testing';
 import ScanKey from '../../features/key/ScanKey';
 import EditKey from '../../features/key/EditKey';
 import EditProperty from '../../features/property/EditPropety';
+import CohoSlip from '../../features/slips/CohoSlip';
+import ElevatorSlip from '../../features/slips/ElevatorSlip';
+import FobSlip from '../../features/slips/FobSlip';
+import GuestSlip from '../../features/slips/GuestSlip';
+import PurchaseSlip from '../../features/slips/PurchaseSlip';
+import RentalSlip from '../../features/slips/RentalSlip';
+import TradeSlip from '../../features/slips/TradeSlip';
 
 const KeyRecordDashBoard = (props) => {
   return (
@@ -38,6 +46,7 @@ const KeyReportDashboard = (props) => {
 
 const BuildingReportDashboard = (props) => {
   return (
+
     <ReportDashboard tableType="properties" {...props} />
   )
 }
@@ -61,15 +70,22 @@ class App extends Component {
                   <Route path="/keys" render={KeyRecordDashBoard} />
                   <Route path="/properties" render={PropertyRecordDashBoard} />
                   <Route path="/people" render={PeopleRecordDashboard} />
+                  <Route path="/createcontractor" component={AddContractor}/>
                   <Route path="/keyreports" render={KeyReportDashboard} />
                   <Route path="/buildingreports" render={BuildingReportDashboard} />
-                  <Route path="/createkey" component={addKey} />
-                  <Route path="/createproperty" component={addProperty} />
+                  <Route path="/createkey" component={AddKey} />
+                  <Route path="/createproperty" component={AddProperty} />
                   <Route path="/scankey" component={ScanKey} />
                   <Route path="/editkey" component={EditKey} />
                   <Route path="/editproperty" component={EditProperty} />
                   <Route path="/testing" component={Testing} />
-
+                  <Route path="/coho" component={CohoSlip} />
+                  <Route path="/elevator" component={ElevatorSlip} />
+                  <Route path="/fob" component={FobSlip} />
+                  <Route path="/guest" component={GuestSlip} />
+                  <Route path="/purchase" component={PurchaseSlip} />
+                  <Route path="/rental" component={RentalSlip} />
+                  <Route path="/trade" component={TradeSlip} />
                 </Switch>
               </Container>
             </div>

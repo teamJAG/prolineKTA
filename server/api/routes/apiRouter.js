@@ -28,7 +28,7 @@ router
   .post(recordsAPI.getSearchOptions);
 
 router
-  .route("/property")
+  .route("/propertyrecord")
   .post(propertyAPI.createProperty)
   .put(propertyAPI.updateProperty);
 
@@ -56,6 +56,8 @@ router
   .post(recordsAPI.listRecords);
 
 router
-  .route("/");
+  .route("/contractorrecord")
+  .post(usersAPI.createContractor)
+  .put(usersAPI.updateContractor);
 
 module.exports = router;

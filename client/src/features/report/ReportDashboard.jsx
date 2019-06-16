@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import { Input, Divider, Dropdown, Button } from "semantic-ui-react";
 import ReportList from "./ReportList";
 import * as ui from "./ui";
-
 import "semantic-ui-css/semantic.min.css";
+import AutoComplete from "../key/AutoComplete";
 
 class ReportDashboard extends Component {
   generateFullReport = () => {
@@ -16,40 +16,24 @@ class ReportDashboard extends Component {
     super(props);
     this.state = {
       filterId: "",
-      filterValue: ""
+      filterValue: "",
+      tableType: this.props.tableType
     };
     this.handleId = this.handleId.bind(this);
     this.handleValue = this.handleValue.bind(this);
     this.generateFullReport = this.generateFullReport.bind(this);
   }
 
-  // componentDidUpdate(prevProps) {
-
-  //   let columns = [];
-  //   let options = [];
-  //   let filter = {
-  //     id: this.state.filterId,
-  //     value: this.state.filterValue
-  //   };
-
-  //   if (this.props !== prevProps) {
-  //     switch (this.props.tableType) {
-  //       case "keys":
-  //         columns = ui.keyColumns;
-  //         options = ui.keyStatus;
-  //         break;
-  //       case "properties":
-  //         columns = ui.propertyColumns;
-  //         options = ui.propertyNames().then(names => {
-  //           return names;
-  //         });
-  //         break;
-  //       default:
-  //         break;
-  //     }
-  //   }
-  // }
-
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if (nextProps.tableType !== prevState.tableType) {
+      console.log("firing");
+      return {
+        filterValue: '',
+        tableType: nextProps.tableType
+      };
+    }
+    return null;
+  }
 
   render() {
 
@@ -82,6 +66,14 @@ class ReportDashboard extends Component {
     return (
       <div>
         <div>
+          <AutoComplete
+            table="property_tab"
+            id="property_name"
+            as={Input}
+            style={{ paddingRight: "5px"}}
+            inline
+            placeholder="Building Name..."
+          />
           <Dropdown
             options={options}
             selection

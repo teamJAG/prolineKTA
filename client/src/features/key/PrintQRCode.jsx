@@ -1,33 +1,58 @@
 import React from "react";
-import { Button } from "semantic-ui-react";
+import { Button, Divider } from "semantic-ui-react";
 import ReactToPrint from "react-to-print";
 import QRCode from "qrcode.react";
 
 class GeneratedQRCode extends React.Component {
   render() {
     return (
-      <div >
+      <div>
         <QRCode
-          style={{ paddingLeft: "10px", paddingTop: "15px" }}
-          value=":3"
-          level="H"
+          style={{ paddingLeft: "10px", paddingTop: "15px"}}
+          value={this.props.qrCode}
+          level="L"
           renderAs="svg"
-          size="92"
+          size={92}
         />
+          <p
+          style={{
+          fontSize: '25px',
+          fontWeight: 'bold',
+          transform: "rotate(90deg)",
+          transformOrigin: 'left top 0',
+          marginLeft: '70px',
+          marginTop: '15px'
+          }}>
+          {this.props.propNumber}-{this.props.keyType.charAt(0)}{this.props.keyNumber}-{this.props.keyQuantity}
+          </p>
       </div>
     );
   }
 }
 
-const PrintQRCode = () => {
+const PrintQRCode = props => {
+  const qrCode = `${props.propertyNumber}*${props.keyOfficeLocation}*${
+    props.keyType
+  }*${props.keyNumber}`;
+  console.log(qrCode);
   const qrRef = React.useRef();
   return (
-    <div>
-      <ReactToPrint
-        trigger={() => <Button>Print QR Code</Button>}
-        content={() => qrRef.current}
+    <div style={{width: '70%'}}>
+      <div style={{display: 'flex', justifyContent:'center'}}>
+      <GeneratedQRCode
+        propNumber={props.propertyNumber}
+        keyType={props.keyType}
+        keyQuantity={props.keyQuantity}
+        keyNumber={props.keyNumber}
+        qrCode={qrCode}
+        ref={qrRef}
       />
-      <GeneratedQRCode style={{ marginLeft: "10px" }} ref={qrRef} />
+      </div>
+      <ReactToPrint
+        trigger={() => <Button floated='right' color='teal'>Print QR Code</Button>}
+        content={() => qrRef.current}
+        pageStyle={{display: 'absolute', left: '200px'}}
+      />
     </div>
   );
 };
