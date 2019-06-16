@@ -67,12 +67,12 @@ class ReportDashboard extends Component {
       <div>
         <div>
           <AutoComplete
-          table="property_tab"
-          id="property_name"
-          as={Input}
-          style={{ paddingRight: "5px"}}
-          inline
-          placeholder="Building Name..."
+            table="property_tab"
+            id="property_name"
+            as={Input}
+            style={{ paddingRight: "5px"}}
+            inline
+            placeholder="Building Name..."
           />
           <Dropdown
             options={options}

@@ -49,22 +49,22 @@ export default class AddPropertyForm extends React.Component {
   render() {
     const propTypeOptions = [
       {
-        key: "Strata",
+        key: "1",
         text: "Strata",
         value: "STRATA"
       },
       {
-        key: "Rental",
+        key: "2",
         text: "Rental",
         value: "RENTAL"
       },
       {
-        key: "Sundry",
+        key: "3",
         text: "Sundry",
         value: "SUNDRY"
       },
       {
-        key: "Office",
+        key: "4",
         text: "Office",
         value: "OFFICE"
       }

@@ -67,37 +67,37 @@ class AddKey extends React.Component {
   render() {
     const keyTypeOptions = [
       {
-        key: "Master",
+        key: "1",
         text: "Master",
         value: "MASTER"
       },
       {
-        key: "Trades",
+        key: "2",
         text: "Trades",
         value: "TRADES"
       },
       {
-        key: "FOB",
+        key: "3",
         text: "FOB",
         value: "FOB"
       },
       {
-        key: "Garage",
+        key: "4",
         text: "Garage",
         value: "GARAGE"
       },
       {
-        key: "Elevator",
+        key: "5",
         text: "Elevator",
         value: "ELEVATOR"
       },
       {
-        key: "Proline",
+        key: "6",
         text: "Proline",
         value: "PROLINE"
       },
       {
-        key: "Guest",
+        key: "7",
         text: "Guest Room",
         value: "GUEST-ROOM"
       }
@@ -126,11 +126,11 @@ class AddKey extends React.Component {
               <AutoComplete 
                 table="address_tab"
                 id="address"
+                fullTextSearch
                 as={Input}
                 label="Street Address"
                 placeholder="Address"
                 name="address"
-                value={this.state.address}
                 validators={["required"]}
                 errorMessages={["this field is required"]}
               />
@@ -140,7 +140,6 @@ class AddKey extends React.Component {
                 label="City"
                 placeholder="City"
                 name="city"
-                o
                 validators={["required"]}
                 errorMessages={["this field is required"]}
               />
