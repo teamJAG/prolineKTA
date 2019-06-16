@@ -8,6 +8,7 @@ import { Button } from "semantic-ui-react";
 import PrintQRCode from "./PrintQRCode";
 import { fetchRecord } from "../../app/fetch/fetches";
 import AutoComplete from "./AutoComplete";
+import * as ui from './ui';
 
 class AddKey extends React.Component {
   constructor(props) {
@@ -65,43 +66,7 @@ class AddKey extends React.Component {
   }
 
   render() {
-    const keyTypeOptions = [
-      {
-        key: "1",
-        text: "Master",
-        value: "MASTER"
-      },
-      {
-        key: "2",
-        text: "Trades",
-        value: "TRADES"
-      },
-      {
-        key: "3",
-        text: "FOB",
-        value: "FOB"
-      },
-      {
-        key: "4",
-        text: "Garage",
-        value: "GARAGE"
-      },
-      {
-        key: "5",
-        text: "Elevator",
-        value: "ELEVATOR"
-      },
-      {
-        key: "6",
-        text: "Proline",
-        value: "PROLINE"
-      },
-      {
-        key: "7",
-        text: "Guest Room",
-        value: "GUEST-ROOM"
-      }
-    ];
+
     const containerStyle = {
       display: "inline-block",
       marginLeft: "12%",
@@ -152,12 +117,14 @@ class AddKey extends React.Component {
                 validators={["required"]}
                 errorMessages={["this field is required"]}
               />
-              <Input
+              <Dropdown
+                options={ui.keyOfficeLocationOptions}
                 onChange={this.handleChange}
                 value={this.state.keyOfficeLocation}
+                selection
                 label="Office Location"
-                placeholder="Office Location"
                 name="keyOfficeLocation"
+                placeholder="Office location..."
                 validators={["required"]}
                 errorMessages={["this field is required"]}
               />
@@ -173,7 +140,7 @@ class AddKey extends React.Component {
                 errorMessages={["this field is required"]}
               />
               <Dropdown
-                options={keyTypeOptions}
+                options={ui.keyTypeOptions}
                 onChange={this.handleChange}
                 value={this.state.keyType}
                 selection
