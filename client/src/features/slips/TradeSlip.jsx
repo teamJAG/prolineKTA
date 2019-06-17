@@ -33,7 +33,7 @@ class TradeSlip extends React.Component {
             <Grid.Column>
               <Segment>
                 <Form>
-                  <Header textAlign="center">Trade Keys</Header>
+                  <Header textAlign="center">Trade</Header>
                   <Divider />
 
                   <Form.Field>

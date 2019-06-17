@@ -33,7 +33,7 @@ class ElevatorSlip extends React.Component {
             <Grid.Column>
               <Segment>
                 <Form>
-                  <Header textAlign="center">Elevator Keys</Header>
+                  <Header textAlign="center">Elevator/Garage</Header>
                   <Divider />
 
                   <Form.Field>

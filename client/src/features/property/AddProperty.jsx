@@ -150,7 +150,7 @@ export default class AddProperty extends React.Component {
             <Form.Field>
               <label>Postal Code</label>
               <Input
-                placeholder="Postal Code"
+                placeholder="V1V1V1"
                 onChange={this.handleChange}
                 name="postalCode"
                 value={this.state.postalCode}
