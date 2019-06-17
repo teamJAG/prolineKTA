@@ -10,7 +10,8 @@ async function createContractor(req, res) {
   
   } = req.body;
 
-  const contractorString = `INSERT INTO proline.contractor_tab (first_name, last_name, phone_num, company) VALUES `;
+  const contractorString = `INSERT INTO proline.contractor_tab (first_name, last_name, phone_num, company) VALUES 
+    ('${firstName}', '${lastName}', '${phoneNum}', '${company}')`;
 
 
   console.log(contractorString);

@@ -69,7 +69,7 @@ class App extends Component {
               <Container className="main">
                 <Switch>
                   <Route path="/keys" render={KeyRecordDashBoard} />
-<Route path="/properties" render={PropertyRecordDashBoard} />
+                  <Route path="/properties" render={PropertyRecordDashBoard} />
                   <Route path="/people" render={PeopleRecordDashboard} />
                   <Route path="/createcontractor" component={AddContractor}/>
                   <Route path="/keyreports" render={KeyReportDashboard} />

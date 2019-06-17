@@ -163,7 +163,7 @@ class AddKey extends React.Component {
               />
               </Form.Field>
               <br />
-              <Button type="submit" color="teal">
+              <Button type="submit" color="purple">
                 Submit
               </Button>
             </Form>

@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Redirect } from 'react-router-dom';
 import { Form, Label, Header, Divider } from "semantic-ui-react";
 import KeyPending from "./KeyPending";
 import CheckKeyOut from "./CheckKeyOut";
@@ -19,6 +20,7 @@ class ScanKey extends Component {
       disableForm: false,
       renderTransactionSlip: false,
       renderDepositSlip: false,
+      renderNewContractor: false,
       scannedKey: "",
       keyPending: false,
       keyCheckedIn: false,
@@ -135,7 +137,9 @@ class ScanKey extends Component {
 
     //Fetch to create a transaction record and change key status to '0'/'Checked Out'
     await fetchKeyCheck(transRequest, "POST", res => {
-      if (this.state.keyRecord.deposit > 0) {
+      if (res.redirect) {
+        this.setState({ renderNewContractor: true });
+      } else if (this.state.keyRecord.deposit > 0) {
         this.setState({
           disableForm: true,
           keyCheckedIn: false,
@@ -174,6 +178,11 @@ class ScanKey extends Component {
       paddingTop: "10%"
     };
 
+    let newContractor;
+    this.state.renderNewContractor
+      ? (newContractor = (<Redirect to="/createcontractor" />))
+      : (newContractor = null);
+
     if (!this.state.disableForm && !this.state.renderTransactionSlip) {
       return (
         <div style={containerStyle}>
@@ -207,6 +216,7 @@ class ScanKey extends Component {
     } else if (this.state.keyPending && this.state.keyCheckedIn) {
       return (
         <div style={{ containerStyle }}>
+          {newContractor}
           <CheckKeyOut
             keyRecord={this.state.keyRecord}
             checkout={this.handleCheckout}

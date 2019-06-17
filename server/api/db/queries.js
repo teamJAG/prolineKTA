@@ -68,9 +68,15 @@ const keysOutRecords = `SELECT p.property_number, p.property_name, k.key_type,
     INNER JOIN proline.trans_tab t ON t.key_tab_key_id = k.key_id
     INNER JOIN proline.contractor_tab cn ON t.contractor_tab_contractor_id = cn.contractor_id `
 
-const propTransCount = ``
+const propTransCount = `SELECT COUNT(*) as count FROM (SELECT p.property_name, p.property_number, k.key_type, 
+    k.key_number, k.key_status, k.office_location, k.storage_location FROM proline.property_tab p
+    INNER JOIN proline.address_tab a ON a.property_tab_property_id = p.property_id
+    INNER JOIN proline.key_tab k ON k.address_tab_address_id = a.address_id) as count `;
 
-const propTransRecords = ``
+const propTransRecords = `SELECT p.property_name, p.property_number, k.key_type, 
+k.key_number, k.key_status, k.office_location, k.storage_location FROM proline.property_tab p
+INNER JOIN proline.address_tab a ON a.property_tab_property_id = p.property_id
+INNER JOIN proline.key_tab k ON k.address_tab_address_id = a.address_id `
 
 module.exports = {
   keyCount,

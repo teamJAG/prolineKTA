@@ -85,6 +85,7 @@ const CheckKeyOut = props => {
                     table="contractor_tab"
                     id="company"
                     as={Input}
+                    required
                   />
                 </Form.Field>
                 <Form.Field>
@@ -93,6 +94,7 @@ const CheckKeyOut = props => {
                     table="contractor_tab"
                     id="first_name"
                     as={Input}
+                    required
                   />
                 </Form.Field>
                 <Form.Field>
@@ -101,6 +103,7 @@ const CheckKeyOut = props => {
                     table="contractor_tab"
                     id="last_name"
                     as={Input}
+                    required
                   />
                 </Form.Field>
                 <Form.Field>

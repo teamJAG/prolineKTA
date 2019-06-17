@@ -61,7 +61,7 @@ class ReportList extends Component {
             }
           );
           break;
-        case "buildings":
+        case "properties":
           this.setState({
             loading: true
           });
