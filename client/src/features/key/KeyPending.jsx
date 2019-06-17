@@ -55,7 +55,7 @@ const KeyPending = props => {
               <Form onSubmit={props.isPending}>
                 <Header>Place Key Into Pending</Header>
                 <Divider />
-                <Form.Button content="Submit" />
+                <Form.Button color="purple" content="Submit" />
               </Form>
             </Segment>
           </Grid.Column>

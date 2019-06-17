@@ -33,7 +33,7 @@ const PrintQRCode = (props) => {
   return (
     <div style={{ containerStyle }}>
       <ReactToPrint
-        trigger={() => <Button>Print QR Code</Button>}
+        trigger={() => <Button color="purple">Print QR Code</Button>}
         content={() => qrRef.current}
       />
       <Divider />
