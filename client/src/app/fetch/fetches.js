@@ -5,7 +5,8 @@ function handleHTTPErrors(response) {
   return response;
 }
 
-export async function fetchRecordData(queryType, page, pageSize, sorted, filter, handleData) {
+//Fetch call to get data for React-Table
+export async function fetchRecordData(endpoint, queryType, page, pageSize, sorted, filter, handleData) {
     let requestBody = {
       queryType: queryType,
       page: page,
@@ -14,7 +15,7 @@ export async function fetchRecordData(queryType, page, pageSize, sorted, filter,
       filter: filter,
     };
     try {
-      let result = await fetch(`${process.env.REACT_APP_API_URL}/records`, {
+      let result = await fetch(`${process.env.REACT_APP_API_URL}/${endpoint}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -32,6 +33,28 @@ export async function fetchRecordData(queryType, page, pageSize, sorted, filter,
     }
   }
 
+//Fetch for individual key/property records
+  export async function fetchRecord(request, method, endpoint, handleData) {
+    try {
+      let result = await fetch(`${process.env.REACT_APP_API_URL}/${endpoint}`, {
+        method: method,
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(request)
+      });
+      result = await handleHTTPErrors(result);
+      const records = await result.json();
+      return handleData(records);
+    } catch(err) {
+      console.log("fetch failed: " + JSON.stringify(err));
+      window.alert("Failure: " + JSON.stringify(err.message));
+      return;
+    }
+  }
+
+
+//Fetch for individual key/transaction records
 export async function fetchKeyStatus(request, method, handleData) {
   try {
     let result = await fetch(`${process.env.REACT_APP_API_URL}/keystatus`, {
@@ -53,6 +76,7 @@ export async function fetchKeyStatus(request, method, handleData) {
   }
 }
 
+//Fetch for changing key status and creation transactions
 export async function fetchKeyCheck(request, method, handleData) {
   try {
     let result = await fetch(`${process.env.REACT_APP_API_URL}/keycheck`, {
@@ -73,6 +97,7 @@ export async function fetchKeyCheck(request, method, handleData) {
   }
 }
 
+//Fetch for result sets for the autocomplete search bars
 export async function fetchNames(request, handleData) {
   try {
     let result = await fetch(`${process.env.REACT_APP_API_URL}/search`, {
@@ -89,24 +114,5 @@ export async function fetchNames(request, handleData) {
     console.log("fetch failed: " + JSON.stringify(err));
     window.alert("Failure: " + JSON.stringify(err.message));
     return; 
-  }
-}
-
-export async function fetchRecord(request, method, endpoint, handleData) {
-  try {
-    let result = await fetch(`${process.env.REACT_APP_API_URL}/${endpoint}`, {
-      method: method,
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(request)
-    });
-    result = await handleHTTPErrors(result);
-    const records = await result.json();
-    return handleData(records);
-  } catch(err) {
-    console.log("fetch failed: " + JSON.stringify(err));
-    window.alert("Failure: " + JSON.stringify(err.message));
-    return;
   }
 }

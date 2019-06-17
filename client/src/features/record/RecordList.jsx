@@ -27,6 +27,7 @@ class RecordList extends Component {
             loading: true
           });
           fetchRecordData(
+            "records",
             this.props.type,
             this.state.page,
             this.state.pageSize,
@@ -47,6 +48,7 @@ class RecordList extends Component {
             loading: true
           });
           fetchRecordData(
+            "records",
             this.props.type,
             this.state.page,
             this.state.pageSize,
@@ -67,6 +69,7 @@ class RecordList extends Component {
             loading: true
           });
           fetchRecordData(
+            "records",
             this.props.type,
             this.state.page,
             this.state.pageSize,
@@ -114,6 +117,7 @@ class RecordList extends Component {
           onFetchData={(state, instance) => {
             this.setState({ loading: true });
             fetchRecordData(
+              "records",
               this.props.type,
               state.page,
               state.pageSize,

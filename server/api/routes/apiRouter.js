@@ -6,11 +6,9 @@ const passport = require("passport");
 LdapStrategy = require("passport-ldapauth");
 
 const keysAPI = require("../controllers/keysApi");
-const historyAPI = require("../controllers/historyApi");
+const reportsAPI = require("../controllers/reportsApi");
 const propertyAPI = require("../controllers/propertyApi");
 const recordsAPI = require("../controllers/recordsApi");
-
-//may be refactored
 const usersAPI = require("../controllers/usersApi");
 
 const OPTS = {
@@ -48,8 +46,9 @@ router
   .put(keysAPI.updateKey);
 
 router
-  .route("/fullreport")
-  .get(historyAPI.generateReport);
+  .route("/reports")
+  .get(reportsAPI.generateReport)
+  .post(reportsAPI.getReport);
 
 router
   .route("/records")
