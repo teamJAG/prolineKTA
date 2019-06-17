@@ -137,7 +137,7 @@ export default class AddProperty extends React.Component {
             value={this.state.comments}
           />
           <Divider />
-          <Button type="submit" color="teal">Submit</Button>
+          <Button type="submit" color="purple">Submit</Button>
         </Form>
       </div>
     );

@@ -191,7 +191,7 @@ class ScanKey extends Component {
               />
             </Form.Field>
             <Divider />
-            <Form.Button content="Submit" />
+            <Form.Button color="purple" content="Submit" />
           </Form>
         </div>
       );

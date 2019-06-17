@@ -186,7 +186,7 @@ export default class AddKey extends React.Component {
               name="deposit"
             />
             <br />
-            <Button type="submit" color="teal">
+            <Button type="submit" color="purple">
               Submit
             </Button>
           </Form>

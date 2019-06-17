@@ -5,9 +5,9 @@ import RecordDashboard from '../../features/record/RecordDashboard';
 import ReportDashboard from '../../features/report/ReportDashboard';
 import NavBar from '../../features/nav/NavBar/NavBar';
 import HomePage from '../../features/home/HomePage';
-import AddProperty from '../../features/property/AddProperty';
+import AddProperty from '../../features/property/addProperty';
 import AddContractor from '../../features/user/AddContractor';
-import AddKey from '../../features/key/AddKey';
+import AddKey from '../../features/key/addKey';
 import Testing from '../../features/testing/Testing';
 import ScanKey from '../../features/key/ScanKey';
 import EditKey from '../../features/key/EditKey';
@@ -19,6 +19,7 @@ import GuestSlip from '../../features/slips/GuestSlip';
 import PurchaseSlip from '../../features/slips/PurchaseSlip';
 import RentalSlip from '../../features/slips/RentalSlip';
 import TradeSlip from '../../features/slips/TradeSlip';
+import GenericSlip from '../../features/slips/GenericSlip';
 
 
 const KeyRecordDashBoard = (props) => {
@@ -87,6 +88,7 @@ class App extends Component {
                   <Route path="/purchase" component={PurchaseSlip} />
                   <Route path="/rental" component={RentalSlip} />
                   <Route path="/trade" component={TradeSlip} />
+                  <Route path="/generic" component={GenericSlip} />
 
 
 
