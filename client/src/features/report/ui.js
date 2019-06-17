@@ -121,11 +121,11 @@ export const keyFilter = [
 ];
 
 export const propertyFilter = [
-  { key: '10', text: '', value: ''},
-  { key: '1', text: 'Building Name', value: 'property_name'},
-  { key: '2', text: 'Building Number', value: 'property_number'},
-  { key: '3', text: 'Key Type', value: 'key_type' },
-  { key: '4', text: 'Key Number', value: 'key_number' },
+  { key: '1', text: '', value: ''},
+  { key: '2', text: 'Building Name', value: 'property_name'},
+  { key: '3', text: 'Building Number', value: 'property_number'},
+  { key: '4', text: 'Key Type', value: 'key_type' },
+  { key: '5', text: 'Key Number', value: 'key_number' },
   { key: '6', text: 'Office Location', value: 'office_location' },
   { key: '7', text: 'Storage Location', value: 'storage_location' },
   { key: '8', text: 'Key Status', value: 'key_status' },

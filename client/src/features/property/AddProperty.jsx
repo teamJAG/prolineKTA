@@ -155,7 +155,7 @@ export default class AddProperty extends React.Component {
                 name="postalCode"
                 value={this.state.postalCode}
                 required
-                pattern='[A-Z]\d[A-Z]\d[A-Z]\d$'
+                pattern='[A-Za-z]\d[A-Za-z]\d[A-Za-z]\d$'
               />
             </Form.Field>
             <Form.Field>
