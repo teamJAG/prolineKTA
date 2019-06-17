@@ -1,5 +1,3 @@
-
-
 import React, { Component } from "react";
 import { Form, Label, Header, Divider } from "semantic-ui-react";
 import KeyPending from "./KeyPending";
@@ -232,7 +230,7 @@ class ScanKey extends Component {
             <div style={{ containerStyle }}>
               <TradeSlip />
             </div>
-          )
+          );
         case "FOB":
           return (
             <div style={{ containerStyle }}>
@@ -257,14 +255,12 @@ class ScanKey extends Component {
               <FobSlip />
             </div>
           );
-          case "GUEST-ROOM":
-            let guest;
-            this.state.keyRecord.propertyName === "COHO (Phase 1 & 2)" ? (guest = <CohoSlip />) : (guest = <GuestSlip />)
-            return (
-              <div style={{ containerStyle }}>
-                {guest}
-              </div>
-            )
+        case "GUEST-ROOM":
+          let guest;
+          this.state.keyRecord.propertyName === "COHO (Phase 1 & 2)"
+            ? (guest = <CohoSlip />)
+            : (guest = <GuestSlip />);
+          return <div style={{ containerStyle }}>{guest}</div>;
         default:
           return null;
       }

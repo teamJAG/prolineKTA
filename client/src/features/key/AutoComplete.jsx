@@ -15,8 +15,18 @@ class AutoComplete extends Component {
     this.handleSearchChange = this.handleSearchChange.bind(this);
   }
 
-  handleResultSelect = (e, { result }) =>
+  handleResultSelect = (e, { result }) => {
     this.setState({ value: result.title });
+    //Pass selected result back to parent if requested
+    if (this.props.onChange) {
+      console.log("fired");
+      const data = {
+        name: this.props.name,
+        value: result.title
+      };
+      this.props.onChange(e, data);
+    }
+  }
 
   handleSearchChange(e, data) {
     this.setState({ isLoading: true, value: data.value }, () => {
@@ -26,12 +36,19 @@ class AutoComplete extends Component {
         filterValue: this.state.value
       };
       fetchNames(request, res => {
-        console.log(res);
         this.setState({
           results: res,
           isLoading: false
         });
       });
+      if (this.props.onChange) {
+        console.log("fired");
+        const data = {
+          name: this.props.name,
+          value: this.state.value
+        };
+        this.props.onChange(e, data);
+      }
     });
   }
 
