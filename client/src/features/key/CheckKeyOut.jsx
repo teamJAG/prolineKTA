@@ -19,6 +19,8 @@ const CheckKeyOut = props => {
     paddingTop: "10%"
   };
 
+ 
+
   return (
     <div style={{ containerStyle }}>
       <Grid columns={2} divided>
