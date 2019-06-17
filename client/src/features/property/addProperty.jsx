@@ -15,6 +15,8 @@ export default class AddProperty extends React.Component {
       propertyType: "",
       comments: ""
     };
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleChange(e, data) {
