@@ -29,7 +29,7 @@ export default class AddContractorForm extends React.Component {
       phoneNum: phoneNum,
       company: company
     };
-    await fetchRecord(request, "POST", "/contractorrecord", res => {
+    await fetchRecord(request, "POST", "/contractors", res => {
       return;
     });
   }

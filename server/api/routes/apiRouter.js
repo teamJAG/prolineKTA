@@ -55,7 +55,7 @@ router
   .post(recordsAPI.listRecords);
 
 router
-  .route("/contractorrecord")
+  .route("/contractors")
   .post(usersAPI.createContractor)
   .put(usersAPI.updateContractor);
 
