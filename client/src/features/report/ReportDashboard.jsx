@@ -53,11 +53,6 @@ class ReportDashboard extends Component {
       case "properties":
         columns = ui.propertyColumns;
         options = ui.propertyOptions
-        // ui.propertyNames().then(response => {
-        //   options = response;
-        //   console.log(options);
-        // });
-        // console.log(options);
         break;
       default:
         break;
