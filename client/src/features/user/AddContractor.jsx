@@ -3,7 +3,7 @@ import { Form, Input } from "semantic-ui-react-form-validator";
 import { Button, Divider } from "semantic-ui-react";
 import { fetchRecord } from '../../app/fetch/fetches';
 
-export default class AddContractorForm extends React.Component {
+export default class AddContractor extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -12,6 +12,8 @@ export default class AddContractorForm extends React.Component {
       phoneNum: "",
       company: "",
     };
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleChange(e, data) {
@@ -33,7 +35,6 @@ export default class AddContractorForm extends React.Component {
       return;
     });
   }
-
   render() {
       const containerStyle = {
           display: "inline-block",
@@ -86,7 +87,7 @@ export default class AddContractorForm extends React.Component {
             errorMessages={["this field is required"]}
           />
           <Divider />
-          <Button type="submit" color="teal">Submit</Button>
+          <Button type="submit" color="purple">Submit</Button>
         </Form>
       </div>
     </div>
