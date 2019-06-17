@@ -109,7 +109,7 @@ const CheckKeyIn = props => {
           <Form onSubmit={props.checkin}>
             <Header>Check Key Back In</Header>
             <Divider />
-            <Form.Button content="Submit" />
+            <Form.Button color="purple" content="Submit" />
           </Form>
         </Segment>
       </div>

@@ -13,7 +13,7 @@ import {
 } from "semantic-ui-react";
 import ReactToPrint from "react-to-print";
 
-class FobSlip extends React.Component {
+class GenericSlip extends React.Component {
   state = {};
   handleChange = (e, { value }) => this.setState({ value });
 
@@ -33,43 +33,30 @@ class FobSlip extends React.Component {
             <Grid.Column>
               <Segment>
                 <Form>
-                  <Header textAlign="center">Proline Keys/Fobs</Header>
+                  <Header textAlign="center">Generic Form</Header>
                   <Divider />
 
                   <Form.Field>
+                    <label>Building</label>
+                    <input type="text" id="propertyName" />
+                  </Form.Field>
+
+                  <Form.Field>
+                    <label>Company</label>
+                    <input type="text" id="company" />
+                  </Form.Field>
+
+                  <Form.Field>
                     <div class="two fields">
                       <div class="field">
-                        <label>Date Out</label>
-                        <input type="date" id="dateOut" />
+                        <label>Date Booked</label>
+                        <input type="date" id="bookedOut" />
                       </div>
                       <div class="field">
-                        <label>Date Due</label>
+                        <label>Due Date</label>
                         <input type="date" id="dueDate" />
                       </div>
                     </div>
-                  </Form.Field>
-
-                  <Form.Field>
-                    <div class="two fields">
-                      <div class="field">
-                        <label>Building Address</label>
-                        <input type="text" id="propertyName" />
-                      </div>
-                      <div class="field">
-                        <label>Unit</label>
-                        <input type="text" id="unit" />
-                      </div>
-                    </div>
-                  </Form.Field>
-
-                  <Form.Field>
-                    <label>Contractor</label>
-                    <input type="text" id="contractor" />
-                  </Form.Field>
-
-                  <Form.Field>
-                    <label>Notes</label>
-                    <input style={{ minHeight: "5em" }} id="notes" />
                   </Form.Field>
 
                   <Divider />
@@ -86,25 +73,22 @@ class FobSlip extends React.Component {
                   <Divider />
 
                   <Form.Field>
-                    <div class="two fields">
-                      <div class="field">
-                        <label>Building Address</label>
-                        <input type="text" id="propertyName" />
-                      </div>
-                      <div class="field">
-                        <label>Unit</label>
-                        <input type="text" id="unit" />
-                      </div>
-                    </div>
+                    <label>Building</label>
+                    <input type="text" id="propertyName" />
                   </Form.Field>
 
                   <Form.Field>
-                    <Header textAlign="center">Party Picking Up</Header>
-                    <div class="three fields">
-                      <div class="field">
-                        <label>Company</label>
-                        <input type="text" id="firstName" />
-                      </div>
+                    <label>Set</label>
+                    <input id="setNumber" />
+                  </Form.Field>
+
+                  <Form.Field>
+                    <label>Description</label>
+                    <input type="number" id="description" />
+                  </Form.Field>
+
+                  <Form.Field>
+                    <div class="two fields">
                       <div class="field">
                         <label>First Name</label>
                         <input type="text" id="firstName" />
@@ -114,6 +98,11 @@ class FobSlip extends React.Component {
                         <input type="text" id="lastName" />
                       </div>
                     </div>
+                  </Form.Field>
+
+                  <Form.Field>
+                    <label>Company</label>
+                    <input type="text" id="company" />
                   </Form.Field>
 
                   <Form.Field>
@@ -127,10 +116,8 @@ class FobSlip extends React.Component {
                   </Form.Field>
 
                   <Form.Field>
-                    <div class="four fields">
+                    <div class="two fields">
                       <div class="field">
-                        <br />
-                        <br />
                         <Checkbox
                           radio
                           label="To Return"
@@ -141,48 +128,29 @@ class FobSlip extends React.Component {
                         />
                       </div>
                       <div class="field">
-                        <br />
-                        <br />
                         <Checkbox
                           radio
-                          label="To Keep"
+                          label="To Keep (No Charge)"
                           name="checkboxRadioGroup"
                           value="keep"
                           checked={this.state.value === "keep"}
                           onChange={this.handleChange}
                         />
                       </div>
-                      <div class="field">
-                        <br />
-                        <br />
-                        <Checkbox
-                          radio
-                          label="Purchase"
-                          name="checkboxRadioGroup"
-                          value="purchase"
-                          checked={this.state.value === "purchase"}
-                          onChange={this.handleChange}
-                        />
-                      </div>
-                      <div class="field">
-                        <label>Deposit</label>
-                        <Input labelPosition="right" type="text" id="deposit">
-                          <Label basic>$</Label>
-                          <input />
-                          <Label>.00</Label>
-                        </Input>
-                      </div>
                     </div>
                   </Form.Field>
 
                   <Form.Field>
-                    <label>Left At Reception By</label>
-                    <input type="text" id="opStaff" />
-                  </Form.Field>
-
-                  <Form.Field>
-                    <label>Due Date:</label>
-                    <input type="date" id="dueDate" />
+                    <div class="two fields">
+                      <div class="field">
+                        <label>Date Out</label>
+                        <input type="date" id="dateOut" />
+                      </div>
+                      <div class="field">
+                        <label>Date Due</label>
+                        <input type="date" id="dueDate" />
+                      </div>
+                    </div>
                   </Form.Field>
                 </Form>
               </Segment>
@@ -202,7 +170,7 @@ const PrintSlip = () => {
         trigger={() => <Button color="purple">Print Slip</Button>}
         content={() => slipRef.current}
       />
-      <FobSlip style={{ marginLeft: "10px" }} ref={slipRef} />
+      <GenericSlip style={{ marginLeft: "10px" }} ref={slipRef} />
     </div>
   );
 };

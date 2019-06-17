@@ -91,7 +91,7 @@ class ReportDashboard extends Component {
           <Button
              floated="right"
              onClick={this.generateFullReport}
-             color="teal"
+             color="purple"
              >Full Report</Button>
         </div>
         <Divider />
