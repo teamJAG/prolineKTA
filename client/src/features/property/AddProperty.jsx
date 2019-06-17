@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-import { Form, Dropdown, Input } from "semantic-ui-react-form-validator";
-import { TextArea, Button, Divider } from "semantic-ui-react";
+import { TextArea, Button, Divider, Form, Dropdown, Input, Header } from "semantic-ui-react";
 import { fetchRecord } from "../../app/fetch/fetches";
 
 export default class AddProperty extends React.Component {
@@ -71,90 +70,96 @@ export default class AddProperty extends React.Component {
     ];
     const containerStyle = {
       display: "inline-block",
-      marginLeft: "12%",
       paddingTop: 20,
       textAlign: "left",
-      width: '50%'
+      width: "50%"
     };
 
     return (
-      <div style={{ marginTop: 10, padding: 20, display: "block", textAlign: "center" }}>
-        <h1 className="ui horizontal divider header">Create Property</h1>
-        <div
-          style={containerStyle}
-        >
+      <div
+        style={{
+          marginTop: 10,
+          padding: 20,
+          display: "block",
+          textAlign: "center"
+        }}
+      >
+        <div style={containerStyle}>
           <Form onSubmit={this.handleSubmit}>
+          <Header className="ui horizontal divider header">Create Property</Header>
+          <Form.Field>
+            <label>Name</label>
             <Input
-              label="Name"
               placeholder="Property Name"
               onChange={this.handleChange}
               name="propertyName"
               value={this.state.propertyName}
-              validators={["required"]}
-              errorMessages={["this field is required"]}
+              required
             />
+            </Form.Field>
+            <Form.Field>
+            <label>Building Number</label>
             <Input
-              label="Building Number"
               placeholder="####"
               onChange={this.handleChange}
               name="propertyNumber"
               value={this.state.propertyNumber}
-              validators={["required"]}
-              errorMessages={["this field is required"]}
+              required
             />
+            </Form.Field>
+            <Form.Field>
+            <label>Address</label>
             <Input
-              label="Address"
               placeholder="Address"
               onChange={this.handleChange}
               name="address"
               value={this.state.address}
-              validators={["required"]}
-              errorMessages={["this field is required"]}
+              required
             />
+            </Form.Field>
+            <Form.Field>
+            <label>City</label>
             <Input
-              label="City"
               placeholder="City"
               onChange={this.handleChange}
               name="city"
               value={this.state.city}
-              validators={["required"]}
-              errorMessages={["this field is required"]}
+              required
             />
+            </Form.Field>
+            <Form.Field>
+            <label>Postal Code</label>
             <Input
-              label="Postal Code"
-              placeholder="Postal Code"
+            placeholder="Postal Code"
               onChange={this.handleChange}
               name="postalCode"
               value={this.state.postalCode}
-              validators={[
-                "required",
-                "matchRegexp:[A-Za-z][0-9][A-Za-z] [0-9][A-Za-z][0-9]"
-              ]}
-              errorMessages={[
-                "this field is required",
-                "postalcode is invalid"
-              ]}
+              required
             />
+            </Form.Field>
+            <Form.Field>
+            <label>Property Type</label>
             <Dropdown
-              label="Property Type"
-              name="propertyType"
+            name="propertyType"
               selection
               placeholder="Property Type"
               onChange={this.handleChange}
               value={this.state.propertyType}
-              validators={["required"]}
-              errorMessages={["this field is required"]}
               options={propTypeOptions}
+              required
             />
+            </Form.Field>
+            <Form.Field>
+            <label>Comments</label>
             <TextArea
               style={{ minHeight: 100, width: "50%" }}
               name="comments"
-              label="Comments"
               fluid
               placeholder="Additional Comments..."
               onChange={this.handleChange}
               value={this.state.comments}
             />
+            </Form.Field>
             <Divider />
             <Button type="submit" color="teal">
               Submit
