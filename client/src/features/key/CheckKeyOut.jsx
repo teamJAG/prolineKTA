@@ -12,7 +12,7 @@ import {
 import AutoComplete from "./AutoComplete";
 
 const CheckKeyOut = props => {
-  let checkboxValue = false;
+
   const containerStyle = {
     display: "flex",
     justifyContent: "center",
@@ -41,6 +41,10 @@ const CheckKeyOut = props => {
                   <Table.Row>
                     <Table.Cell>Property Name</Table.Cell>
                     <Table.Cell>{props.keyRecord.propertyName}</Table.Cell>
+                  </Table.Row>
+                  <Table.Row>
+                    <Table.Cell>Property Number</Table.Cell>
+                    <Table.Cell>{props.keyRecord.propertyNumber}</Table.Cell>
                   </Table.Row>
                   <Table.Row>
                     <Table.Cell>Property Type</Table.Cell>
@@ -74,14 +78,6 @@ const CheckKeyOut = props => {
                 <Header textAlign="center">Check Out Pending Key</Header>
                 <Divider />
                 <Form.Field>
-                  <label>First Name</label>
-                  <input id="firstName" />
-                </Form.Field>
-                <Form.Field>
-                  <label>Last Name</label>
-                  <input id="lastName" />
-                </Form.Field>
-                <Form.Field>
                   <label>Company</label>
                   <AutoComplete
                     table="contractor_tab"
@@ -90,8 +86,24 @@ const CheckKeyOut = props => {
                   />
                 </Form.Field>
                 <Form.Field>
+                  <label>First Name</label>
+                  <AutoComplete
+                    table="contractor_tab"
+                    id="first_name"
+                    as={Input}
+                  />
+                </Form.Field>
+                <Form.Field>
+                  <label>Last Name</label>
+                  <AutoComplete
+                    table="contractor_tab"
+                    id="last_name"
+                    as={Input}
+                  />
+                </Form.Field>
+                <Form.Field>
                   <label>Deposit</label>
-                  <input id="deposit" />
+                  <input id="deposit" type="number" min="0" />
                 </Form.Field>
                 <Form.Field>
                   <label>Deposit Type</label>
@@ -99,7 +111,7 @@ const CheckKeyOut = props => {
                 </Form.Field>
                 <Form.Field>
                   <label>Fees</label>
-                  <input id="fees" />
+                  <input id="fees" type="number" min="0" />
                 </Form.Field>
                 <Form.Field>
                   <label>Notes</label>
@@ -108,11 +120,7 @@ const CheckKeyOut = props => {
                 <Form.Group>
                   <Form.Button color="purple" content="Submit" />
                   <Form.Field>
-                    <Checkbox
-                      label="This is a sale"
-                      inline
-                      id="sale"
-                    />
+                    <Checkbox label="This is a sale" inline id="sale" />
                   </Form.Field>
                 </Form.Group>
               </Form>

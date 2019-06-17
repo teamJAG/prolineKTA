@@ -12,7 +12,7 @@ async function createProperty(req, res) {
     comments
   } = req.body;
 
-  const propertyString = ``;
+  const propertyString = `INSERT INTO proline.property_tab (property_number, property_name, property_type) VALUES `;
 
   const addressString = ``;
 

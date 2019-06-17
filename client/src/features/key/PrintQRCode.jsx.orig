@@ -49,7 +49,7 @@ const PrintQRCode = props => {
       />
       </div>
       <ReactToPrint
-        trigger={() => <Button floated='right' color='purple'>Print QR Code</Button>}
+        trigger={() => <Button color="purple">Print QR Code</Button>}
         content={() => qrRef.current}
         pageStyle={{display: 'absolute', left: '200px'}}
       />

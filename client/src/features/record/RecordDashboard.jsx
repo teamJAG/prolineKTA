@@ -14,10 +14,22 @@ class RecordDashboard extends Component {
     super(props);
     this.state = {
       filterId: '',
-      filterValue: ''
+      filterValue: '',
+      tableType: this.props.tableType
     };
     this.handleId = this.handleId.bind(this);
     this.handleValue = this.handleValue.bind(this);
+  }
+
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if (nextProps.tableType !== prevState.tableType) {
+      console.log("firing");
+      return {
+        filterValue: '',
+        tableType: nextProps.tableType
+      };
+    }
+    return null;
   }
 
   render() {
@@ -64,6 +76,7 @@ class RecordDashboard extends Component {
           iconPosition='left'
           placeholder='Search...'
           onChange={this.handleValue}
+          value={this.state.filterValue}
           />
         </div>
         <Divider/>

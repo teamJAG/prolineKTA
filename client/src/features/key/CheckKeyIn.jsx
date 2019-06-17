@@ -27,6 +27,10 @@ const CheckKeyIn = props => {
                     <Table.Cell>{props.keyRecord.propertyName}</Table.Cell>
                   </Table.Row>
                   <Table.Row>
+                  <Table.Cell>Property Number</Table.Cell>
+                  <Table.Cell>{props.keyRecord.propertyNumber}</Table.Cell>
+                </Table.Row>
+                  <Table.Row>
                     <Table.Cell>Property Type</Table.Cell>
                     <Table.Cell>{props.keyRecord.propertyType}</Table.Cell>
                   </Table.Row>
