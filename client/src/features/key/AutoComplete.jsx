@@ -26,6 +26,9 @@ class AutoComplete extends Component {
       };
       this.props.onChange(e, data);
     }
+    if (this.props.selected) {
+      this.props.selected();
+    }
   }
 
   handleSearchChange(e, data) {

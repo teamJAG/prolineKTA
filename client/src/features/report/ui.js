@@ -7,10 +7,10 @@ import { amber } from '@material-ui/core/colors';
 //Objects arrays describing the structure and names of table columns  
 
   export const keyColumns = [{
-    Header: 'Building Number',
+    Header: 'Property Number',
     accessor: 'property_number'
   }, {
-    Header:'Building Name',
+    Header:'Property Name',
     accessor: 'property_name',
     minWidth: 200,
     style: {textAlign: 'center'}
@@ -59,10 +59,10 @@ import { amber } from '@material-ui/core/colors';
   }];
 
 export const propertyColumns = [{
-    Header: 'Bulding Name',
+    Header: 'Property Name',
     accessor: 'property_name'
 }, {
-    Header: 'Building Number',
+    Header: 'Property Number',
     accessor: 'property_number'
 }, {
     Header: 'Key Type',
@@ -105,8 +105,8 @@ export const propertyColumns = [{
 export const keyFilter = [
   { key: '1', text: '', value: ''},
   // { key: '2', text: 'QR Code', value: 'qr'},
-  { key: '3', text: 'Building Number', value: 'property_number'},
-  { key: '4', text: 'Building Name', value: 'property_name' },
+  { key: '3', text: 'Property Number', value: 'property_number'},
+  { key: '4', text: 'Property Name', value: 'property_name' },
   { key: '5', text: 'Key Type', value: 'key_type' },
   { key: '6', text: 'Key Number', value: 'storage_location' },
   { key: '7', text: 'Office Location', value: 'office_location'},
@@ -122,8 +122,8 @@ export const keyFilter = [
 
 export const propertyFilter = [
   { key: '1', text: '', value: ''},
-  { key: '2', text: 'Building Name', value: 'property_name'},
-  { key: '3', text: 'Building Number', value: 'property_number'},
+  { key: '2', text: 'Property Name', value: 'property_name'},
+  { key: '3', text: 'Property Number', value: 'property_number'},
   { key: '4', text: 'Key Type', value: 'key_type' },
   { key: '5', text: 'Key Number', value: 'key_number' },
   { key: '6', text: 'Office Location', value: 'office_location' },

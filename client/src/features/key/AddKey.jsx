@@ -23,16 +23,22 @@ class AddKey extends React.Component {
       deposit: 0,
       showQR: false,
       propertyNumber: "",
-      keyNumber: 0
+      keyNumber: 0,
+      selected: false
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleSelected = this.handleSelected.bind(this);
   }
 
   handleChange(e, data) {
     this.setState({
       [data.name]: data.value
     });
+  }
+
+  handleSelected() {
+    this.setState({selected: true});
   }
 
   async handleSubmit(e, data) {
@@ -97,6 +103,7 @@ class AddKey extends React.Component {
                   onChange={this.handleChange}
                   placeholder="Address"
                   name="address"
+                  selected={this.handleSelected}
                 />
               </Form.Field>
               <Form.Field>
