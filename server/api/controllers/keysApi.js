@@ -111,11 +111,9 @@ async function checkKeyOut(req, res) {
     notes = `'${notes}'`;
   }
 
-  //IF EXISTS: FIRST NAME AND LAST NAME IN COMPANY
-  //CONTINUE
-  //IF NOT:
-  //INSERT INTO CONTRACTOR TABLE (NULL PHONE NUMBER)
-  //IF INSERT, RESPONSE INCLUDES FLAG FOR WINDOW.ALERT(NEW CONTRACTOR - NO CONTACT INFORMATION)
+  let checkString = `SELECT contractor_id FROM proline.contractor_tab WHERE company LIKE '${company}' AND 
+    first_name LIKE '${firstName}' AND last_name LIKE '${lastName}' UNION (SELECT 'No_contractor_found') 
+    LIMIT 1 `;
 
   //Database queries to create a new record in the transaction table, and to update the key's status in the key table
   let transString = `INSERT INTO proline.trans_tab (deposit, deposit_type, fees, notes, key_tab_key_id, 
@@ -127,6 +125,11 @@ async function checkKeyOut(req, res) {
   console.log(keyString);
 
   try {
+    let checkResult = await db.dbQuery(checkString);
+    if (checkResult[0].contractor_id === "No_contractor_found") {
+      res.status(200).json({redirect: true});
+      return;
+    }
     let transResult = await db.dbQuery(transString);
     let keyResult = await db.dbQuery(keyString);
     const result = {

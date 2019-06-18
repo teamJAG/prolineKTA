@@ -19,6 +19,8 @@ const CheckKeyOut = props => {
     paddingTop: "10%"
   };
 
+ 
+
   return (
     <div style={{ containerStyle }}>
       <Grid columns={2} divided>
@@ -83,6 +85,7 @@ const CheckKeyOut = props => {
                     table="contractor_tab"
                     id="company"
                     as={Input}
+                    required
                   />
                 </Form.Field>
                 <Form.Field>
@@ -91,6 +94,7 @@ const CheckKeyOut = props => {
                     table="contractor_tab"
                     id="first_name"
                     as={Input}
+                    required
                   />
                 </Form.Field>
                 <Form.Field>
@@ -99,6 +103,7 @@ const CheckKeyOut = props => {
                     table="contractor_tab"
                     id="last_name"
                     as={Input}
+                    required
                   />
                 </Form.Field>
                 <Form.Field>
@@ -118,7 +123,7 @@ const CheckKeyOut = props => {
                   <input id="notes" />
                 </Form.Field>
                 <Form.Group>
-                  <Form.Button content="Submit" />
+                  <Form.Button color="purple" content="Submit" />
                   <Form.Field>
                     <Checkbox label="This is a sale" inline id="sale" />
                   </Form.Field>

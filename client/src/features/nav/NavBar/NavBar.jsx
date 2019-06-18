@@ -30,7 +30,7 @@ class NavBar extends Component {
                 Keys Checked Out
               </Dropdown.Item>
               <Dropdown.Item as={NavLink} to="/buildingreports">
-                Buildings
+                Properties
               </Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
@@ -59,7 +59,7 @@ class NavBar extends Component {
               <Dropdown.Item as={NavLink} to="/purchase">
                 Purchase
               </Dropdown.Item>
-              <Dropdown.Item as={NavLink} to="/trade">
+              <Dropdown.Item as={NavLink} to="/generic">
                 Generic
               </Dropdown.Item>
             </Dropdown.Menu>
@@ -73,7 +73,7 @@ class NavBar extends Component {
               floated="right"
               //positive
               inverted
-              color="teal"
+              color="white"
               content="Add Key"
             />
           </Menu.Item>
@@ -86,7 +86,7 @@ class NavBar extends Component {
               floated="right"
               //positive
               inverted
-              color="teal"
+              color="white"
               content="Add Property"
             />
           </Menu.Item>
@@ -99,7 +99,7 @@ class NavBar extends Component {
               floated="right"
               //positive
               inverted
-              color="teal"
+              color="white"
               content="Scan Key"
             />
           </Menu.Item>

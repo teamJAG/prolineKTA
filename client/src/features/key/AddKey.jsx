@@ -3,11 +3,11 @@
 //to <PrintQRCode> needs to be renamed from 'keyNumber={...keyQuantity}' to an appropriate value.
 
 import React from "react";
-import { Form, Dropdown, Input } from "semantic-ui-react-form-validator";
-import { Button } from "semantic-ui-react";
+import { Button, Form, Dropdown, Input, Header } from "semantic-ui-react";
 import PrintQRCode from "./PrintQRCode";
 import { fetchRecord } from "../../app/fetch/fetches";
 import AutoComplete from "./AutoComplete";
+import * as ui from "./ui";
 
 class AddKey extends React.Component {
   constructor(props) {
@@ -23,10 +23,12 @@ class AddKey extends React.Component {
       deposit: 0,
       showQR: false,
       propertyNumber: "",
-      keyNumber: 0
+      keyNumber: 0,
+      selected: false
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleSelected = this.handleSelected.bind(this);
   }
 
   handleChange(e, data) {
@@ -35,15 +37,20 @@ class AddKey extends React.Component {
     });
   }
 
-  async handleSubmit(e) {
+  handleSelected() {
+    this.setState({selected: true});
+  }
+
+  async handleSubmit(e, data) {
     e.preventDefault();
+    console.log(data);
     const {
-      address,
       city,
       keyStorageLocation,
       keyOfficeLocation,
       keyQuantity,
       keyType,
+      address,
       deposit
     } = this.state;
     const request = {
@@ -65,46 +72,8 @@ class AddKey extends React.Component {
   }
 
   render() {
-    const keyTypeOptions = [
-      {
-        key: "1",
-        text: "Master",
-        value: "MASTER"
-      },
-      {
-        key: "2",
-        text: "Trades",
-        value: "TRADES"
-      },
-      {
-        key: "3",
-        text: "FOB",
-        value: "FOB"
-      },
-      {
-        key: "4",
-        text: "Garage",
-        value: "GARAGE"
-      },
-      {
-        key: "5",
-        text: "Elevator",
-        value: "ELEVATOR"
-      },
-      {
-        key: "6",
-        text: "Proline",
-        value: "PROLINE"
-      },
-      {
-        key: "7",
-        text: "Guest Room",
-        value: "GUEST-ROOM"
-      }
-    ];
     const containerStyle = {
       display: "inline-block",
-      marginLeft: "12%",
       paddingTop: 20,
       textAlign: "left",
       width: "50%"
@@ -120,81 +89,88 @@ class AddKey extends React.Component {
             textAlign: "center"
           }}
         >
-          <h1 className="ui horizontal divider header">Create Key</h1>
           <div style={containerStyle}>
             <Form onSubmit={this.handleSubmit}>
-              <AutoComplete 
-                table="address_tab"
-                id="address"
-                fullTextSearch
-                as={Input}
-                label="Street Address"
-                placeholder="Address"
-                name="address"
-                validators={["required"]}
-                errorMessages={["this field is required"]}
-              />
+              <Header className="ui horizontal divider header">
+                Create Key
+              </Header>
+              <Form.Field>
+                <label>Street Address</label>
+                <AutoComplete
+                  table="address_tab"
+                  id="address"
+                  as={Input}
+                  onChange={this.handleChange}
+                  placeholder="Address"
+                  name="address"
+                  selected={this.handleSelected}
+                />
+              </Form.Field>
+              <Form.Field>
+              <label>City</label>
               <Input
                 onChange={this.handleChange}
                 value={this.state.city}
-                label="City"
                 placeholder="City"
                 name="city"
-                validators={["required"]}
-                errorMessages={["this field is required"]}
+                required
               />
+              </Form.Field>
+              <Form.Field>
+              <label>Storage Location</label>
               <Input
                 onChange={this.handleChange}
                 value={this.state.keyStorageLocation}
-                label="Storage Location"
                 placeholder="Storage Location"
                 name="keyStorageLocation"
-                validators={["required"]}
-                errorMessages={["this field is required"]}
               />
-              <Input
+              </Form.Field>
+              <Form.Field>
+              <label>Office Location</label>
+              <Dropdown
+                options={ui.keyOfficeLocationOptions}
                 onChange={this.handleChange}
                 value={this.state.keyOfficeLocation}
-                label="Office Location"
-                placeholder="Office Location"
+                selection
                 name="keyOfficeLocation"
-                validators={["required"]}
-                errorMessages={["this field is required"]}
+                placeholder="Office location..."
               />
+              </Form.Field>
+              <Form.Field>
+              <label>Key Quantity</label>
               <Input
                 onChange={this.handleChange}
                 value={this.state.keyQuantity}
                 type="number"
                 min="0"
-                label="Key Quantity"
                 placeholder="Key Quantity"
                 name="keyQuantity"
-                validators={["required"]}
-                errorMessages={["this field is required"]}
               />
+              </Form.Field>
+              <Form.Field>
+              <label>Key Type</label>
               <Dropdown
-                options={keyTypeOptions}
+                options={ui.keyTypeOptions}
                 onChange={this.handleChange}
                 value={this.state.keyType}
                 selection
-                label="Key Type"
                 name="keyType"
                 placeholder="Key Type"
-                validators={["required"]}
-                errorMessages={["this field is required"]}
               />
-
+              </Form.Field>
+              <Form.Field>
+              <label>Deposit</label>
               <Input
                 onChange={this.handleChange}
                 value={this.state.deposit}
                 type="number"
                 min="0"
-                label="Deposit"
                 placeholder="Is there a deposit on the key?"
                 name="deposit"
               />
+              </Form.Field>
               <br />
-              <Button type="submit" color="teal">
+              <Button type="submit" color="purple">
                 Submit
               </Button>
             </Form>

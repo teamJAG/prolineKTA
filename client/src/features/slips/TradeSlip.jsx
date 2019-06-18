@@ -33,7 +33,7 @@ class TradeSlip extends React.Component {
             <Grid.Column>
               <Segment>
                 <Form>
-                  <Header textAlign="center">Trade Keys</Header>
+                  <Header textAlign="center">Trade</Header>
                   <Divider />
 
                   <Form.Field>
@@ -167,7 +167,7 @@ const PrintSlip = () => {
   return (
     <div>
       <ReactToPrint
-        trigger={() => <Button color="teal">Print Slip</Button>}
+        trigger={() => <Button color="purple">Print Slip</Button>}
         content={() => slipRef.current}
       />
       <TradeSlip style={{ marginLeft: "10px" }} ref={slipRef} />

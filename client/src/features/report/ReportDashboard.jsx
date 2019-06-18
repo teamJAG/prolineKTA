@@ -28,6 +28,7 @@ class ReportDashboard extends Component {
     if (nextProps.tableType !== prevState.tableType) {
       console.log("firing");
       return {
+        filterId: '',
         filterValue: '',
         tableType: nextProps.tableType
       };
@@ -37,7 +38,6 @@ class ReportDashboard extends Component {
 
   render() {
 
-
     let columns = [];
     let options = [];
     let filter = {
@@ -45,35 +45,37 @@ class ReportDashboard extends Component {
       value: this.state.filterValue
     };
 
-    switch (this.props.tableType) {
+    switch (this.state.tableType) {
       case "keys":
         columns = ui.keyColumns;
-        options = ui.keyStatus;
+        options = ui.keyFilter;
         break;
       case "properties":
         columns = ui.propertyColumns;
-        options = ui.propertyOptions
-        // ui.propertyNames().then(response => {
-        //   options = response;
-        //   console.log(options);
-        // });
-        // console.log(options);
+        options = ui.propertyFilter
         break;
       default:
         break;
     }
 
+  //   <AutoComplete
+  //   table="property_tab"
+  //   id="property_name"
+  //   as={Input}
+  //   style={{ paddingRight: "5px"}}
+  //   inline
+  //   placeholder="Building Name..."
+  // />
+
+  // <Button
+  // floated="right"
+  // onClick={this.generateFullReport}
+  // color="purple"
+  // >Full Report</Button>
+
     return (
       <div>
         <div>
-          <AutoComplete
-            table="property_tab"
-            id="property_name"
-            as={Input}
-            style={{ paddingRight: "5px"}}
-            inline
-            placeholder="Building Name..."
-          />
           <Dropdown
             options={options}
             selection
@@ -88,11 +90,6 @@ class ReportDashboard extends Component {
             placeholder="Search..."
             onChange={this.handleValue}
           />
-          <Button
-             floated="right"
-             onClick={this.generateFullReport}
-             color="teal"
-             >Full Report</Button>
         </div>
         <Divider />
         <div>

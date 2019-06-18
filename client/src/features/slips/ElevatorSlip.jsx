@@ -33,7 +33,7 @@ class ElevatorSlip extends React.Component {
             <Grid.Column>
               <Segment>
                 <Form>
-                  <Header textAlign="center">Elevator Keys</Header>
+                  <Header textAlign="center">Elevator/Garage</Header>
                   <Divider />
 
                   <Form.Field>
@@ -217,7 +217,7 @@ const PrintSlip = () => {
   return (
     <div>
       <ReactToPrint
-        trigger={() => <Button color="teal">Print Slip</Button>}
+        trigger={() => <Button color="purple">Print Slip</Button>}
         content={() => slipRef.current}
       />
       <ElevatorSlip style={{ marginLeft: "10px" }} ref={slipRef} />

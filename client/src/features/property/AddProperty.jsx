@@ -1,6 +1,14 @@
 import React, { Component } from "react";
-import { Form, Dropdown, Input } from "semantic-ui-react-form-validator";
-import { TextArea, Button, Divider } from "semantic-ui-react";
+import { Redirect } from "react-router-dom";
+import {
+  TextArea,
+  Button,
+  Divider,
+  Form,
+  Dropdown,
+  Input,
+  Header
+} from "semantic-ui-react";
 import { fetchRecord } from "../../app/fetch/fetches";
 
 export default class AddProperty extends React.Component {
@@ -13,8 +21,11 @@ export default class AddProperty extends React.Component {
       propertyName: "",
       propertyNumber: "",
       propertyType: "",
-      comments: ""
+      comments: "",
+      redirect: false
     };
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleChange(e, data) {
@@ -43,10 +54,14 @@ export default class AddProperty extends React.Component {
       propertyType: propertyType,
       comments: comments
     };
-    await fetchRecord(request, "POST", "/propertyrecord", res => {});
+    await fetchRecord(request, "POST", "/propertyrecord", res => {
+      this.setState({redirect: true});
+    });
   }
 
   render() {
+    let redirect;
+    this.state.redirect ? redirect = (<Redirect to="/properties" />) : redirect = null
     const propTypeOptions = [
       {
         key: "1",
@@ -71,92 +86,103 @@ export default class AddProperty extends React.Component {
     ];
     const containerStyle = {
       display: "inline-block",
-      marginLeft: "12%",
       paddingTop: 20,
       textAlign: "left",
-      width: '50%'
+      width: "50%"
     };
 
     return (
-      <div style={{ marginTop: 10, padding: 20, display: "block", textAlign: "center" }}>
-        <h1 className="ui horizontal divider header">Create Property</h1>
-        <div
-          style={containerStyle}
-        >
+      <div
+        style={{
+          marginTop: 10,
+          padding: 20,
+          display: "block",
+          textAlign: "center"
+        }}
+      >
+      {redirect}
+        <div style={containerStyle}>
           <Form onSubmit={this.handleSubmit}>
-            <Input
-              label="Name"
-              placeholder="Property Name"
-              onChange={this.handleChange}
-              name="propertyName"
-              value={this.state.propertyName}
-              validators={["required"]}
-              errorMessages={["this field is required"]}
-            />
-            <Input
-              label="Building Number"
-              placeholder="####"
-              onChange={this.handleChange}
-              name="propertyNumber"
-              value={this.state.propertyNumber}
-              validators={["required"]}
-              errorMessages={["this field is required"]}
-            />
-            <Input
-              label="Address"
-              placeholder="Address"
-              onChange={this.handleChange}
-              name="address"
-              value={this.state.address}
-              validators={["required"]}
-              errorMessages={["this field is required"]}
-            />
-            <Input
-              label="City"
-              placeholder="City"
-              onChange={this.handleChange}
-              name="city"
-              value={this.state.city}
-              validators={["required"]}
-              errorMessages={["this field is required"]}
-            />
-            <Input
-              label="Postal Code"
-              placeholder="Postal Code"
-              onChange={this.handleChange}
-              name="postalCode"
-              value={this.state.postalCode}
-              validators={[
-                "required",
-                "matchRegexp:[A-Za-z][0-9][A-Za-z] [0-9][A-Za-z][0-9]"
-              ]}
-              errorMessages={[
-                "this field is required",
-                "postalcode is invalid"
-              ]}
-            />
-            <Dropdown
-              label="Property Type"
-              name="propertyType"
-              selection
-              placeholder="Property Type"
-              onChange={this.handleChange}
-              value={this.state.propertyType}
-              validators={["required"]}
-              errorMessages={["this field is required"]}
-              options={propTypeOptions}
-            />
-            <TextArea
-              style={{ minHeight: 100, width: "50%" }}
-              name="comments"
-              label="Comments"
-              fluid
-              placeholder="Additional Comments..."
-              onChange={this.handleChange}
-              value={this.state.comments}
-            />
+            <Header className="ui horizontal divider header">
+              Create Property
+            </Header>
+            <Form.Field>
+              <label>Name</label>
+              <Input
+                placeholder="Property Name"
+                onChange={this.handleChange}
+                name="propertyName"
+                value={this.state.propertyName}
+                required
+              />
+            </Form.Field>
+            <Form.Field>
+              <label>Building Number</label>
+              <Input
+                placeholder="####"
+                onChange={this.handleChange}
+                name="propertyNumber"
+                value={this.state.propertyNumber}
+                required
+                pattern='^[A-Za-z0-9]{4}'
+              />
+            </Form.Field>
+            <Form.Field>
+              <label>Address</label>
+              <Input
+                placeholder="Address"
+                onChange={this.handleChange}
+                name="address"
+                value={this.state.address}
+                required
+              />
+            </Form.Field>
+            <Form.Field>
+              <label>City</label>
+              <Input
+                placeholder="City"
+                onChange={this.handleChange}
+                name="city"
+                value={this.state.city}
+                required
+              />
+            </Form.Field>
+            <Form.Field>
+              <label>Postal Code</label>
+              <Input
+                placeholder="V1V1V1"
+                onChange={this.handleChange}
+                name="postalCode"
+                value={this.state.postalCode}
+                required
+                pattern='[A-Za-z]\d[A-Za-z]\d[A-Za-z]\d$'
+              />
+            </Form.Field>
+            <Form.Field>
+              <label>Property Type</label>
+              <Dropdown
+                name="propertyType"
+                selection
+                placeholder="Property Type"
+                onChange={this.handleChange}
+                value={this.state.propertyType}
+                options={propTypeOptions}
+                required
+              />
+            </Form.Field>
+            <Form.Field>
+              <label>Comments</label>
+              <TextArea
+                style={{ minHeight: 100, width: "50%" }}
+                name="comments"
+                fluid
+                placeholder="Additional Comments..."
+                onChange={this.handleChange}
+                value={this.state.comments}
+              />
+            </Form.Field>
             <Divider />
-            <Button type="submit" color="teal">
+            <Button type="submit" color="purple">
               Submit
             </Button>
           </Form>

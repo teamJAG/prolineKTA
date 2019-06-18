@@ -21,11 +21,7 @@ const HomePage = ({history}) => {
         </div>
       </div>
       <div style={{ textAlign: 'center' }}>
-        Application made by{' '}
-        <a href="https://jagteam-52aa5.firebaseapp.com/" title="Team JAG">
-          JAG Software Solutions
-        </a>{' '}
-        version 1.0
+        Developed for Proline Propety Management for Camosun ICS Capstone
       </div>
     </div>
   );

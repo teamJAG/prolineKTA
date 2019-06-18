@@ -216,7 +216,7 @@ const PrintSlip = () => {
   return (
     <div>
       <ReactToPrint
-        trigger={() => <Button color="teal">Print Slip</Button>}
+        trigger={() => <Button color="purple">Print Slip</Button>}
         content={() => slipRef.current}
       />
       <GuestSlip style={{ marginLeft: "10px" }} ref={slipRef} />
