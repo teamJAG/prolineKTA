@@ -56,19 +56,17 @@ import { NavLink } from 'react-router-dom';
       }
     },
     style: {textAlign: 'center'}
-
-    //Edit button disabled for demo
-    // }, {
-    //   Cell: (row) => {
-    //     return <Button 
-    //     as={NavLink} 
-    //     to={{
-    //       pathname:"/editkey",
-    //       keyRecord: row.original
-    //      }}>Edit</Button>;
-    //   },
-    //   style: {textAlign: 'center'},
-    //   sortable: false
+    }, {
+      Cell: (row) => {
+        return <Button 
+        as={NavLink} 
+        to={{
+          pathname:"/editkey",
+          keyRecord: row.original
+         }}>Edit</Button>;
+      },
+      style: {textAlign: 'center'},
+      sortable: false
     },
   ];
 
@@ -94,6 +92,17 @@ import { NavLink } from 'react-router-dom';
   }, {
     Header: 'Company',
     accessor: 'company'
+  }, {
+    Cell: (row) => {
+      return <Button 
+      as={NavLink} 
+      to={{
+        pathname:"/editproperty",
+        keyRecord: row.original
+       }}>Edit</Button>;
+    },
+    style: {textAlign: 'center'},
+    sortable: false
   }];
 
   export const propertyColumns = [{
@@ -125,19 +134,17 @@ import { NavLink } from 'react-router-dom';
   }, {
     Header: 'Comments',
     accessor: 'comments'
-  // },
-  //Edit button disabled for demo
-  //  {
-  //   Cell: (row) => {
-  //     return <Button 
-  //     as={NavLink} 
-  //     to={{
-  //       pathname:"/editproperty",
-  //       keyRecord: row.original
-  //      }}>Edit</Button>;
-  //   },
-  //   style: {textAlign: 'center'},
-  //   sortable: false
+  }, {
+    Cell: (row) => {
+      return <Button 
+      as={NavLink} 
+      to={{
+        pathname:"/editproperty",
+        keyRecord: row.original
+       }}>Edit</Button>;
+    },
+    style: {textAlign: 'center'},
+    sortable: false
   }];
 
 //Arrays to describe the selections available to filter results by id
@@ -170,5 +177,5 @@ import { NavLink } from 'react-router-dom';
     { key: '7', text: 'Office', value: 'office_location'},
     { key: '8', text: 'Key Number', value: 'key_number'},
     { key: '9', text: 'Key Type', value: 'key_type'},
-    { key: '10', text: 'Status', value: 'key_status'}
+    { key: '10', text: 'Key Status', value: 'key_status'}
   ];

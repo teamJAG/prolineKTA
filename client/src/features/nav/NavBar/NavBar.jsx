@@ -92,6 +92,19 @@ class NavBar extends Component {
           </Menu.Item>
 
           <Menu.Item>
+          <Button
+            as={NavLink}
+            to="/createcontractor"
+            name="addContractor"
+            floated="right"
+            //positive
+            inverted
+            color="white"
+            content="Add Contractor"
+          />
+        </Menu.Item>
+
+          <Menu.Item>
             <Button
               as={NavLink}
               to="/scankey"

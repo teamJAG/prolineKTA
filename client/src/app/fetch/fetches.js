@@ -41,7 +41,7 @@ export async function fetchRecordData(
   }
 }
 
-//Fetch for individual key/property records
+//Fetch for adding/editing individual key/property records
 export async function fetchRecord(request, method, endpoint, handleData) {
   try {
     let result = await fetch(`${process.env.REACT_APP_API_URL}/${endpoint}`, {
@@ -61,7 +61,7 @@ export async function fetchRecord(request, method, endpoint, handleData) {
   }
 }
 
-//Fetch for individual key/transaction records
+//Fetch for getting individual key/transaction records
 export async function fetchKeyStatus(request, method, handleData) {
   try {
     let result = await fetch(`${process.env.REACT_APP_API_URL}/keystatus`, {
@@ -83,7 +83,7 @@ export async function fetchKeyStatus(request, method, handleData) {
   }
 }
 
-//Fetch for changing key status and creation transactions
+//Fetch for changing key status and creating transactions
 export async function fetchKeyCheck(request, method, handleData) {
   try {
     let result = await fetch(`${process.env.REACT_APP_API_URL}/keycheck`, {

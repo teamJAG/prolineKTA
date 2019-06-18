@@ -30,7 +30,8 @@ async function getKeyStatus(req, res) {
         keyStatus: keyRecord.key_status,
         deposit: keyRecord.deposit,
         keyStorageLocation: keyRecord.storage_location,
-        keyOfficeLocation: keyRecord.office_location
+        keyOfficeLocation: keyRecord.office_location,
+        
       }
     };
     if (rows[0].key_status === 0) {

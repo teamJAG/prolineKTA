@@ -11,7 +11,7 @@ import AddKey from '../../features/key/AddKey';
 import Testing from '../../features/testing/Testing';
 import ScanKey from '../../features/key/ScanKey';
 import EditKey from '../../features/key/EditKey';
-import EditProperty from '../../features/property/EditPropety';
+import EditProperty from '../../features/property/EditProperty';
 import CohoSlip from '../../features/slips/CohoSlip';
 import ElevatorSlip from '../../features/slips/ElevatorSlip';
 import FobSlip from '../../features/slips/FobSlip';
