@@ -6,11 +6,11 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var cors = require('cors');
-
+var passport = require('passport');
 var apiRouter = require('./api/routes/apiRouter');
 
 var app = express();
-
+app.use(passport.initialize());
 app.use(cors());
 app.use(logger('dev'));
 app.use(express.json());

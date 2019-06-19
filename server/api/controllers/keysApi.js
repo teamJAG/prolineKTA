@@ -34,7 +34,7 @@ async function getKeyStatus(req, res) {
         
       }
     };
-    if (rows[0].key_status === 0) {
+    if (rows[0].key_status === "OUT") {
       const transactionQuery =
         queries.transactionQuery +
         `WHERE key_tab_key_id LIKE ${keyRecord.key_id} 
@@ -148,7 +148,7 @@ async function checkKeyOut(req, res) {
 async function checkKeyIn(req, res) {
   const { keyId, transId } = req.body;
   const transString = `UPDATE proline.trans_tab SET checked_in = current_timestamp() WHERE trans_id = ${transId}`;
-  const keyString = `UPDATE proline.key_tab SET key_status = 2 WHERE key_id = ${keyId}`;
+  const keyString = `UPDATE proline.key_tab SET key_status = "IN" WHERE key_id = ${keyId}`;
   console.log(transString);
   console.log(keyString);
   try {
@@ -206,8 +206,45 @@ async function createKey(req, res) {
 
 //Edit a key record in the database
 async function updateKey(req, res) {
-  return;
-}
+  const {
+    address,
+    city,
+    keyStorageLocation,
+    keyOfficeLocation,
+    keyQuantity,
+    keyStatus,
+    keyId,
+    keyType,
+    deposit
+  } = req.body;
+
+  let active = ``;
+  if (keyStatus === "LOST" || keyType === "SOLD" || keyType === "DESTROYED") {
+    active = `, active = 0 `;
+  }
+
+  let keyUpdateString = `UPDATE proline.key_tab SET storage_location = "${keyStorageLocation}", 
+      key_quantity = ${keyQuantity}, key_type = "${keyType}", deposit = ${deposit}, 
+      office_location = "${keyOfficeLocation}", address_tab_address_id = (SELECT a.address_id FROM 
+      proline.address_tab a INNER JOIN proline.city_tab c ON c.city_id = a.city_tab_city_id 
+      WHERE address LIKE "${address}" AND city LIKE "${city}"), key_status = "${keyStatus}" ${active} WHERE 
+      keyId = ${keyId} `;
+
+  const qrQueryString = `SELECT p.property_number, k.key_number FROM proline.key_tab k
+    WHERE key_id = ${keyId} `;
+
+  console.log(keyUpdateString);
+  console.log(qrQueryString);
+
+  try {
+    let keyResult = await db.dbQuery(keyUpdateString);
+    let qrResult = await db.dbQuery(qrQueryString);
+    let result = Object.assign(keyResult, qrResult[0]);
+    console.log(result);
+    res.status(201).json(result);
+  } catch (err) {
+    res.status(400).json(err);
+  }}
 
 module.exports = {
   switchKeyStatus,

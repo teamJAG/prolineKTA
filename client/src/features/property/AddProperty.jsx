@@ -150,12 +150,12 @@ export default class AddProperty extends React.Component {
             <Form.Field>
               <label>Postal Code</label>
               <Input
-                placeholder="V1V1V1"
+                placeholder="V1V 1V1"
                 onChange={this.handleChange}
                 name="postalCode"
                 value={this.state.postalCode}
                 required
-                pattern='[A-Za-z]\d[A-Za-z]\d[A-Za-z]\d$'
+                pattern='[A-Za-z]\d[A-Za-z]\s\d[A-Za-z]\d$'
               />
             </Form.Field>
             <Form.Field>

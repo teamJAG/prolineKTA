@@ -123,7 +123,7 @@ async function updateProperty(req, res) {
 
   const updateAddressString = `UPDATE proline.address_tab SET address = "${address}", postal_code = "${postalCode}", 
     city_tab_city_id = (SELECT city_id FROM proline.city_tab WHERE city = "${city}"), 
-    property_tab_property_id = "${propertyId}") WHERE address_id = ${addressId} `
+    property_tab_property_id = "${propertyId}" WHERE address_id = ${addressId} `
 
   console.log(cityString);
   console.log(updatePropertyString);

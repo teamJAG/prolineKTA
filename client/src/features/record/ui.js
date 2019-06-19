@@ -38,23 +38,6 @@ import { NavLink } from 'react-router-dom';
     }, {
     Header: 'Key Status',
     accessor: 'key_status',
-    Cell: (row) => {
-      if (row.value === 5) {
-        return <span>Destroyed</span>;
-      } else if (row.value === 4) {
-        return <span>Lost</span>;
-      } else if (row.value === 3) {
-        return <span>Sold</span>;
-      } else if (row.value === 2) {
-        return <span>In</span>;
-      } else if (row.value === 1) {
-        return <span>Pending</span>;
-      } else if (row.value === 0) {
-        return <span>Out</span>;
-      } else {
-        return null;
-      }
-    },
     style: {textAlign: 'center'}
     }, {
       Cell: (row) => {

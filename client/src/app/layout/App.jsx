@@ -55,12 +55,13 @@ const BuildingReportDashboard = (props) => {
 class App extends Component {
   
   render() {
+    
+
     return (
       <div>
         <Switch>
           <Route exact path="/" component={HomePage} />
         </Switch>
-
         <Route
           path="/(.+)"
           render={() => (
@@ -88,9 +89,6 @@ class App extends Component {
                   <Route path="/rental" component={RentalSlip} />
                   <Route path="/trade" component={TradeSlip} />
                   <Route path="/generic" component={GenericSlip} />
-
-
-
                 </Switch>
               </Container>
             </div>

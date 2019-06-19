@@ -66,10 +66,6 @@ class ReportDashboard extends Component {
     //   placeholder="Building Name..."
     // />
 
-    <Button floated="right" onClick={this.generateFullReport} color="purple">
-      Full Report
-    </Button>;
-
     return (
       <div>
         <div>
@@ -87,6 +83,13 @@ class ReportDashboard extends Component {
             placeholder="Search..."
             onChange={this.handleValue}
           />
+          <Button
+            floated="right"
+            onClick={this.generateFullReport}
+            color="purple"
+          >
+            Full Report
+          </Button>
         </div>
         <Divider />
         <div>

@@ -52,7 +52,7 @@ class ScanKey extends Component {
       id: this.state.scannedKey
     };
     await fetchKeyStatus(request, "POST", res => {
-      if (res.key.keyStatus === 1) {
+      if (res.key.keyStatus === "PENDING") {
         this.setState(state => {
           return {
             keyPending: true,
@@ -61,7 +61,7 @@ class ScanKey extends Component {
             disableForm: true
           };
         });
-      } else if (res.key.keyStatus === 2) {
+      } else if (res.key.keyStatus === "IN") {
         this.setState(state => {
           return {
             keyPending: false,
@@ -70,7 +70,7 @@ class ScanKey extends Component {
             disableForm: true
           };
         });
-      } else if (res.key.keyStatus === 0 && res.trans) {
+      } else if (res.key.keyStatus === "OUT" && res.trans) {
         this.setState(state => {
           return {
             keyPending: false,
@@ -88,7 +88,7 @@ class ScanKey extends Component {
   async handlePending(e) {
     e.preventDefault();
     let request = {
-      keyStatus: 1,
+      keyStatus: "PENDING",
       keyId: this.state.scannedKey
     };
     await fetchKeyStatus(request, "PUT", res => {

@@ -2,14 +2,14 @@
 //pass a 'page count' to the client data table.
 
 const keyCount = `SELECT COUNT(*) as count FROM (SELECT p.property_type, p.property_name, p.property_number, 
-    a.address, c.city, k.storage_location, k.office_location, k.key_number, k.key_type, k.key_status, k.key_id
+    a.address, c.city, k.storage_location, k.office_location, k.key_number, k.key_quantity, k.key_type, k.key_status, k.key_id, k.deposit, a.address_id
     FROM proline.key_tab k
     INNER JOIN proline.address_tab a ON a.address_id = k.address_tab_address_id
 	INNER JOIN proline.city_tab c ON c.city_id = a.city_tab_city_id
     INNER JOIN proline.property_tab p ON p.property_id = a.property_tab_property_id) as count `;
 
 const keyRecords = `SELECT p.property_type, p.property_name, p.property_number, a.address, c.city, k.storage_location, 
-    k.office_location, k.key_number, k.key_type, k.key_status, k.key_id
+    k.office_location, k.key_number, k.key_quantity, k.key_type, k.key_status, k.key_id, k.deposit, a.address_id
     FROM proline.key_tab k
     INNER JOIN proline.address_tab a ON a.address_id = k.address_tab_address_id
 	INNER JOIN proline.city_tab c ON c.city_id = a.city_tab_city_id

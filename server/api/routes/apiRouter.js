@@ -13,7 +13,7 @@ const usersAPI = require("../controllers/usersApi");
 
 const OPTS = {
   server: {
-    url: "ldap://localhost:389",
+    url: "ldap://192.168.1.3:389",
     bindDN: "cn=root",
     bindCredentials: "secret",
     searchBase: "ou=passport-ldapauth",

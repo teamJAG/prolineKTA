@@ -62,7 +62,7 @@ async function listRecords(req, res) {
       //The key view has a special QR Code input, which will always take
       //a specially formatted string consisting of 4 values
       if (req.body.filter.id === "qr") {
-        const filterArray = req.body.filter.value.split("-");
+        const filterArray = req.body.filter.value.split("*");
         countQuery += `WHERE property_number LIKE ${filterArray[0]} AND
                     office_location LIKE '${filterArray[1]}' AND key_type LIKE
                     '${filterArray[2]}' AND key_number LIKE ${filterArray[3]} `;
