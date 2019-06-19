@@ -12,7 +12,7 @@ export default class EditContractor extends React.Component {
       phoneNum: this.props.location.keyRecord.phone_num,
       email: this.props.location.keyRecord.email,
       company: this.props.location.keyRecord.company,
-      contractorId: this.props.location.keyRecord.contactor_id,
+      contractorId: this.props.location.keyRecord.contractor_id,
       redirect: false
     };
     this.handleChange = this.handleChange.bind(this);
@@ -27,13 +27,14 @@ export default class EditContractor extends React.Component {
 
   async handleSubmit(e) {
     e.preventDefault();
-    const { firstName, lastName, phoneNum, email, company } = this.state;
+    const { firstName, lastName, phoneNum, email, company, contractorId } = this.state;
     const request = {
       firstName: firstName,
       lastName: lastName,
       phoneNum: phoneNum,
       email: email,
-      company: company
+      company: company,
+      contractorId: contractorId
     };
     await fetchRecord(request, "PUT", "/contractors", res => {
       this.setState({redirect: true});

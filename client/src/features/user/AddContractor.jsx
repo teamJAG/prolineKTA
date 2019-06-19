@@ -26,11 +26,12 @@ export default class AddContractor extends React.Component {
 
   async handleSubmit(e) {
     e.preventDefault();
-    const { firstName, lastName, phoneNum, company } = this.state;
+    const { firstName, lastName, phoneNum, email, company } = this.state;
     const request = {
       firstName: firstName,
       lastName: lastName,
       phoneNum: phoneNum,
+      email: email,
       company: company
     };
     await fetchRecord(request, "POST", "/contractors", res => {

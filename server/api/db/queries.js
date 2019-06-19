@@ -27,16 +27,16 @@ const propRecords = `SELECT a.address_id, p.property_id, p.property_number, p.pr
     INNER JOIN proline.address_tab a ON a.property_tab_property_id = p.property_id
     INNER JOIN proline.city_tab c ON c.city_id = a.city_tab_city_id `;
 
-const peopleCount = `SELECT COUNT(*) as count FROM (SELECT user_id, contractor_id, first_name, last_name, email, phone_num, null as company
+const peopleCount = `SELECT COUNT(*) as count FROM (SELECT user_id, null as contractor_id, first_name, last_name, email, phone_num, null as company
 	FROM proline.users_tab
     UNION ALL
-    SELECT contractor_id, first_name, last_name, email, phone_num, company
+    SELECT null as user_id, contractor_id, first_name, last_name, email, phone_num, company
 	FROM proline.contractor_tab) as c `;
 
 const peopleRecords = `SELECT user_id, contractor_id, first_name, last_name, email, phone_num, company
-    FROM (SELECT user_id, first_name, last_name, email, phone_num, null as company FROM proline.users_tab
+    FROM (SELECT user_id, null as contractor_id, first_name, last_name, email, phone_num, null as company FROM proline.users_tab
     UNION ALL
-    SELECT contractor_id, first_name, last_name, email, phone_num, company
+    SELECT null as user_id, contractor_id, first_name, last_name, email, phone_num, company
     FROM proline.contractor_tab) as users `;
 
 //Queries for the keysAPI

@@ -2,10 +2,10 @@ const db = require("../db/connection");
 
 //Create new contractor
 async function createContractor(req, res) {
-  const { firstName, lastName, phoneNum, company } = req.body;
+  const { firstName, lastName, phoneNum, email, company } = req.body;
 
-  const contractorString = `INSERT INTO proline.contractor_tab (first_name, last_name, phone_num, company) VALUES 
-    ('${firstName}', '${lastName}', '${phoneNum}', '${company}')`;
+  const contractorString = `INSERT INTO proline.contractor_tab (first_name, last_name, phone_num, email, company) VALUES 
+    ('${firstName}', '${lastName}', '${phoneNum}', '${email}', '${company}')`;
 
   console.log(contractorString);
 
@@ -23,10 +23,10 @@ async function createContractor(req, res) {
 }
 
 async function updateContractor(req, res) {
-  const { firstName, lastName, phoneNum, company, contractorId } = req.body;
+  const { firstName, lastName, phoneNum, email, company, contractorId } = req.body;
 
-  const contractorString = `UPDATE proline.contractor_tab SET first_name = ${firstName}, 
-    last_name = ${lastName}, phone_num = ${phoneNum}, company = ${company} WHERE contractor_id = ${contractorId} `;
+  const contractorString = `UPDATE proline.contractor_tab SET first_name = '${firstName}', 
+    last_name = '${lastName}', phone_num = ${phoneNum}, email='${email}', company = '${company}' WHERE contractor_id = ${contractorId} `;
 
   console.log(contractorString);
 
