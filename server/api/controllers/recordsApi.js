@@ -69,6 +69,19 @@ async function listRecords(req, res) {
         recordQuery += `WHERE property_number LIKE ${filterArray[0]} AND
                     office_location LIKE '${filterArray[1]}' AND key_type LIKE
                     '${filterArray[2]}' AND key_number LIKE ${filterArray[3]} `;
+      } else if (req.body.filter.id === "key_status") {
+        countQuery +=
+        "WHERE " +
+        req.body.filter.id +
+        ' LIKE "' +
+        req.body.filter.value +
+        '%" ';
+      recordQuery +=
+        "WHERE " +
+        req.body.filter.id +
+        ' LIKE "' +
+        req.body.filter.value +
+        '%" ';
       } else {
         countQuery +=
           "WHERE " +

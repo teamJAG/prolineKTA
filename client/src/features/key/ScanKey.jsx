@@ -89,7 +89,7 @@ class ScanKey extends Component {
     e.preventDefault();
     let request = {
       keyStatus: "PENDING",
-      keyId: this.state.scannedKey
+      keyId: this.state.keyRecord.keyId
     };
     await fetchKeyStatus(request, "PUT", res => {
       this.setState({

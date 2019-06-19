@@ -15,6 +15,7 @@ class EditKey extends React.Component {
     this.state = {
       address: this.props.location.keyRecord.address,
       city: this.props.location.keyRecord.city,
+      keyId: this.props.location.keyRecord.key_id,
       keyStorageLocation: this.props.location.keyRecord.storage_location,
       keyOfficeLocation: this.props.location.keyRecord.office_location,
       keyQuantity: this.props.location.keyRecord.key_quantity,
@@ -48,6 +49,8 @@ class EditKey extends React.Component {
     console.log(data);
     const {
       city,
+      keyId,
+      keyStatus,
       keyStorageLocation,
       keyOfficeLocation,
       keyQuantity,
@@ -58,6 +61,8 @@ class EditKey extends React.Component {
     const request = {
       address: address,
       city: city,
+      keyId: keyId,
+      keyStatus: keyStatus,
       keyStorageLocation: keyStorageLocation,
       keyOfficeLocation: keyOfficeLocation,
       keyQuantity: keyQuantity,

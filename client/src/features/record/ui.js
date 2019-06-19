@@ -80,7 +80,7 @@ import { NavLink } from 'react-router-dom';
       return <Button 
       as={NavLink} 
       to={{
-        pathname:"/editproperty",
+        pathname:"/editcontractor",
         keyRecord: row.original
        }}>Edit</Button>;
     },

@@ -5,9 +5,9 @@ const queries = require("../db/queries");
 async function getKeyStatus(req, res) {
   const filterArray = req.body.id.split("*");
   let recordQuery = queries.keyRecord;
-  recordQuery += `property_number LIKE ${filterArray[0]} AND
-    office_location LIKE '${filterArray[1]}' AND key_type LIKE
-    '${filterArray[2]}' AND key_number LIKE ${filterArray[3]} `;
+  recordQuery += `property_number LIKE "${filterArray[0]}" AND
+    office_location LIKE "${filterArray[1]}" AND key_type LIKE
+    "${filterArray[2]}" AND key_quantity = ${filterArray[3]} `;
   console.log(recordQuery);
   try {
     const rows = await db.dbQuery(recordQuery);
@@ -68,14 +68,7 @@ async function getKeyStatus(req, res) {
 //Switch the key_status in the database to reflect a key being checked in/out/pending
 async function switchKeyStatus(req, res) {
   const { keyStatus, keyId } = req.body;
-  const filterArray = keyId.split("*");
-  let queryString = `UPDATE proline.key_tab
-        INNER JOIN proline.address_tab ON proline.address_tab.address_id = proline.key_tab.address_tab_address_id
-        INNER JOIN proline.property_tab ON proline.property_tab.property_id = proline.address_tab.property_tab_property_id
-        SET key_status = ${keyStatus}
-        WHERE property_number LIKE ${filterArray[0]} AND
-        office_location LIKE '${filterArray[1]}' AND key_type LIKE
-        '${filterArray[2]}' AND key_number LIKE ${filterArray[3]} `;
+  let queryString = `UPDATE proline.key_tab SET key_status = "${keyStatus}" WHERE key_id LIKE ${keyId} `;
   console.log(queryString);
   try {
     const result = await db.dbQuery(queryString);
@@ -100,8 +93,8 @@ async function checkKeyOut(req, res) {
   } = req.body;
 
   //Is this transaction a sale? Update key status appropriately.
-  let newStatus;
-  sale ? (newStatus = 3) : (newStatus = 0);
+  let newStatus = "";
+  sale ? (newStatus = "SOLD") : (newStatus = "OUT");
   console.log(sale);
 
   //If there is a deposit type and/or notes, treat them as a string.
@@ -121,7 +114,7 @@ async function checkKeyOut(req, res) {
         contractor_tab_contractor_id) VALUES (${deposit}, ${depositType}, ${fees}, ${notes}, ${keyId}, (SELECT 
         contractor_id FROM proline.contractor_tab WHERE '${firstName}' LIKE first_name AND '${lastName}' 
         LIKE last_name AND '${company}' LIKE company))`;
-  let keyString = `UPDATE proline.key_tab SET key_status = ${newStatus} WHERE key_id = ${keyId}`;
+  let keyString = `UPDATE proline.key_tab SET key_status = "${newStatus}" WHERE key_id = ${keyId}`;
   console.log(transString);
   console.log(keyString);
 
@@ -228,9 +221,11 @@ async function updateKey(req, res) {
       office_location = "${keyOfficeLocation}", address_tab_address_id = (SELECT a.address_id FROM 
       proline.address_tab a INNER JOIN proline.city_tab c ON c.city_id = a.city_tab_city_id 
       WHERE address LIKE "${address}" AND city LIKE "${city}"), key_status = "${keyStatus}" ${active} WHERE 
-      keyId = ${keyId} `;
+      key_id = ${keyId} `;
 
   const qrQueryString = `SELECT p.property_number, k.key_number FROM proline.key_tab k
+    INNER JOIN proline.address_tab a ON k.address_tab_address_id = a.address_id
+    INNER JOIN proline.property_tab p ON a.property_tab_property_id = p.property_id
     WHERE key_id = ${keyId} `;
 
   console.log(keyUpdateString);

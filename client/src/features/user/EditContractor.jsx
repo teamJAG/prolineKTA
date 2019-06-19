@@ -10,7 +10,9 @@ export default class EditContractor extends React.Component {
       firstName: this.props.location.keyRecord.first_name,
       lastName: this.props.location.keyRecord.last_name,
       phoneNum: this.props.location.keyRecord.phone_num,
+      email: this.props.location.keyRecord.email,
       company: this.props.location.keyRecord.company,
+      contractorId: this.props.location.keyRecord.contactor_id,
       redirect: false
     };
     this.handleChange = this.handleChange.bind(this);
@@ -25,11 +27,12 @@ export default class EditContractor extends React.Component {
 
   async handleSubmit(e) {
     e.preventDefault();
-    const { firstName, lastName, phoneNum, company } = this.state;
+    const { firstName, lastName, phoneNum, email, company } = this.state;
     const request = {
       firstName: firstName,
       lastName: lastName,
       phoneNum: phoneNum,
+      email: email,
       company: company
     };
     await fetchRecord(request, "PUT", "/contractors", res => {
@@ -44,7 +47,7 @@ export default class EditContractor extends React.Component {
       width: "50%"
     };
     let redirect;
-    this.state.redirect ? redirect = (<Redirect to="/scankey" />) : redirect = null;
+    this.state.redirect ? redirect = (<Redirect to="/people" />) : redirect = null;
 
     return (
       <div
@@ -93,6 +96,16 @@ export default class EditContractor extends React.Component {
                 type='tel'
                 pattern='\d{10}'
               />
+            <Form.Field>
+                <label>E-Mail</label>
+                <Input
+                placeholder="you@domain.com"
+                onChange={this.handleChange}
+                name="email"
+                value={this.state.email}
+                type='email'
+            />
+            </Form.Field>
             </Form.Field>
             <Form.Field>
               <label>Company</label>

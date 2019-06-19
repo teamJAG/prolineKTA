@@ -10,6 +10,7 @@ export default class AddContractor extends React.Component {
       firstName: "",
       lastName: "",
       phoneNum: "",
+      email: "",
       company: "",
       redirect: false
     };
@@ -93,6 +94,16 @@ export default class AddContractor extends React.Component {
                 type='tel'
                 pattern='\d{10}'
               />
+            </Form.Field>
+            <Form.Field>
+              <label>E-Mail</label>
+              <Input
+              placeholder="you@domain.com"
+              onChange={this.handleChange}
+              name="email"
+              value={this.state.email}
+              type='email'
+            />
             </Form.Field>
             <Form.Field>
               <label>Company</label>
