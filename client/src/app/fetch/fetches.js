@@ -5,6 +5,27 @@ function handleHTTPErrors(response) {
   return response;
 }
 
+//Fetch call to log in
+export async function fetchLogin(request, handleData) {
+  try {
+    let result = await fetch(`${process.env.REACT_APP_API_URL}/login`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(request)
+    });
+    result = await handleHTTPErrors(result);
+    const response = await result.json();
+    console.log("API response OK.");
+    return handleData(response);
+  } catch(err) {
+    console.log("Login failed: " + JSON.stringify(err));
+    window.alert("Login failure: " + JSON.stringify(err.message));
+    return;
+  }
+}
+
 //Fetch call to get data for React-Table
 export async function fetchRecordData(
   endpoint,

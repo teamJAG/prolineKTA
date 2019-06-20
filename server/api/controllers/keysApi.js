@@ -214,6 +214,8 @@ async function updateKey(req, res) {
   let active = ``;
   if (keyStatus === "LOST" || keyType === "SOLD" || keyType === "DESTROYED") {
     active = `, active = 0 `;
+  } else if (keyStatus === "IN" || keyStatus === "OUT" || keyStatus === "PENDING") {
+    active = `, active = 1 `;
   }
 
   let keyUpdateString = `UPDATE proline.key_tab SET storage_location = "${keyStorageLocation}", 

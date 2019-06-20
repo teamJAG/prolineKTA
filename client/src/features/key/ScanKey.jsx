@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Redirect } from 'react-router-dom';
+import { Redirect } from "react-router-dom";
 import { Form, Label, Header, Divider } from "semantic-ui-react";
 import KeyPending from "./KeyPending";
 import CheckKeyOut from "./CheckKeyOut";
@@ -147,6 +147,14 @@ class ScanKey extends Component {
           renderTransactionSlip: true,
           renderDepositSlip: true
         });
+      } else if (sale) {
+        this.setState({
+          disableForm: true,
+          keyCheckedIn: false,
+          keyPending: false,
+          renderTransactionSlip: true,
+          keySold: true
+        });
       } else {
         this.setState({
           disableForm: true,
@@ -180,7 +188,7 @@ class ScanKey extends Component {
 
     let newContractor;
     this.state.renderNewContractor
-      ? (newContractor = (<Redirect to="/createcontractor" />))
+      ? (newContractor = <Redirect to="/createcontractor" />)
       : (newContractor = null);
 
     if (!this.state.disableForm && !this.state.renderTransactionSlip) {
@@ -221,6 +229,17 @@ class ScanKey extends Component {
             keyRecord={this.state.keyRecord}
             checkout={this.handleCheckout}
           />
+        </div>
+      );
+    } else if (
+      this.state.renderTransactionSlip &&
+      !this.state.keyPending &&
+      !this.state.keyCheckedIn &&
+      this.state.keySold
+    ) {
+      return (
+        <div style={{ containerStyle }}>
+          <PurchaseSlip />
         </div>
       );
     } else if (

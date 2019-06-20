@@ -142,7 +142,8 @@ import { NavLink } from 'react-router-dom';
 
   export const propFilter = [
     { key: '1', text: '', value: ''},
-    { key: '3', text: 'Property Name', value: 'property_name'},
+    { key: '2', text: 'Property Name', value: 'property_name'},
+    { key: '3', text: 'Property Number', value: 'property_number'},
     { key: '4', text: 'Property Type', value: 'property_type' },
     { key: '5', text: 'Address', value: 'address' },
     { key: '6', text: 'City', value: 'city' },

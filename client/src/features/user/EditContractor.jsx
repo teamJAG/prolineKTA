@@ -3,7 +3,7 @@ import { Redirect } from 'react-router-dom';
 import { Button, Divider, Form, Input, Header } from "semantic-ui-react";
 import { fetchRecord } from "../../app/fetch/fetches";
 
-export default class EditContractor extends React.Component {
+export default class EditContractor extends Component {
   constructor(props) {
     super(props);
     this.state = {

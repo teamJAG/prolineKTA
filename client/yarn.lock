@@ -8297,7 +8297,7 @@ react-event-listener@^0.6.6:
     prop-types "^15.6.0"
     warning "^4.0.1"
 
-react-form-validator-core@0.6.4, react-form-validator-core@^0.6.2:
+react-form-validator-core@0.6.4:
   version "0.6.4"
   resolved "https://registry.yarnpkg.com/react-form-validator-core/-/react-form-validator-core-0.6.4.tgz#08b43d90ea05a3e6e83314a68814d8d5a78a73ff"
   integrity sha512-pqMOuOnkYH+pdnh0Iflhn53l+bso8wQPZ21agn7XQj0ePTHC25VCWKs5NQg8xg7kJfLztD/83ffHyOkAAl6rhw==
@@ -8964,13 +8964,6 @@ semantic-ui-css@^2.4.1:
   integrity sha512-Pkp0p9oWOxlH0kODx7qFpIRYpK1T4WJOO4lNnpNPOoWKCrYsfHqYSKgk5fHfQtnWnsAKy7nLJMW02bgDWWFZFg==
   dependencies:
     jquery x.*
-
-semantic-ui-react-form-validator@^1.0.2:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/semantic-ui-react-form-validator/-/semantic-ui-react-form-validator-1.0.2.tgz#8bdfa2d8b9c77ee642c42f6f343e6e5a398d40df"
-  integrity sha512-NPW776v3qLyJx/apOtEVXxncR38STKdSCOiOHlI9lxilZjwe9DMDmdqtzgyvG0OINaFh+34rZV1rbDyEmf+viw==
-  dependencies:
-    react-form-validator-core "^0.6.2"
 
 semantic-ui-react@^0.87.1:
   version "0.87.1"

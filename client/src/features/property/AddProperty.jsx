@@ -11,7 +11,7 @@ import {
 } from "semantic-ui-react";
 import { fetchRecord } from "../../app/fetch/fetches";
 
-export default class AddProperty extends React.Component {
+export default class AddProperty extends Component {
   constructor(props) {
     super(props);
     this.state = {
