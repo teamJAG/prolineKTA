@@ -145,7 +145,8 @@ class ScanKey extends Component {
           keyCheckedIn: false,
           keyPending: false,
           renderTransactionSlip: true,
-          renderDepositSlip: true
+          renderDepositSlip: true,
+          checkoutFormData: transRequest
         });
       } else if (sale) {
         this.setState({
@@ -153,14 +154,16 @@ class ScanKey extends Component {
           keyCheckedIn: false,
           keyPending: false,
           renderTransactionSlip: true,
-          keySold: true
+          keySold: true,
+          checkoutFormData: transRequest
         });
       } else {
         this.setState({
           disableForm: true,
           keyCheckedIn: false,
           keyPending: false,
-          renderTransactionSlip: true
+          renderTransactionSlip: true,
+          checkoutFormData: transRequest
         });
       }
     });
@@ -239,7 +242,7 @@ class ScanKey extends Component {
     ) {
       return (
         <div style={{ containerStyle }}>
-          <PurchaseSlip />
+          <PurchaseSlip autofill={this.state.checkoutFormData} />
         </div>
       );
     } else if (
@@ -251,44 +254,44 @@ class ScanKey extends Component {
         case "MASTER":
           return (
             <div style={{ containerStyle }}>
-              <FobSlip />
+              <FobSlip autofill={this.state.checkoutFormData} />
             </div>
           );
         case "TRADES":
           return (
             <div style={{ containerStyle }}>
-              <TradeSlip />
+              <TradeSlip autofill={this.state.checkoutFormData} />
             </div>
           );
         case "FOB":
           return (
             <div style={{ containerStyle }}>
-              <FobSlip />
+              <FobSlip autofill={this.state.checkoutFormData} />
             </div>
           );
         case "GARAGE":
           return (
             <div style={{ containerStyle }}>
-              <ElevatorSlip />
+              <ElevatorSlip autofill={this.state.checkoutFormData} />
             </div>
           );
         case "ELEVATOR":
           return (
             <div style={{ containerStyle }}>
-              <ElevatorSlip />
+              <ElevatorSlip autofill={this.state.checkoutFormData} />
             </div>
           );
         case "PROLINE":
           return (
             <div style={{ containerStyle }}>
-              <FobSlip />
+              <FobSlip autofill={this.state.checkoutFormData} />
             </div>
           );
         case "GUEST-ROOM":
           let guest;
           this.state.keyRecord.propertyName === "COHO (Phase 1 & 2)"
-            ? (guest = <CohoSlip />)
-            : (guest = <GuestSlip />);
+            ? (guest = <CohoSlip autofill={this.state.checkoutFormData} />)
+            : (guest = <GuestSlip autofill={this.state.checkoutFormData} />);
           return <div style={{ containerStyle }}>{guest}</div>;
         default:
           return null;

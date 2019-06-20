@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Redirect } from 'react-router-dom';
+import moment from 'moment';
 import {
   Grid,
   Segment,
@@ -24,6 +25,8 @@ class ElevatorSlip extends React.Component {
       justifyContent: "center",
       paddingTop: "10%"
     };
+    let date = moment().format('YYYY-MM-DD');
+    let dueDate = moment().add('days', 30).format('YYYY-MM-DD');
 
     return (
       <div style={{ containerStyle }}>
@@ -75,7 +78,7 @@ class ElevatorSlip extends React.Component {
                       </div>
                       <div class="field">
                         <label>Date</label>
-                        <input type="date" id="dateSigned" />
+                        <input type="date" id="dateSigned" defaultValue={date} />
                       </div>
                     </div>
                   </Form.Field>
@@ -107,7 +110,7 @@ class ElevatorSlip extends React.Component {
                       </div>
                       <div class="field">
                         <label>Date</label>
-                        <input type="date" id="dateSigned" />
+                        <input type="date" id="dateSigned" defaultValue={date} />
                       </div>
                     </div>
                   </Form.Field>
@@ -166,7 +169,7 @@ class ElevatorSlip extends React.Component {
                       </div>
                       <div class="field">
                         <label>Date</label>
-                        <input type="date" id="dateSigned" />
+                        <input type="date" id="dateSigned" defaultValue={date} />
                       </div>
                     </div>
                   </Form.Field>

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Redirect } from 'react-router-dom';
+import moment from 'moment';
 import {
   Grid,
   Segment,
@@ -24,6 +25,8 @@ class FobSlip extends React.Component {
       justifyContent: "center",
       paddingTop: "10%"
     };
+    let date = moment().format('YYYY-MM-DD');
+    let dueDate = moment().add('days', 30).format('YYYY-MM-DD');
 
     return (
       <div style={{ containerStyle }}>
@@ -89,7 +92,7 @@ class FobSlip extends React.Component {
 
                   <Form.Field>
                     <label>Date Out:</label>
-                    <input type="date" id="outDate" />
+                    <input type="date" id="outDate" defaultValue={date} />
                   </Form.Field>
                 </Form>
               </Segment>

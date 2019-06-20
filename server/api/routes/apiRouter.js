@@ -2,24 +2,18 @@ const express = require("express");
 const router = express.Router();
 const passport = require("passport");
 
-//may use local auth strategy instead
-LdapStrategy = require("passport-ldapauth");
-
 const keysAPI = require("../controllers/keysApi");
 const reportsAPI = require("../controllers/reportsApi");
 const propertyAPI = require("../controllers/propertyApi");
 const recordsAPI = require("../controllers/recordsApi");
 const usersAPI = require("../controllers/usersApi");
 
-const OPTS = {
-  server: {
-    url: "ldap://192.168.1.3:389",
-    bindDN: "cn=root",
-    bindCredentials: "secret",
-    searchBase: "ou=passport-ldapauth",
-    searchFilter: "(uid={{username}}"
-  }
-};
+//Login LDAP authentication
+router
+  .route("/login")
+  .post(passport.authenticate('ldapauth', {session: false}), function(req, res) {
+    res.send({status: 'ok'})
+  });
 
 //Dynamic search component calls
 router
