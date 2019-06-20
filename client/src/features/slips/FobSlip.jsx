@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+import { Redirect } from 'react-router-dom';
 import {
   Grid,
   Segment,
@@ -196,11 +197,14 @@ class FobSlip extends React.Component {
 
 const PrintSlip = () => {
   const slipRef = React.useRef();
+  const [redirect, setRedirect] = useState(null);
   return (
     <div>
+      {redirect}
       <ReactToPrint
         trigger={() => <Button color="purple">Print Slip</Button>}
         content={() => slipRef.current}
+        onAfterPrint={() => {setRedirect(<Redirect to="/keyreports" />)}}
       />
       <FobSlip style={{ marginLeft: "10px" }} ref={slipRef} />
     </div>

@@ -3,15 +3,16 @@ import { Redirect } from 'react-router-dom';
 import { Button, Divider, Form, Input, Header } from "semantic-ui-react";
 import { fetchRecord } from "../../app/fetch/fetches";
 
-export default class AddContractor extends Component {
+export default class EditContractor extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      firstName: "",
-      lastName: "",
-      phoneNum: "",
-      email: "",
-      company: "",
+      firstName: this.props.location.keyRecord.first_name,
+      lastName: this.props.location.keyRecord.last_name,
+      phoneNum: this.props.location.keyRecord.phone_num,
+      email: this.props.location.keyRecord.email,
+      company: this.props.location.keyRecord.company,
+      contractorId: this.props.location.keyRecord.contractor_id,
       redirect: false
     };
     this.handleChange = this.handleChange.bind(this);
@@ -26,15 +27,16 @@ export default class AddContractor extends Component {
 
   async handleSubmit(e) {
     e.preventDefault();
-    const { firstName, lastName, phoneNum, email, company } = this.state;
+    const { firstName, lastName, phoneNum, email, company, contractorId } = this.state;
     const request = {
       firstName: firstName,
       lastName: lastName,
       phoneNum: phoneNum,
       email: email,
-      company: company
+      company: company,
+      contractorId: contractorId
     };
-    await fetchRecord(request, "POST", "/contractors", res => {
+    await fetchRecord(request, "PUT", "/contractors", res => {
       this.setState({redirect: true});
     });
   }
@@ -46,7 +48,7 @@ export default class AddContractor extends Component {
       width: "50%"
     };
     let redirect;
-    this.state.redirect ? redirect = (<Redirect to="/scankey" />) : redirect = null;
+    this.state.redirect ? redirect = (<Redirect to="/people" />) : redirect = null;
 
     return (
       <div
@@ -95,16 +97,16 @@ export default class AddContractor extends Component {
                 type='tel'
                 pattern='\d{10}'
               />
-            </Form.Field>
             <Form.Field>
-              <label>E-Mail</label>
-              <Input
-              placeholder="you@domain.com"
-              onChange={this.handleChange}
-              name="email"
-              value={this.state.email}
-              type='email'
+                <label>E-Mail</label>
+                <Input
+                placeholder="you@domain.com"
+                onChange={this.handleChange}
+                name="email"
+                value={this.state.email}
+                type='email'
             />
+            </Form.Field>
             </Form.Field>
             <Form.Field>
               <label>Company</label>

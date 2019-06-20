@@ -38,37 +38,18 @@ import { NavLink } from 'react-router-dom';
     }, {
     Header: 'Key Status',
     accessor: 'key_status',
-    Cell: (row) => {
-      if (row.value === 5) {
-        return <span>Destroyed</span>;
-      } else if (row.value === 4) {
-        return <span>Lost</span>;
-      } else if (row.value === 3) {
-        return <span>Sold</span>;
-      } else if (row.value === 2) {
-        return <span>In</span>;
-      } else if (row.value === 1) {
-        return <span>Pending</span>;
-      } else if (row.value === 0) {
-        return <span>Out</span>;
-      } else {
-        return null;
-      }
-    },
     style: {textAlign: 'center'}
-
-    //Edit button disabled for demo
-    // }, {
-    //   Cell: (row) => {
-    //     return <Button 
-    //     as={NavLink} 
-    //     to={{
-    //       pathname:"/editkey",
-    //       keyRecord: row.original
-    //      }}>Edit</Button>;
-    //   },
-    //   style: {textAlign: 'center'},
-    //   sortable: false
+    }, {
+      Cell: (row) => {
+        return <Button 
+        as={NavLink} 
+        to={{
+          pathname:"/editkey",
+          keyRecord: row.original
+         }}>Edit</Button>;
+      },
+      style: {textAlign: 'center'},
+      sortable: false
     },
   ];
 
@@ -94,6 +75,17 @@ import { NavLink } from 'react-router-dom';
   }, {
     Header: 'Company',
     accessor: 'company'
+  }, {
+    Cell: (row) => {
+      return <Button 
+      as={NavLink} 
+      to={{
+        pathname:"/editcontractor",
+        keyRecord: row.original
+       }}>Edit</Button>;
+    },
+    style: {textAlign: 'center'},
+    sortable: false
   }];
 
   export const propertyColumns = [{
@@ -125,19 +117,17 @@ import { NavLink } from 'react-router-dom';
   }, {
     Header: 'Comments',
     accessor: 'comments'
-  // },
-  //Edit button disabled for demo
-  //  {
-  //   Cell: (row) => {
-  //     return <Button 
-  //     as={NavLink} 
-  //     to={{
-  //       pathname:"/editproperty",
-  //       keyRecord: row.original
-  //      }}>Edit</Button>;
-  //   },
-  //   style: {textAlign: 'center'},
-  //   sortable: false
+  }, {
+    Cell: (row) => {
+      return <Button 
+      as={NavLink} 
+      to={{
+        pathname:"/editproperty",
+        keyRecord: row.original
+       }}>Edit</Button>;
+    },
+    style: {textAlign: 'center'},
+    sortable: false
   }];
 
 //Arrays to describe the selections available to filter results by id
@@ -152,7 +142,8 @@ import { NavLink } from 'react-router-dom';
 
   export const propFilter = [
     { key: '1', text: '', value: ''},
-    { key: '3', text: 'Property Name', value: 'property_name'},
+    { key: '2', text: 'Property Name', value: 'property_name'},
+    { key: '3', text: 'Property Number', value: 'property_number'},
     { key: '4', text: 'Property Type', value: 'property_type' },
     { key: '5', text: 'Address', value: 'address' },
     { key: '6', text: 'City', value: 'city' },
@@ -170,5 +161,5 @@ import { NavLink } from 'react-router-dom';
     { key: '7', text: 'Office', value: 'office_location'},
     { key: '8', text: 'Key Number', value: 'key_number'},
     { key: '9', text: 'Key Type', value: 'key_type'},
-    { key: '10', text: 'Status', value: 'key_status'}
+    { key: '10', text: 'Key Status', value: 'key_status'}
   ];

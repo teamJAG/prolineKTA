@@ -65,7 +65,7 @@ class AutoComplete extends Component {
         onSearchChange={this.handleSearchChange}
         results={results}
         value={value}
-        input={{ autoComplete: "on"}}
+        showNoResults={false}
         {...this.props}
       />
     );

@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
+import { Redirect } from 'react-router-dom';
+
 import { Button, Divider } from "semantic-ui-react";
 import ReactToPrint from "react-to-print";
 import QRCode from "qrcode.react";
@@ -36,8 +38,11 @@ const PrintQRCode = props => {
   }*${props.keyNumber}`;
   console.log(qrCode);
   const qrRef = React.useRef();
+  const [redirect, setRedirect] = useState(null)
+
   return (
     <div style={{width: '70%'}}>
+      {redirect}
       <div style={{display: 'flex', justifyContent:'center'}}>
       <GeneratedQRCode
         propNumber={props.propertyNumber}
@@ -52,6 +57,7 @@ const PrintQRCode = props => {
         trigger={() => <Button floated='right' color='purple'>Print QR Code</Button>}
         content={() => qrRef.current}
         pageStyle={{display: 'absolute', left: '200px'}}
+        onAfterPrint={() => {setRedirect(<Redirect to="/keys" />)}}
       />
     </div>
   );

@@ -8,7 +8,7 @@ import AutoComplete from "../key/AutoComplete";
 class ReportDashboard extends Component {
   generateFullReport = () => {
     return null;
-  }
+  };
   handleValue = (e, { value }) => this.setState({ filterValue: value });
   handleId = (e, { value }) => this.setState({ filterId: value });
 
@@ -28,8 +28,8 @@ class ReportDashboard extends Component {
     if (nextProps.tableType !== prevState.tableType) {
       console.log("firing");
       return {
-        filterId: '',
-        filterValue: '',
+        filterId: "",
+        filterValue: "",
         tableType: nextProps.tableType
       };
     }
@@ -37,7 +37,6 @@ class ReportDashboard extends Component {
   }
 
   render() {
-
     let columns = [];
     let options = [];
     let filter = {
@@ -52,26 +51,20 @@ class ReportDashboard extends Component {
         break;
       case "properties":
         columns = ui.propertyColumns;
-        options = ui.propertyFilter
+        options = ui.propertyFilter;
         break;
       default:
         break;
     }
 
-  //   <AutoComplete
-  //   table="property_tab"
-  //   id="property_name"
-  //   as={Input}
-  //   style={{ paddingRight: "5px"}}
-  //   inline
-  //   placeholder="Building Name..."
-  // />
-
-  // <Button
-  // floated="right"
-  // onClick={this.generateFullReport}
-  // color="purple"
-  // >Full Report</Button>
+    //   <AutoComplete
+    //   table="property_tab"
+    //   id="property_name"
+    //   as={Input}
+    //   style={{ paddingRight: "5px"}}
+    //   inline
+    //   placeholder="Building Name..."
+    // />
 
     return (
       <div>
@@ -90,6 +83,13 @@ class ReportDashboard extends Component {
             placeholder="Search..."
             onChange={this.handleValue}
           />
+          <Button
+            floated="right"
+            onClick={this.generateFullReport}
+            color="purple"
+          >
+            Full Report
+          </Button>
         </div>
         <Divider />
         <div>

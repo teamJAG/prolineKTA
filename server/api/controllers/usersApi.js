@@ -2,24 +2,17 @@ const db = require("../db/connection");
 
 //Create new contractor
 async function createContractor(req, res) {
-  const {
-    firstName,
-    lastName,
-    phoneNum,
-    company
-  
-  } = req.body;
+  const { firstName, lastName, phoneNum, email, company } = req.body;
 
-  const contractorString = `INSERT INTO proline.contractor_tab (first_name, last_name, phone_num, company) VALUES 
-    ('${firstName}', '${lastName}', '${phoneNum}', '${company}')`;
-
+  const contractorString = `INSERT INTO proline.contractor_tab (first_name, last_name, phone_num, email, company) VALUES 
+    ('${firstName}', '${lastName}', '${phoneNum}', '${email}', '${company}')`;
 
   console.log(contractorString);
 
   try {
     let contractorResult = await db.dbQuery(contractorString);
     let result = {
-      contractorResult,
+      contractorResult
     };
     console.log(result);
     res.status(201).json(result);
@@ -30,23 +23,32 @@ async function createContractor(req, res) {
 }
 
 async function updateContractor(req, res) {
-  //Update existing record
-  const contractorQueryString = "UPDATE";
+  const { firstName, lastName, phoneNum, email, company, contractorId } = req.body;
+
+  const contractorString = `UPDATE proline.contractor_tab SET first_name = '${firstName}', 
+    last_name = '${lastName}', phone_num = ${phoneNum}, email='${email}', company = '${company}' WHERE contractor_id = ${contractorId} `;
+
+  console.log(contractorString);
+
   try {
-    let result = await db.dbQuery(contractorQueryString);
+    let contractorResult = await db.dbQuery(contractorString);
+    let result = {
+      contractorResult
+    };
+    console.log(result);
     res.status(201).json(result);
   } catch (err) {
-    res.status(422).json(err);
+    console.log(err);
+    res.status(400).json(err);
   }
 }
 
-
 function login(credentials) {
-    return;
+  return;
 }
 
 function logout(credentials) {
-    return;
+  return;
 }
 
 module.exports = {
@@ -55,4 +57,3 @@ module.exports = {
   login,
   logout
 };
-

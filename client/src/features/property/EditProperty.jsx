@@ -11,17 +11,17 @@ import {
 } from "semantic-ui-react";
 import { fetchRecord } from "../../app/fetch/fetches";
 
-export default class AddProperty extends Component {
+export default class EditProperty extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      address: "",
-      city: "",
-      postalCode: "",
-      propertyName: "",
-      propertyNumber: "",
-      propertyType: "",
-      comments: "",
+      address: this.props.location.keyRecord.address,
+      city: this.props.location.keyRecord.city,
+      postalCode: this.props.location.keyRecord.postal_code,
+      propertyName: this.props.location.keyRecord.property_name,
+      propertyNumber: this.props.location.keyRecord.property_number,
+      propertyType: this.props.location.keyRecord.property_type,
+      comments: this.props.location.keyRecord.comments,
       redirect: false
     };
     this.handleChange = this.handleChange.bind(this);
@@ -46,6 +46,8 @@ export default class AddProperty extends Component {
       comments
     } = this.state;
     const request = {
+      propertyId: this.props.location.keyRecord.property_id,
+      addressId: this.props.location.keyRecord.address_id,
       address: address,
       city: city,
       postalCode: postalCode,
@@ -54,7 +56,7 @@ export default class AddProperty extends Component {
       propertyType: propertyType,
       comments: comments
     };
-    await fetchRecord(request, "POST", "/propertyrecord", res => {
+    await fetchRecord(request, "PUT", "/propertyrecord", res => {
       this.setState({redirect: true});
     });
   }
@@ -104,7 +106,7 @@ export default class AddProperty extends Component {
         <div style={containerStyle}>
           <Form onSubmit={this.handleSubmit}>
             <Header className="ui horizontal divider header">
-              Create Property
+              Edit Property
             </Header>
             <Form.Field>
               <label>Name</label>
@@ -150,12 +152,12 @@ export default class AddProperty extends Component {
             <Form.Field>
               <label>Postal Code</label>
               <Input
-                placeholder="V1V 1V1"
+                placeholder="V1V1V1"
                 onChange={this.handleChange}
                 name="postalCode"
                 value={this.state.postalCode}
                 required
-                pattern='[A-Za-z]\d[A-Za-z]\s\d[A-Za-z]\d$'
+                pattern='[A-Za-z]\d[A-Za-z]\d[A-Za-z]\d$'
               />
             </Form.Field>
             <Form.Field>

@@ -8,8 +8,6 @@ import App from './app/layout/App';
 import registerServiceWorker from './registerServiceWorker';
 import { configureStore } from './app/store/configureStore';
 
-const store = configureStore();
-
 const rootEl = document.getElementById('root');
 
 let render = () => {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Form, Grid, Header, Message, Segment,} from 'semantic-ui-react';
+import { Button, Form, Grid, Header, Segment, Modal } from 'semantic-ui-react';
 
 export default () => (
   <Grid centered columns={2}>
@@ -27,9 +27,6 @@ export default () => (
           </Button>
         </Form>
       </Segment>
-      <Message>
-        Not registered yet? <a href="#">Sign Up</a>
-      </Message>
     </Grid.Column>
   </Grid>
 );
