@@ -2,7 +2,6 @@ import React from "react";
 import { Button } from "semantic-ui-react";
 import { NavLink } from "react-router-dom";
 import { fetchBuildingNames } from "../../app/fetch/fetches";
-import { amber } from "@material-ui/core/colors";
 
 //Objects arrays describing the structure and names of table columns
 

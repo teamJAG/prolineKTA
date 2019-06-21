@@ -26,6 +26,7 @@ class ScanKey extends Component {
       keyCheckedIn: false,
       keyRecord: {},
       keyTransaction: {},
+      checkoutFormData: {},
       searchResults: []
     };
     this.handleInput = this.handleInput.bind(this);
@@ -135,6 +136,11 @@ class ScanKey extends Component {
       keyId: this.state.keyRecord.keyId
     };
 
+    const autofill = Object.assign(transRequest, this.state.keyRecord);
+    this.setState({
+      checkoutFormData : autofill
+    });
+
     //Fetch to create a transaction record and change key status to '0'/'Checked Out'
     await fetchKeyCheck(transRequest, "POST", res => {
       if (res.redirect) {
@@ -146,7 +152,6 @@ class ScanKey extends Component {
           keyPending: false,
           renderTransactionSlip: true,
           renderDepositSlip: true,
-          checkoutFormData: transRequest
         });
       } else if (sale) {
         this.setState({
@@ -155,7 +160,6 @@ class ScanKey extends Component {
           keyPending: false,
           renderTransactionSlip: true,
           keySold: true,
-          checkoutFormData: transRequest
         });
       } else {
         this.setState({
@@ -163,7 +167,6 @@ class ScanKey extends Component {
           keyCheckedIn: false,
           keyPending: false,
           renderTransactionSlip: true,
-          checkoutFormData: transRequest
         });
       }
     });

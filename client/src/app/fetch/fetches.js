@@ -22,7 +22,7 @@ export async function fetchLogin(request, handleData) {
   } catch(err) {
     console.log("Login failed: " + JSON.stringify(err));
     window.alert("Login failure: " + JSON.stringify(err.message));
-    return;
+    return err;
   }
 }
 

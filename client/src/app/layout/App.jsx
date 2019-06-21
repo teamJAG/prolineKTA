@@ -22,14 +22,18 @@ import RentalSlip from '../../features/slips/RentalSlip';
 import TradeSlip from '../../features/slips/TradeSlip';
 import GenericSlip from '../../features/slips/GenericSlip';
 
+import { fetchLogin } from '../fetch/fetches';
+
 class App extends Component {
   
   constructor(props) {
     super(props);
     this.state = {
-      authorized: true,
-      privLevel: 0
+      authorized: false,
+      privLevel: 0,
+      redirect: false
     };
+    this.handleLogin = this.handleLogin.bind(this);
   }
 
 KeyRecordDashBoard = (props) => {
@@ -79,17 +83,25 @@ handleLogin(e) {
     username: e.target.username.value,
     password: e.target.password.value
   }
-  console.log(request);
+  fetchLogin(request, (res) => {
+    console.log(res);
+    this.setState({
+      authorized: true,
+      privLevel: res.priv_level,
+      redirect: true
+    });
+  });
 }
 
 HomePageLogin = (props) => {
-  return (
-    <HomePage login={this.handleLogin} {...props} />
-  )
+  if (this.state.redirect) {
+    return <Redirect to="keys" />
+   }
+  return <HomePage login={this.handleLogin} {...props} />
 }
   
   render() {
-    
+
     return (
       <div>
         <Switch>  

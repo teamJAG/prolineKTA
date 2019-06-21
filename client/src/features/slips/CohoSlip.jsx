@@ -61,11 +61,11 @@ class CohoSlip extends React.Component {
                     <div class="two fields">
                       <div class="field">
                         <label>First Name</label>
-                        <input type="text" id="firstName" />
+                        <input type="text" id="firstName" defaultValue={this.props.autofill.firstName} />
                       </div>
                       <div class="field">
                         <label>Last Name</label>
-                        <input type="text" id="lastName" />
+                        <input type="text" id="lastName" defaultValue={this.props.autofill.lastName} />
                       </div>
                     </div>
                   </Form.Field>
@@ -74,7 +74,7 @@ class CohoSlip extends React.Component {
                     <div class="three fields">
                       <div class="field">
                         <label>Deposit</label>
-                        <Input labelPosition="right" type="text" id="deposit">
+                        <Input labelPosition="right" type="text" id="deposit" defaultValue={this.props.autofill.deposit} >
                           <Label basic>$</Label>
                           <input />
                           <Label>.00</Label>
@@ -88,6 +88,7 @@ class CohoSlip extends React.Component {
                           label="Cash"
                           name="checkboxRadioGroup"
                           value="cash"
+                          defaultChecked={this.props.autofill.depositType === "CASH" ? true : false}
                           checked={this.state.value === "cash"}
                           onChange={this.handleChange}
                         />
@@ -100,6 +101,7 @@ class CohoSlip extends React.Component {
                           label="Cheque"
                           name="checkboxRadioGroup"
                           value="cheque"
+                          defaultChecked={this.props.autofill.depositType === "CHEQUE" ? true : false}
                           checked={this.state.value === "cheque"}
                           onChange={this.handleChange}
                         />

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { Redirect } from 'react-router-dom';
-import moment from 'moment';
+import { Redirect } from "react-router-dom";
+import moment from "moment";
 import {
   Grid,
   Segment,
@@ -16,7 +16,12 @@ import {
 import ReactToPrint from "react-to-print";
 
 class FobSlip extends React.Component {
-  state = {};
+  constructor(props) {
+    super(props);
+    this.state = {};
+
+    this.handleChange = this.handleChange.bind(this);
+  }
   handleChange = (e, { value }) => this.setState({ value });
 
   render() {
@@ -25,8 +30,10 @@ class FobSlip extends React.Component {
       justifyContent: "center",
       paddingTop: "10%"
     };
-    let date = moment().format('YYYY-MM-DD');
-    let dueDate = moment().add('days', 30).format('YYYY-MM-DD');
+    let date = moment().format("YYYY-MM-DD");
+    let dueDate = moment()
+      .add("days", 30)
+      .format("YYYY-MM-DD");
     return (
       <div style={{ containerStyle }}>
         <Divider />
@@ -47,7 +54,11 @@ class FobSlip extends React.Component {
                       </div>
                       <div class="field">
                         <label>Date Due</label>
-                        <input type="date" id="dueDate" defaultValue={dueDate} />
+                        <input
+                          type="date"
+                          id="dueDate"
+                          defaultValue={dueDate}
+                        />
                       </div>
                     </div>
                   </Form.Field>
@@ -206,7 +217,9 @@ const PrintSlip = () => {
       <ReactToPrint
         trigger={() => <Button color="purple">Print Slip</Button>}
         content={() => slipRef.current}
-        onAfterPrint={() => {setRedirect(<Redirect to="/keyreports" />)}}
+        onAfterPrint={() => {
+          setRedirect(<Redirect to="/keyreports" />);
+        }}
       />
       <FobSlip style={{ marginLeft: "10px" }} ref={slipRef} />
     </div>
