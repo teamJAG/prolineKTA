@@ -116,6 +116,18 @@ class NavBar extends Component {
               content="Scan Key"
             />
           </Menu.Item>
+
+          <Menu.Item>
+            <Button
+            as={NavLink}
+            to="/"
+            name="signOut"
+            floated="right"
+            inverted
+            color="white"
+            content="Sign Out"
+            />
+          </Menu.Item>
         </Container>
       </Menu>
     );
