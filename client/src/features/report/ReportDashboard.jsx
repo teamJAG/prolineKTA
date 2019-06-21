@@ -1,16 +1,26 @@
 import React, { Component } from "react";
+import { Redirect } from "react-router-dom";
 import { Input, Divider, Dropdown, Button } from "semantic-ui-react";
 import ReportList from "./ReportList";
 import * as ui from "./ui";
 import "semantic-ui-css/semantic.min.css";
-import AutoComplete from "../key/AutoComplete";
 
 class ReportDashboard extends Component {
-  generateFullReport = () => {
-    return null;
-  };
   handleValue = (e, { value }) => this.setState({ filterValue: value });
   handleId = (e, { value }) => this.setState({ filterId: value });
+
+  async generateFullReport(e) {
+    e.preventDefault();
+    try {
+      await fetch(`${process.env.REACT_APP_API_URL}/reports`);
+      console.log("Report generated on server");
+      window.location.href = "/Users/aidanranney/Desktop/DO_ip.txt";
+    } catch (err) {
+      console.log(JSON.stringify(err.message));
+      window.alert("Report failure: " + JSON.stringify(err.message));
+      return;
+    }
+  }
 
   constructor(props) {
     super(props);
