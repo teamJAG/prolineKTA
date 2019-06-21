@@ -93,6 +93,16 @@ handleLogin(e) {
   });
 }
 
+handleLogout(e) {
+  localStorage.clear();
+  this.setState({
+    authorized: false,
+    privLevel: 0,
+    redirect: true
+  });
+}
+
+
 HomePageLogin = (props) => {
   if (this.state.redirect) {
     return <Redirect to="keys" />
