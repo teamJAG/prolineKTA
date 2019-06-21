@@ -2,7 +2,14 @@ const db = require("../db/connection");
 const queries = require("../db/queries");
 
 // Returns a report of the entire database
-function generateReport(req, res) {
+async function generateReport(req, res) {
+  try {
+    const result = await db.dbQuery(queries.generateReport);
+    res.status(201).json(result);
+  } catch(err) {
+    console.log(err);
+    res.status(400).json(err);
+  }
   return;
 }
 

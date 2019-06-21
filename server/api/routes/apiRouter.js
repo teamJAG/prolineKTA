@@ -1,9 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const passport = require("passport");
-
-//may use local auth strategy instead
-LdapStrategy = require("passport-ldapauth");
+const LocalStrategy = require('passport-local');
+const db = require('../db/connection');
 
 const keysAPI = require("../controllers/keysApi");
 const reportsAPI = require("../controllers/reportsApi");
@@ -11,15 +10,26 @@ const propertyAPI = require("../controllers/propertyApi");
 const recordsAPI = require("../controllers/recordsApi");
 const usersAPI = require("../controllers/usersApi");
 
-const OPTS = {
-  server: {
-    url: "ldap://192.168.1.3:389",
-    bindDN: "cn=root",
-    bindCredentials: "secret",
-    searchBase: "ou=passport-ldapauth",
-    searchFilter: "(uid={{username}}"
+//Set up passport to authenticate with the local user table in database
+passport.use(new LocalStrategy( 
+  async function(username, password, done) {
+    try {
+      const rows = await db.dbQuery(`SELECT * FROM proline.users_tab WHERE username = '${username}'`);
+      if (!rows.length) return done(null, false);
+      if (rows[0].password !== password) return done(null, false);
+      return done(null, rows[0]);
+    } catch(err) {
+      return done(err);
+    }
   }
-};
+));
+
+//Set up passport to authenticate using LDAP authentication
+
+//Login using local authentication
+router
+  .route("/login")
+  .post(passport.authenticate('local', {session: false}), usersAPI.login);
 
 //Dynamic search component calls
 router

@@ -51,7 +51,7 @@ const keyRecord = `SELECT k.storage_location, k.key_quantity, k.creation_date, k
 
 const transactionQuery = `SELECT t.trans_id, t.checked_out, t.due_date, t.deposit, t.deposit_type, t.fees,
 t.notes, c.first_name, c.last_name, c.company FROM proline.trans_tab t
-INNER JOIN proline.contractor_tab c ON t.contractor_tab_contractor_id = c.contractor_id `
+INNER JOIN proline.contractor_tab c ON t.contractor_tab_contractor_id = c.contractor_id `;
 
 //Queries for the propertyAPI
 
@@ -63,6 +63,23 @@ const propertyRecord = `SELECT p.property_name, p.property_number, p.property_ty
     WHERE `;
 
 //Queries for the reportsAPI
+
+const generateReport = `SELECT 'Building Number', 'Building Name', 'Building Type', 'Building Address', 'Postal Code', 'City', 'Key Type', 'Key Number', 'Key Quantity', 'Key Status',
+'Office Location', 'Checked Out Date', 'Due Date', 'Checked In Date', 'Deposit', 'Deposit Type', 'Deposit Notes', 'Contractor Name', 'Contact Info', 'Company'
+UNION ALL
+SELECT p.property_number, p.property_name, p.property_type, a.address, a.postal_code, c.city, k.key_type,
+k.key_number, k.key_quantity, k.key_status, k.office_location, CONVERT(t.checked_out, date), CONVERT(t.due_date, date),
+CONVERT(t.checked_in, date), t.deposit, t.deposit_type, t.notes, cn.first_name||cn.last_name, cn.phone_num,
+cn.company INTO OUTFILE '/Users/aidanranney/desktop/data.csv'
+FIELDS TERMINATED BY ',' OPTIONALLy ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+FROM proline.key_tab k
+INNER JOIN proline.address_tab a ON k.address_tab_address_id = a.address_id
+INNER JOIN proline.property_tab p ON a.property_tab_property_id = p.property_id
+INNER JOIN proline.city_tab c ON a.city_tab_city_id = c.city_id
+LEFT JOIN proline.trans_tab t on t.key_tab_key_id = k.key_id
+LEFT JOIN proline.contractor_tab cn ON t.contractor_tab_contractor_id = cn.contractor_id
+ORDER BY 'Key Status' DESC `;
 
 const keysOutCount = `SELECT COUNT(*) as count from (SELECT p.property_number, p.property_name, k.key_type, 
     k.key_number, k.office_location, cn.first_name, cn.last_name, cn.phone_num, cn.company, t.checked_out, 
@@ -78,7 +95,7 @@ const keysOutRecords = `SELECT p.property_number, p.property_name, k.key_type,
     INNER JOIN proline.address_tab a ON k.address_tab_address_id = a.address_id
     INNER JOIN proline.property_tab p ON a.property_tab_property_id = p.property_id
     INNER JOIN proline.trans_tab t ON t.key_tab_key_id = k.key_id
-    INNER JOIN proline.contractor_tab cn ON t.contractor_tab_contractor_id = cn.contractor_id `
+    INNER JOIN proline.contractor_tab cn ON t.contractor_tab_contractor_id = cn.contractor_id `;
 
 const propTransCount = `SELECT COUNT(*) as count FROM (SELECT p.property_name, p.property_number, k.key_type, 
     k.key_number, k.key_status, k.office_location, k.storage_location FROM proline.property_tab p
@@ -88,7 +105,7 @@ const propTransCount = `SELECT COUNT(*) as count FROM (SELECT p.property_name, p
 const propTransRecords = `SELECT p.property_name, p.property_number, k.key_type, 
 k.key_number, k.key_status, k.office_location, k.storage_location FROM proline.property_tab p
 INNER JOIN proline.address_tab a ON a.property_tab_property_id = p.property_id
-INNER JOIN proline.key_tab k ON k.address_tab_address_id = a.address_id `
+INNER JOIN proline.key_tab k ON k.address_tab_address_id = a.address_id `;
 
 module.exports = {
   keyCount,
@@ -99,6 +116,7 @@ module.exports = {
   peopleRecords,
   keyRecord,
   propertyRecord,
+  generateReport,
   transactionQuery,
   keysOutCount,
   keysOutRecords,

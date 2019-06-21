@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Redirect } from 'react-router-dom';
+import moment from 'moment';
 import {
   Grid,
   Segment,
@@ -24,6 +25,8 @@ class GuestSlip extends React.Component {
       justifyContent: "center",
       paddingTop: "10%"
     };
+    let date = moment().format('YYYY-MM-DD');
+    let dueDate = moment().add('days', 30).format('YYYY-MM-DD');
 
     return (
       <div style={{ containerStyle }}>
@@ -40,11 +43,11 @@ class GuestSlip extends React.Component {
                     <div class="two fields">
                       <div class="field">
                         <label>Date Out</label>
-                        <input type="date" id="dateOut" />
+                        <input type="date" id="dateOut" defaultValue={date} />
                       </div>
                       <div class="field">
                         <label>Date Due</label>
-                        <input type="date" id="dueDate" />
+                        <input type="date" id="dueDate" defaultValue={dueDate} />
                       </div>
                     </div>
                   </Form.Field>
@@ -194,11 +197,11 @@ class GuestSlip extends React.Component {
                     <div class="two fields">
                       <div class="field">
                         <label>Date Out</label>
-                        <input type="date" id="outDate" />
+                        <input type="date" id="outDate" defaultValue={date} />
                       </div>
                       <div class="field">
                         <label>Due Date</label>
-                        <input type="date" id="dueDate" />
+                        <input type="date" id="dueDate" defaultValue={dueDate} />
                       </div>
                     </div>
                   </Form.Field>

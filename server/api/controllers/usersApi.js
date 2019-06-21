@@ -43,17 +43,12 @@ async function updateContractor(req, res) {
   }
 }
 
-function login(credentials) {
-  return;
-}
-
-function logout(credentials) {
-  return;
+function login(req, res) {
+  res.status(200).json(req.user);
 }
 
 module.exports = {
   createContractor,
   updateContractor,
-  login,
-  logout
+  login
 };
