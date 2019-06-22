@@ -5,6 +5,7 @@
   "dependencies": {
     "clsx": "^1.0.4",
     "cuid": "^2.1.6",
+    "local-storage": "^2.0.0",
     "moment": "^2.24.0",
     "qrcode.react": "^0.9.3",
     "react": "^16.8.6",

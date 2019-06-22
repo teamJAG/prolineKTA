@@ -41,12 +41,12 @@ class TradeSlip extends React.Component {
 
                   <Form.Field>
                     <label>Building</label>
-                    <input type="text" id="propertyName" />
+                    <input type="text" id="propertyName" defaultValue={this.props.autofill.address} />
                   </Form.Field>
 
                   <Form.Field>
                     <label>Company</label>
-                    <input type="text" id="company" />
+                    <input type="text" id="company" defaultValue={this.props.autofill.company} />
                   </Form.Field>
 
                   <Form.Field>
@@ -77,35 +77,30 @@ class TradeSlip extends React.Component {
 
                   <Form.Field>
                     <label>Building</label>
-                    <input type="text" id="propertyName" />
-                  </Form.Field>
-
-                  <Form.Field>
-                    <label>Set</label>
-                    <input id="setNumber" />
+                    <input type="text" id="propertyName" defaultValue={this.props.autofill.address} />
                   </Form.Field>
 
                   <Form.Field>
                     <label>Description</label>
-                    <input type="number" id="description" />
+                    <input type="number" id="description" defaultValue={this.props.autofill.comments} />
                   </Form.Field>
 
                   <Form.Field>
                     <div class="two fields">
                       <div class="field">
                         <label>First Name</label>
-                        <input type="text" id="firstName" />
+                        <input type="text" id="firstName" defaultValue={this.props.autofill.firstname} />
                       </div>
                       <div class="field">
                         <label>Last Name</label>
-                        <input type="text" id="lastName" />
+                        <input type="text" id="lastName" defaultValue={this.props.autofill.lastName} />
                       </div>
                     </div>
                   </Form.Field>
 
                   <Form.Field>
                     <label>Company</label>
-                    <input type="text" id="company" />
+                    <input type="text" id="company" defaultValue={this.props.autofill.company} />
                   </Form.Field>
 
                   <Form.Field>
@@ -115,7 +110,7 @@ class TradeSlip extends React.Component {
 
                   <Form.Field>
                     <label>Phone Number</label>
-                    <input type="text" id="phone" />
+                    <input type="text" id="phone" defaultValu={this.props.autofill.company} />
                   </Form.Field>
 
                   <Form.Field>
@@ -165,7 +160,7 @@ class TradeSlip extends React.Component {
   }
 }
 
-const PrintSlip = () => {
+const PrintTradeSlip = () => {
   const slipRef = React.useRef();
   const [redirect, setRedirect] = useState(null);
   return (
@@ -181,4 +176,4 @@ const PrintSlip = () => {
   );
 };
 
-export default PrintSlip;
+export default PrintTradeSlip;
