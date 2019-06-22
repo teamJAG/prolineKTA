@@ -28,11 +28,12 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      authorized: true,
+      authorized: false,
       privLevel: 0,
       redirect: false
     };
     this.handleLogin = this.handleLogin.bind(this);
+    this.handleLogout = this.handleLogout.bind(this);
     this.hydrateStateWithStorage = this.hydrateStateWithStorage.bind(this);
   }
 
@@ -126,11 +127,13 @@ class App extends Component {
   }
 
 handleLogout(e) {
+  e.preventDefault();
   localStorage.clear();
+  window.location.href = "/"
   this.setState({
     authorized: false,
     privLevel: 0,
-    redirect: true
+    redirect: false
   });
 }
 
@@ -153,7 +156,7 @@ HomePageLogin = (props) => {
           path="/(.+)"
           render={() => (
             <div>
-              <NavBar />
+              <NavBar handleLogout={this.handleLogout} />
               <Container className="main">
                 <Switch>
                   <Route path="/keys" render={this.KeyRecordDashBoard} />
