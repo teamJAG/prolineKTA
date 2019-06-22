@@ -1,8 +1,10 @@
 import React, { Component } from "react";
 import { Menu, Dropdown, Container, Button } from "semantic-ui-react";
 import { NavLink, Link, withRouter } from "react-router-dom";
+import { handleLogout } from "../../../app/layout/App"
 
 class NavBar extends Component {
+
   render() {
     return (
       <Menu inverted fluid fixed="top">
@@ -93,6 +95,17 @@ class NavBar extends Component {
               inverted
               color="white"
               content="Scan Key"
+            />
+          </Menu.Item>
+
+          <Menu.Item>
+            <Button
+            name="signOut"
+            floated="right"
+            inverted
+            color="white"
+            content="Sign Out"
+            onClick={this.props.handleLogout}
             />
           </Menu.Item>
         </Container>
