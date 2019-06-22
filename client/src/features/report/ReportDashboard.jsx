@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Redirect } from "react-router-dom";
 import { Input, Divider, Dropdown, Button } from "semantic-ui-react";
 import ReportList from "./ReportList";
 import * as ui from "./ui";
@@ -12,9 +11,11 @@ class ReportDashboard extends Component {
   async generateFullReport(e) {
     e.preventDefault();
     try {
-      await fetch(`${process.env.REACT_APP_API_URL}/reports`);
+      let result = await fetch(`${process.env.REACT_APP_API_URL}/reports`);
+      if (!result.ok) throw Error(result.statusText);
+      const response = await result.json();
       console.log("Report generated on server");
-      window.location.href = "/Users/aidanranney/Desktop/DO_ip.txt";
+      window.open(`file://${response.filePath}`);
     } catch (err) {
       console.log(JSON.stringify(err.message));
       window.alert("Report failure: " + JSON.stringify(err.message));
@@ -66,15 +67,6 @@ class ReportDashboard extends Component {
       default:
         break;
     }
-
-    //   <AutoComplete
-    //   table="property_tab"
-    //   id="property_name"
-    //   as={Input}
-    //   style={{ paddingRight: "5px"}}
-    //   inline
-    //   placeholder="Building Name..."
-    // />
 
     return (
       <div>

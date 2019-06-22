@@ -54,18 +54,18 @@ class GuestSlip extends React.Component {
 
                   <Form.Field>
                     <label>Building</label>
-                    <input type="text" id="propertyName" />
+                    <input type="text" id="propertyName" defaultValue={this.props.autofill.address} />
                   </Form.Field>
 
                   <Form.Field>
                     <div class="two fields">
                       <div class="field">
                         <label>First Name</label>
-                        <input type="text" id="firstName" />
+                        <input type="text" id="firstName" defaultValue={this.props.autofill.firstName} />
                       </div>
                       <div class="field">
                         <label>Last Name</label>
-                        <input type="text" id="lastName" />
+                        <input type="text" id="lastName" defaultValue={this.props.autofill.lastName} />
                       </div>
                     </div>
                   </Form.Field>
@@ -74,7 +74,7 @@ class GuestSlip extends React.Component {
                     <div class="three fields">
                       <div class="field">
                         <label>Deposit</label>
-                        <Input labelPosition="right" type="text" id="deposit">
+                        <Input labelPosition="right" type="text" id="deposit" defaultValue={this.props.autofill.deposit} >
                           <Label basic>$</Label>
                           <input />
                           <Label>.00</Label>
@@ -89,6 +89,11 @@ class GuestSlip extends React.Component {
                           name="checkboxRadioGroup"
                           value="cash"
                           checked={this.state.value === "cash"}
+                          defaultChecked={
+                            this.props.autofill.depositType === "CASH"
+                              ? true
+                              : false
+                          }
                           onChange={this.handleChange}
                         />
                       </div>
@@ -101,6 +106,11 @@ class GuestSlip extends React.Component {
                           name="checkboxRadioGroup"
                           value="cheque"
                           checked={this.state.value === "cheque"}
+                          defaultChecked={
+                            this.props.autofill.depositType === "CHEQUE"
+                              ? true
+                              : false
+                          }
                           onChange={this.handleChange}
                         />
                       </div>
@@ -124,7 +134,7 @@ class GuestSlip extends React.Component {
                     <div class="two fields">
                       <div class="field">
                         <label>Building</label>
-                        <input type="text" id="propertyName" />
+                        <input type="text" id="propertyName" defaultValue={this.props.autofill.address} />
                       </div>
                       <div class="field">
                         <label>Unit</label>
@@ -137,11 +147,11 @@ class GuestSlip extends React.Component {
                     <div class="two fields">
                       <div class="field">
                         <label>First Name</label>
-                        <input type="text" id="firstName" />
+                        <input type="text" id="firstName" defaultValue={this.props.autofill.firstName} />
                       </div>
                       <div class="field">
                         <label>Last Name</label>
-                        <input type="text" id="lastName" />
+                        <input type="text" id="lastName" defaultValue={this.props.autofill.lastName} />
                       </div>
                     </div>
                   </Form.Field>
@@ -153,14 +163,14 @@ class GuestSlip extends React.Component {
 
                   <Form.Field>
                     <label>Phone Number</label>
-                    <input type="text" id="phone" />
+                    <input type="text" id="phone" defaultValue={this.props.autofill.phone_num} />
                   </Form.Field>
 
                   <Form.Field>
                     <div class="three fields">
                       <div class="field">
                         <label>Deposit</label>
-                        <Input labelPosition="right" type="text" id="deposit">
+                        <Input labelPosition="right" type="text" id="deposit" defaultValue={this.props.autofill.deposit} >
                           <Label basic>$</Label>
                           <input />
                           <Label>.00</Label>
@@ -175,6 +185,11 @@ class GuestSlip extends React.Component {
                           name="checkboxRadioGroup"
                           value="cash"
                           checked={this.state.value === "cash"}
+                          defaultChecked={
+                            this.props.autofill.depositType === "CASH"
+                              ? true
+                              : false
+                          }
                           onChange={this.handleChange}
                         />
                       </div>
@@ -187,6 +202,11 @@ class GuestSlip extends React.Component {
                           name="checkboxRadioGroup"
                           value="cheque"
                           checked={this.state.value === "cheque"}
+                          defaultChecked={
+                            this.props.autofill.depositType === "CHEQUE"
+                              ? true
+                              : false
+                          }
                           onChange={this.handleChange}
                         />
                       </div>
@@ -215,7 +235,7 @@ class GuestSlip extends React.Component {
   }
 }
 
-const PrintSlip = () => {
+const PrintGuestSlip = () => {
   const slipRef = React.useRef();
   const [redirect, setRedirect] = useState(null);
   return (
@@ -230,4 +250,4 @@ const PrintSlip = () => {
   );
 };
 
-export default PrintSlip;
+export default PrintGuestSlip;

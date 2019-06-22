@@ -73,7 +73,7 @@ const HomePage = props => {
         </div>
       </div>
       <div style={{ textAlign: "center" }}>
-        Developed for Proline Propety Management by Camosun ICS Capstone Team
+        Developed for Proline Propety Management by Aidan Ranney, Jesse Johnston & Gary Walsh
       </div>
     </div>
   );
