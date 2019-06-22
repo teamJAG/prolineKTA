@@ -21,17 +21,16 @@ class TradeSlip extends React.Component {
 
   render() {
     const containerStyle = {
-      display: "flex",
-      justifyContent: "center",
-      paddingTop: "10%"
+        display: "auto",
+        justifyContent: "center",
+        transform: "scale(.80)",
     };
     let date = moment().format('YYYY-MM-DD');
     let dueDate = moment().add('days', 30).format('YYYY-MM-DD');
 
     return (
-      <div style={{ containerStyle }}>
-        <Divider />
-        <Grid columns={1}>
+      <div style={ containerStyle }>
+          <Grid columns={1}>
           <Grid.Row stretched>
             <Grid.Column />
             <Grid.Column>
@@ -172,7 +171,7 @@ const PrintTradeSlip = () => {
         content={() => slipRef.current}
         onAfterPrint={() => {setRedirect(<Redirect to="/keyreports" />)}}
       />
-      <TradeSlip style={{ marginLeft: "10px" }} ref={slipRef} />
+      <TradeSlip ref={slipRef} />
     </div>
   );
 };

@@ -21,9 +21,9 @@ class CohoSlip extends React.Component {
 
   render() {
     const containerStyle = {
-      display: "flex",
+      display: "auto",
       justifyContent: "center",
-      paddingTop: "10%"
+      transform: "scale(.80)",
     };
     let date = moment().format("YYYY-MM-DD");
     let dueDate = moment()
@@ -31,7 +31,7 @@ class CohoSlip extends React.Component {
       .format("YYYY-MM-DD");
 
     return (
-      <div style={{ containerStyle }}>
+      <div style={ containerStyle }>
         <Divider />
         <Grid columns={1}>
           <Grid.Row stretched>
@@ -282,7 +282,9 @@ const PrintCohoSlip = () => {
           setRedirect(<Redirect to="/keyreports" />);
         }}
       />
-      <CohoSlip style={{ marginLeft: "10px" }} ref={slipRef} />
+      <CohoSlip ref={slipRef}
+                
+                />
     </div>
   );
 };

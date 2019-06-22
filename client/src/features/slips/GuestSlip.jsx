@@ -21,15 +21,16 @@ class GuestSlip extends React.Component {
 
   render() {
     const containerStyle = {
-      display: "flex",
+      display: "auto",
       justifyContent: "center",
-      paddingTop: "10%"
+      transform: "scale(.80)",
+        
     };
     let date = moment().format('YYYY-MM-DD');
     let dueDate = moment().add('days', 30).format('YYYY-MM-DD');
 
     return (
-      <div style={{ containerStyle }}>
+      <div style={ containerStyle }>
         <Divider />
         <Grid columns={1}>
           <Grid.Row stretched>
@@ -245,7 +246,7 @@ const PrintGuestSlip = () => {
         content={() => slipRef.current}
         onAfterPrint={() => {setRedirect(<Redirect to="/keyreports" />)}}
       />
-      <GuestSlip style={{ marginLeft: "10px" }} ref={slipRef} />
+      <GuestSlip ref={slipRef} />
     </div>
   );
 };

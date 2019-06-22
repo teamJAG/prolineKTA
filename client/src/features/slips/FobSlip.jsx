@@ -23,20 +23,22 @@ class FobSlip extends React.Component {
   }
   handleChange = (e, { value }) => this.setState({ value });
 
+
+
   render() {
     const containerStyle = {
-      display: "flex",
-      justifyContent: "center",
-      paddingTop: "10%"
-    };
+      display: "auto",
+        justifyContent: "center",
+        transform: "scale(.80)",
+    }
+
     let date = moment().format("YYYY-MM-DD");
     let dueDate = moment()
       .add("days", 30)
       .format("YYYY-MM-DD");
-
-      return (
-      <div style={{ containerStyle }}>
-        <Divider />
+    
+    return (
+      <div style={ containerStyle } >
         <Grid columns={1}>
           <Grid.Row stretched>
             <Grid.Column />
@@ -219,10 +221,12 @@ const PrintFobSlip = (props) => {
         trigger={() => <Button color="purple">Print Slip</Button>}
         content={() => slipRef.current}
         onAfterPrint={() => {
-          setRedirect(<Redirect to="/keyreports" />);
-        }}
+        setRedirect(<Redirect to="/keyreports" />);
+      }}
       />
-      <FobSlip autofill={props.autofill} style={{ marginLeft: "10px" }} ref={slipRef} />
+
+      <FobSlip autofill={props.autofill} ref={slipRef} />
+
     </div>
   );
 };
