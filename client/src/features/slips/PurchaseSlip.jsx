@@ -42,14 +42,14 @@ class FobSlip extends React.Component {
 
                   <Form.Field>
                     <label>Building</label>
-                    <input type="text" id="propertyName" />
+                    <input type="text" id="propertyName" defaultValue={this.props.autofill.propertyName} />
                   </Form.Field>
 
                   <Form.Field>
                     <div class="two fields">
                       <div class="field">
                         <label>Building Address</label>
-                        <input type="text" id="propertyName" />
+                        <input type="text" id="propertyName" defaultValue={this.props.autofill.address} />
                       </div>
                       <div class="field">
                         <label>Unit</label>
@@ -68,22 +68,22 @@ class FobSlip extends React.Component {
                     <div class="three fields">
                       <div class="field">
                         <label>Company</label>
-                        <input type="text" id="firstName" />
+                        <input type="text" id="company" defaultValue={this.props.autofill.company} />
                       </div>
                       <div class="field">
                         <label>First Name</label>
-                        <input type="text" id="firstName" />
+                        <input type="text" id="firstName" defaultValue={this.props.autofill.firstName} />
                       </div>
                       <div class="field">
                         <label>Last Name</label>
-                        <input type="text" id="lastName" />
+                        <input type="text" id="lastName" defaultValue={this.props.autofill.lastName} />
                       </div>
                     </div>
                   </Form.Field>
 
                   <Form.Field>
                     <label>Amount</label>
-                    <Input labelPosition="right" type="text" id="deposit">
+                    <Input labelPosition="right" type="text" id="deposit" defaultValue={this.props.autofill.deposit} >
                       <Label basic>$</Label>
                       <input />
                       <Label>.00</Label>

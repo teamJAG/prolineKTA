@@ -141,7 +141,6 @@ class ScanKey extends Component {
     //Fetch to create a transaction record and change key status to '0'/'Checked Out'
     await fetchKeyCheck(transRequest, "POST", res => {
       const autofill = Object.assign(transRequest, this.state.keyRecord, res.contractor);
-      console.log("scankey autofill: " + JSON.stringify(autofill));
       this.setState({
         autofill : autofill
       });

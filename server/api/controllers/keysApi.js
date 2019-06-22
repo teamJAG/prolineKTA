@@ -107,7 +107,7 @@ async function checkKeyOut(req, res) {
   }
 
   let checkString = `SELECT contractor_id, email, phone_num FROM proline.contractor_tab WHERE company LIKE '${company}' AND 
-    first_name LIKE '${firstName}' AND last_name LIKE '${lastName}' UNION (SELECT 'No_contractor_found') 
+    first_name LIKE '${firstName}' AND last_name LIKE '${lastName}' UNION (SELECT 'No_contractor_found', null, null) 
     LIMIT 1 `;
 
   //Database queries to create a new record in the transaction table, and to update the key's status in the key table
@@ -137,7 +137,7 @@ async function checkKeyOut(req, res) {
     const result = {
       transResult,
       keyResult,
-      contractor: checkResult 
+      contractor: checkResult[0]
     };
     res.status(201).json(result);
   } catch (err) {
