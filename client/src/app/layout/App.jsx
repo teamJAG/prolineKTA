@@ -29,7 +29,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      authorized: false,
+      authorized: true,
       privLevel: 0,
       redirect: false
     };
@@ -92,6 +92,16 @@ handleLogin(e) {
     });
   });
 }
+
+handleLogout(e) {
+  localStorage.clear();
+  this.setState({
+    authorized: false,
+    privLevel: 0,
+    redirect: true
+  });
+}
+
 
 HomePageLogin = (props) => {
   if (this.state.redirect) {
