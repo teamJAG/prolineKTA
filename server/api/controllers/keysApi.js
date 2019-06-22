@@ -89,13 +89,14 @@ async function checkKeyOut(req, res) {
     fees,
     notes,
     sale,
+    exit,
     keyId
   } = req.body;
 
-  //Is this transaction a sale? Update key status appropriately.
+  //Is this transaction a sale or a rental exit? Update key status appropriately.
   let newStatus = "";
   sale ? (newStatus = "SOLD") : (newStatus = "OUT");
-  console.log(sale);
+  exit ? (newStatus = "RETURNED") : (newStatus = "OUT");
 
   //If there is a deposit type and/or notes, treat them as a string.
   if (depositType !== null) {
@@ -105,7 +106,7 @@ async function checkKeyOut(req, res) {
     notes = `'${notes}'`;
   }
 
-  let checkString = `SELECT contractor_id FROM proline.contractor_tab WHERE company LIKE '${company}' AND 
+  let checkString = `SELECT contractor_id, email, phone_num FROM proline.contractor_tab WHERE company LIKE '${company}' AND 
     first_name LIKE '${firstName}' AND last_name LIKE '${lastName}' UNION (SELECT 'No_contractor_found') 
     LIMIT 1 `;
 
@@ -114,7 +115,14 @@ async function checkKeyOut(req, res) {
         contractor_tab_contractor_id) VALUES (${deposit}, ${depositType}, ${fees}, ${notes}, ${keyId}, (SELECT 
         contractor_id FROM proline.contractor_tab WHERE '${firstName}' LIKE first_name AND '${lastName}' 
         LIKE last_name AND '${company}' LIKE company))`;
-  let keyString = `UPDATE proline.key_tab SET key_status = "${newStatus}" WHERE key_id = ${keyId}`;
+
+
+  let active = ``;
+  if (newStatus === "SOLD" || newStatus === "RETURNED") {
+    active = `, active = 0 `;
+  }
+
+  let keyString = `UPDATE proline.key_tab SET key_status = "${newStatus}" ${active} WHERE key_id = ${keyId}`;
   console.log(transString);
   console.log(keyString);
 
@@ -128,7 +136,8 @@ async function checkKeyOut(req, res) {
     let keyResult = await db.dbQuery(keyString);
     const result = {
       transResult,
-      keyResult
+      keyResult,
+      contractor: checkResult 
     };
     res.status(201).json(result);
   } catch (err) {
@@ -212,7 +221,7 @@ async function updateKey(req, res) {
   } = req.body;
 
   let active = ``;
-  if (keyStatus === "LOST" || keyType === "SOLD" || keyType === "DESTROYED") {
+  if (keyStatus === "LOST" || keyStatus === "SOLD" || keyStatus === "DESTROYED" || keyStatus === "RETURNED") {
     active = `, active = 0 `;
   } else if (keyStatus === "IN" || keyStatus === "OUT" || keyStatus === "PENDING") {
     active = `, active = 1 `;

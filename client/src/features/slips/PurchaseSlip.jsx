@@ -104,7 +104,7 @@ class FobSlip extends React.Component {
   }
 }
 
-const PrintSlip = () => {
+const PrintPurchaseSlip = () => {
   const slipRef = React.useRef();
   const [redirect, setRedirect] = useState(null);
   return (
@@ -120,4 +120,4 @@ const PrintSlip = () => {
   );
 };
 
-export default PrintSlip;
+export default PrintPurchaseSlip;

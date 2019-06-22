@@ -166,7 +166,7 @@ class TradeSlip extends React.Component {
   }
 }
 
-const PrintSlip = () => {
+const PrintTradeSlip = () => {
   const slipRef = React.useRef();
   const [redirect, setRedirect] = useState(null);
   return (
@@ -182,4 +182,4 @@ const PrintSlip = () => {
   );
 };
 
-export default PrintSlip;
+export default PrintTradeSlip;

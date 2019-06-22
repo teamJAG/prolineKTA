@@ -126,6 +126,7 @@ const CheckKeyOut = props => {
                   <Form.Button color="purple" content="Submit" />
                   <Form.Field>
                     <Checkbox label="This is a sale" inline id="sale" />
+                    <Checkbox label="This a rental exit" inline id="exit" style={{marginLeft:"15px"}} />
                   </Form.Field>
                 </Form.Group>
               </Form>

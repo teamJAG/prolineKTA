@@ -216,7 +216,7 @@ class ElevatorSlip extends React.Component {
   }
 }
 
-const PrintSlip = () => {
+const PrintElevatorSlip = () => {
   const slipRef = React.useRef();
   const [redirect, setRedirect] = useState(null);
   return (
@@ -232,4 +232,4 @@ const PrintSlip = () => {
   );
 };
 
-export default PrintSlip;
+export default PrintElevatorSlip;

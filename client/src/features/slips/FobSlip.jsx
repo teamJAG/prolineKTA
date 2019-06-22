@@ -19,7 +19,6 @@ class FobSlip extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
-
     this.handleChange = this.handleChange.bind(this);
   }
   handleChange = (e, { value }) => this.setState({ value });
@@ -34,7 +33,8 @@ class FobSlip extends React.Component {
     let dueDate = moment()
       .add("days", 30)
       .format("YYYY-MM-DD");
-    return (
+
+      return (
       <div style={{ containerStyle }}>
         <Divider />
         <Grid columns={1}>
@@ -67,7 +67,7 @@ class FobSlip extends React.Component {
                     <div class="two fields">
                       <div class="field">
                         <label>Building Address</label>
-                        <input type="text" id="propertyName" />
+                        <input type="text" id="address" defaultValue={this.props.autofill.address} />
                       </div>
                       <div class="field">
                         <label>Unit</label>
@@ -78,12 +78,12 @@ class FobSlip extends React.Component {
 
                   <Form.Field>
                     <label>Contractor</label>
-                    <input type="text" id="contractor" />
+                    <input type="text" id="contractor" defaultValue={this.props.autofill.company} />
                   </Form.Field>
 
                   <Form.Field>
                     <label>Notes</label>
-                    <input style={{ minHeight: "5em" }} id="notes" />
+                    <input style={{ minHeight: "5em" }} id="notes" defaultValue={this.props.autofill.notes} />
                   </Form.Field>
 
                   <Divider />
@@ -103,7 +103,7 @@ class FobSlip extends React.Component {
                     <div class="two fields">
                       <div class="field">
                         <label>Building Address</label>
-                        <input type="text" id="propertyName" />
+                        <input type="text" id="address" defaultValue={this.props.autofill.address} />
                       </div>
                       <div class="field">
                         <label>Unit</label>
@@ -117,15 +117,15 @@ class FobSlip extends React.Component {
                     <div class="three fields">
                       <div class="field">
                         <label>Company</label>
-                        <input type="text" id="firstName" />
+                        <input type="text" id="company" defaultValue={this.props.autofill.company} />
                       </div>
                       <div class="field">
                         <label>First Name</label>
-                        <input type="text" id="firstName" />
+                        <input type="text" id="firstName" defaultValue={this.props.autofill.firstName} />
                       </div>
                       <div class="field">
                         <label>Last Name</label>
-                        <input type="text" id="lastName" />
+                        <input type="text" id="lastName" defaultValue={this.props.autofill.lastName} />
                       </div>
                     </div>
                   </Form.Field>
@@ -137,7 +137,7 @@ class FobSlip extends React.Component {
 
                   <Form.Field>
                     <label>Phone Number</label>
-                    <input type="text" id="phone" />
+                    <input type="text" id="phone" defaultValue={this.props.autofill.phone_num} />
                   </Form.Field>
 
                   <Form.Field>
@@ -180,7 +180,7 @@ class FobSlip extends React.Component {
                       </div>
                       <div class="field">
                         <label>Deposit</label>
-                        <Input labelPosition="right" type="text" id="deposit">
+                        <Input labelPosition="right" type="text" id="deposit" defaultValue={this.props.autofill.deposit}>
                           <Label basic>$</Label>
                           <input />
                           <Label>.00</Label>
@@ -208,9 +208,10 @@ class FobSlip extends React.Component {
   }
 }
 
-const PrintSlip = () => {
+const PrintFobSlip = (props) => {
   const slipRef = React.useRef();
   const [redirect, setRedirect] = useState(null);
+  console.log("print slip props: " + props);
   return (
     <div>
       {redirect}
@@ -221,9 +222,9 @@ const PrintSlip = () => {
           setRedirect(<Redirect to="/keyreports" />);
         }}
       />
-      <FobSlip style={{ marginLeft: "10px" }} ref={slipRef} />
+      <FobSlip autofill={props.autofill} style={{ marginLeft: "10px" }} ref={slipRef} />
     </div>
   );
 };
 
-export default PrintSlip;
+export default PrintFobSlip;

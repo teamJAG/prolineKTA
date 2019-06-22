@@ -1,11 +1,20 @@
 const db = require("../db/connection");
 const queries = require("../db/queries");
+const moment = require('moment');
 
 // Returns a report of the entire database
 async function generateReport(req, res) {
   try {
-    const result = await db.dbQuery(queries.generateReport);
-    res.status(201).json(result);
+    //filePath is a placeholder for the non-relative portion. replace this with the path to your
+    //Express server's /public folder
+    const filePath = `/Users/aidanranney/desktop/${moment().format('YYYY-MM-DD')}.csv`;
+    const result = await db.dbQuery(queries.generateReport(filePath));
+    const response = {
+      filePath: filePath,
+      result: result
+    };
+    console.log(response);
+    res.status(201).json(response);
   } catch(err) {
     console.log(err);
     res.status(400).json(err);

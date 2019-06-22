@@ -5,13 +5,13 @@ import KeyPending from "./KeyPending";
 import CheckKeyOut from "./CheckKeyOut";
 import CheckKeyIn from "./CheckKeyIn";
 import { fetchKeyStatus, fetchKeyCheck } from "../../app/fetch/fetches";
-import CohoSlip from "../slips/CohoSlip";
-import ElevatorSlip from "../slips/ElevatorSlip";
-import FobSlip from "../slips/FobSlip";
-import GuestSlip from "../slips/GuestSlip";
-import PurchaseSlip from "../slips/PurchaseSlip";
-import RentalSlip from "../slips/RentalSlip";
-import TradeSlip from "../slips/TradeSlip";
+import PrintCohoSlip from "../slips/CohoSlip";
+import PrintElevatorSlip from "../slips/ElevatorSlip";
+import PrintFobSlip from "../slips/FobSlip";
+import PrintGuestSlip from "../slips/GuestSlip";
+import PrintPurchaseSlip from "../slips/PurchaseSlip";
+import PrintRentalSlip from "../slips/RentalSlip";
+import PrintTradeSlip from "../slips/TradeSlip";
 
 class ScanKey extends Component {
   constructor(props) {
@@ -26,7 +26,7 @@ class ScanKey extends Component {
       keyCheckedIn: false,
       keyRecord: {},
       keyTransaction: {},
-      checkoutFormData: {},
+      autofill: {},
       searchResults: []
     };
     this.handleInput = this.handleInput.bind(this);
@@ -104,7 +104,7 @@ class ScanKey extends Component {
     e.preventDefault();
     //Extract the form data from the CheckOut submit and assign NULLs for the database record where needed
     let target = e.target;
-    let firstName, lastName, company, deposit, depositType, fees, notes, sale;
+    let firstName, lastName, company, deposit, depositType, fees, notes, sale, exit;
     target.first_name.value === ""
       ? (firstName = null)
       : (firstName = target.first_name.value);
@@ -123,6 +123,7 @@ class ScanKey extends Component {
     target.fees.value === "" ? (fees = null) : (fees = target.fees.value);
     target.notes.value === "" ? (notes = null) : (notes = e.target.notes.value);
     target.sale.checked ? (sale = true) : (sale = false);
+    target.exit.checked ? (exit = true) : (exit = false);
 
     const transRequest = {
       firstName: firstName,
@@ -133,16 +134,17 @@ class ScanKey extends Component {
       fees: fees,
       notes: notes,
       sale: sale,
+      exit: exit,
       keyId: this.state.keyRecord.keyId
     };
 
-    const autofill = Object.assign(transRequest, this.state.keyRecord);
-    this.setState({
-      checkoutFormData : autofill
-    });
-
     //Fetch to create a transaction record and change key status to '0'/'Checked Out'
     await fetchKeyCheck(transRequest, "POST", res => {
+      const autofill = Object.assign(transRequest, this.state.keyRecord, res.contractor);
+      console.log("scankey autofill: " + JSON.stringify(autofill));
+      this.setState({
+        autofill : autofill
+      });
       if (res.redirect) {
         this.setState({ renderNewContractor: true });
       } else if (this.state.keyRecord.deposit > 0) {
@@ -160,6 +162,14 @@ class ScanKey extends Component {
           keyPending: false,
           renderTransactionSlip: true,
           keySold: true,
+        });
+      } else if (exit) {
+        this.setState({
+          disableForm: true,
+          keyCheckedIn: false,
+          keyPending: false,
+          renderTransactionSlip: true,
+          rentalExit: true,
         });
       } else {
         this.setState({
@@ -245,10 +255,21 @@ class ScanKey extends Component {
     ) {
       return (
         <div style={{ containerStyle }}>
-          <PurchaseSlip autofill={this.state.checkoutFormData} />
+          <PrintPurchaseSlip autofill={this.state.autofill} />
         </div>
       );
     } else if (
+      this.state.renderTransactionSlip &&
+      !this.state.keyPending &&
+      !this.state.keyCheckedIn &&
+      this.state.rentalExit
+    ) {
+      return (
+        <div style={{ containerStyle }}>
+          <PrintRentalSlip autofill={this.state.autofill} />
+        </div>
+      );
+    }  else if (
       this.state.renderTransactionSlip &&
       !this.state.keyPending &&
       !this.state.keyCheckedIn
@@ -257,44 +278,44 @@ class ScanKey extends Component {
         case "MASTER":
           return (
             <div style={{ containerStyle }}>
-              <FobSlip autofill={this.state.checkoutFormData} />
+              <PrintFobSlip autofill={this.state.autofill} />
             </div>
           );
         case "TRADES":
           return (
             <div style={{ containerStyle }}>
-              <TradeSlip autofill={this.state.checkoutFormData} />
+              <PrintTradeSlip autofill={this.state.autofill} />
             </div>
           );
         case "FOB":
           return (
             <div style={{ containerStyle }}>
-              <FobSlip autofill={this.state.checkoutFormData} />
+              <PrintFobSlip autofill={this.state.autofill} />
             </div>
           );
         case "GARAGE":
           return (
             <div style={{ containerStyle }}>
-              <ElevatorSlip autofill={this.state.checkoutFormData} />
+              <PrintElevatorSlip autofill={this.state.autofill} />
             </div>
           );
         case "ELEVATOR":
           return (
             <div style={{ containerStyle }}>
-              <ElevatorSlip autofill={this.state.checkoutFormData} />
+              <PrintElevatorSlip autofill={this.state.autofill} />
             </div>
           );
         case "PROLINE":
           return (
             <div style={{ containerStyle }}>
-              <FobSlip autofill={this.state.checkoutFormData} />
+              <PrintFobSlip autofill={this.state.autofill} />
             </div>
           );
         case "GUEST-ROOM":
           let guest;
           this.state.keyRecord.propertyName === "COHO (Phase 1 & 2)"
-            ? (guest = <CohoSlip autofill={this.state.checkoutFormData} />)
-            : (guest = <GuestSlip autofill={this.state.checkoutFormData} />);
+            ? (guest = <PrintCohoSlip autofill={this.state.autofill} />)
+            : (guest = <PrintGuestSlip autofill={this.state.autofill} />);
           return <div style={{ containerStyle }}>{guest}</div>;
         default:
           return null;
