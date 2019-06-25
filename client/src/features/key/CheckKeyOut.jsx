@@ -112,7 +112,11 @@ const CheckKeyOut = props => {
                 </Form.Field>
                 <Form.Field>
                   <label>Deposit Type</label>
-                  <input id="depositType" />
+                  <select id="depositType" style={{height: "40px"}} >
+                    <option value=""></option>
+                    <option value="CASH">Cash</option>
+                    <option value="CHEQUE">Cheque</option>
+                  </select>
                 </Form.Field>
                 <Form.Field>
                   <label>Fees</label>

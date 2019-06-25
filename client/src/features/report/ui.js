@@ -78,7 +78,9 @@ export const propertyColumns = [
   },
   {
     Header: "Property Number",
-    accessor: "property_number"
+    accessor: "property_number",
+    minWidth: 70,
+    style: {textAlign: "center"}
   },
   {
     Header: "Key Type",
@@ -86,7 +88,9 @@ export const propertyColumns = [
   },
   {
     Header: "Key Number",
-    accessor: "key_number"
+    accessor: "key_number",
+    style: {textAlign: "center"},
+    minWidth: 55
   },
   {
     Header: "Office Location",
@@ -96,7 +100,9 @@ export const propertyColumns = [
   },
   {
     Header: "Storage Location",
-    accessor: "storage_location"
+    accessor: "storage_location",
+    style: {textAlign: "center"},
+    minWidth: 65
   },
   {
     Header: "Key Status",

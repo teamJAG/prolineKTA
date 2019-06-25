@@ -85,7 +85,7 @@ LEFT JOIN proline.contractor_tab cn ON t.contractor_tab_contractor_id = cn.contr
 
 const keysOutCount = `SELECT COUNT(*) as count from (SELECT p.property_number, p.property_name, k.key_type, 
     k.key_number, k.office_location, cn.first_name, cn.last_name, cn.phone_num, cn.company, t.checked_out, 
-    t.due_date, k.deposit, t.deposit_type FROM proline.key_tab k
+    t.due_date, t.deposit, t.deposit_type FROM proline.key_tab k
     INNER JOIN proline.address_tab a ON k.address_tab_address_id = a.address_id
     INNER JOIN proline.property_tab p ON a.property_tab_property_id = p.property_id
     INNER JOIN proline.trans_tab t ON t.key_tab_key_id = k.key_id
@@ -93,7 +93,7 @@ const keysOutCount = `SELECT COUNT(*) as count from (SELECT p.property_number, p
 
 const keysOutRecords = `SELECT p.property_number, p.property_name, k.key_type, 
     k.key_number, k.office_location, cn.first_name, cn.last_name, cn.phone_num, cn.company, t.checked_out, 
-    t.due_date, k.deposit, t.deposit_type FROM proline.key_tab k
+    t.due_date, t.deposit, t.deposit_type FROM proline.key_tab k
     INNER JOIN proline.address_tab a ON k.address_tab_address_id = a.address_id
     INNER JOIN proline.property_tab p ON a.property_tab_property_id = p.property_id
     INNER JOIN proline.trans_tab t ON t.key_tab_key_id = k.key_id
