@@ -19,7 +19,7 @@ const HomePage = props => {
           <h1 className="ui inverted stackable header">
             <img
               className="ui image massive"
-              src="/client/public/assets/logo.png"
+              src="assets/logo.png"
               alt="logo"
             />
             <div className="content">Proline KTA</div>
