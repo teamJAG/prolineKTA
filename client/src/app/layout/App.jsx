@@ -1,3 +1,5 @@
+//Top-level component for handling the routing and component rendering for the entire app
+
 import React, { Component } from "react";
 import { Container } from "semantic-ui-react";
 import { Route, Switch, Redirect } from "react-router-dom";
@@ -9,7 +11,6 @@ import AddProperty from "../../features/property/AddProperty";
 import EditContractor from "../../features/user/EditContractor";
 import AddContractor from "../../features/user/AddContractor";
 import AddKey from "../../features/key/AddKey";
-import Testing from "../../features/testing/Testing";
 import ScanKey from "../../features/key/ScanKey";
 import EditKey from "../../features/key/EditKey";
 import EditProperty from "../../features/property/EditProperty";
@@ -41,6 +42,7 @@ class App extends Component {
     this.hydrateStateWithStorage();
   }
 
+  //If we have data saved to local storage, initialize our application-level state accordingly
   hydrateStateWithStorage() {
     for (let key in this.state) {
       if (localStorage.hasOwnProperty(key)) {
@@ -57,6 +59,7 @@ class App extends Component {
     }
   }
 
+//Functions to render our sub-navbar components, passing various props
   KeyRecordDashBoard = props => {
     return (
       <RecordDashboard
@@ -95,6 +98,7 @@ class App extends Component {
     return <ReportDashboard tableType="properties" {...props} />;
   };
 
+//Function to wrap the entire post-homepage application as an authenticated route
   PrivateRoute({ render: Component, authorized, ...rest }) {
     return (
       <Route
@@ -177,7 +181,6 @@ HomePageLogin = (props) => {
                   <Route path="/scankey" component={ScanKey} />
                   <Route path="/editkey" component={EditKey} />
                   <Route path="/editproperty" component={EditProperty} />
-                  <Route path="/testing" component={Testing} />
                   <Route path="/coho" component={PrintCohoSlip} />
                   <Route path="/elevator" component={PrintElevatorSlip} />
                   <Route path="/fob" component={PrintFobSlip} />

@@ -1,6 +1,4 @@
-//It is assumed that the Key Quantity and the Key Number will be the same. If this is not accurate any longer,
-//or needs to be changed and made unique, a 'Key Number' input needs to be added, and the props being passed
-//to <PrintQRCode> needs to be renamed from 'keyNumber={...keyQuantity}' to an appropriate value.
+//Component to render a form and handle submissions of new records of keys to the database
 
 import React from "react";
 import { Button, Form, Dropdown, Input, Header } from "semantic-ui-react";

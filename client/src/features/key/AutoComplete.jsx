@@ -1,3 +1,5 @@
+//Custom UI component making use of Semantic-UI's 'search' module and our database to generate input suggestions
+
 import React, { Component } from "react";
 import { Search } from "semantic-ui-react";
 import { fetchNames } from "../../app/fetch/fetches";

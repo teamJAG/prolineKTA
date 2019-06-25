@@ -1,3 +1,4 @@
+//All-purpose function for handling HTTP status codes for the fetch API
 function handleHTTPErrors(response) {
   if (!response.ok) {
     throw Error(response.statusText);

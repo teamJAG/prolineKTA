@@ -1,3 +1,7 @@
+//This class handles the entire checkout process, passing callback functions to stateful and stateless components,
+//setting flags based on the client's business rules, and conditionally rendering the results, as well as
+//transaction slips for the client to keep a physical trail of the transaction as well.
+
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 import { Form, Label, Header, Divider } from "semantic-ui-react";

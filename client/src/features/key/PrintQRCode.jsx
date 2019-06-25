@@ -32,6 +32,8 @@ class GeneratedQRCode extends React.Component {
   }
 }
 
+//React-to-print makes use of a reference to our generated QR component class. The parent component is a
+//function
 const PrintQRCode = props => {
   const qrCode = `${props.propertyNumber}*${props.keyOfficeLocation}*${
     props.keyType
