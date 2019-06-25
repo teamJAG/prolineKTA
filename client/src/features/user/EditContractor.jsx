@@ -63,7 +63,7 @@ export default class EditContractor extends Component {
         <div style={containerStyle}>
           <Form onSubmit={this.handleSubmit}>
             <Header className="ui horizontal divider header">
-              Add Contractor
+              Edit Contractor
             </Header>
             <Form.Field>
               <label>First Name</label>
