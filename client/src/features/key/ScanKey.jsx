@@ -142,12 +142,15 @@ class ScanKey extends Component {
       keyId: this.state.keyRecord.keyId
     };
 
-    //Fetch to create a transaction record and change key status to '0'/'Checked Out'
+    //Fetch to create a transaction record and change key status to 'Checked Out'
     await fetchKeyCheck(transRequest, "POST", res => {
+
+      //Applicable data to be passed [i.e. autofilled] to the eventual printed transaction slip form
       const autofill = Object.assign(transRequest, this.state.keyRecord, res.contractor);
       this.setState({
         autofill : autofill
       });
+      //Set state flags according to the user inputted form data
       if (res.redirect) {
         this.setState({ renderNewContractor: true });
       } else if (this.state.keyRecord.deposit > 0) {
@@ -184,7 +187,7 @@ class ScanKey extends Component {
       }
     });
   }
-
+  //Update key status to "Checked In"
   async handleCheckin(e) {
     e.preventDefault();
     let request = {
@@ -204,12 +207,13 @@ class ScanKey extends Component {
       justifyContent: "center",
       paddingTop: "10%"
     };
-
+    //If no contractor was found in the database, redirect to add a new contractor for this transaction
     let newContractor;
     this.state.renderNewContractor
       ? (newContractor = <Redirect to="/createcontractor" />)
       : (newContractor = null);
 
+    //Inital view for the check-in/check-out process
     if (!this.state.disableForm && !this.state.renderTransactionSlip) {
       return (
         <div style={containerStyle}>
@@ -231,6 +235,7 @@ class ScanKey extends Component {
           </Form>
         </div>
       );
+    //Place the key in "pending" - key is held at the front desk for pick up
     } else if (!this.state.keyPending && this.state.keyCheckedIn) {
       return (
         <div style={{ containerStyle }}>
@@ -240,6 +245,7 @@ class ScanKey extends Component {
           />
         </div>
       );
+    //Check the key out and handle the appropriate responses acccording to business rules
     } else if (this.state.keyPending && this.state.keyCheckedIn) {
       return (
         <div style={{ containerStyle }}>
@@ -250,6 +256,8 @@ class ScanKey extends Component {
           />
         </div>
       );
+    //Render the matching transactional slip for this check-out. Check-out may also be a permanent
+    //sale or return of a key to the owner.
     } else if (
       this.state.renderTransactionSlip &&
       !this.state.keyPending &&
@@ -328,6 +336,7 @@ class ScanKey extends Component {
       !this.state.keyPending &&
       !this.state.keyCheckedIn
     ) {
+      //If key is checked out on key scan, start the check-in process
       return (
         <div style={{ containerStyle }}>
           <CheckKeyIn

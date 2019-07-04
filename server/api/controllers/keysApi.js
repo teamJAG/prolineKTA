@@ -98,7 +98,7 @@ async function checkKeyOut(req, res) {
   sale ? (newStatus = "SOLD") : (newStatus = "OUT");
   exit ? (newStatus = "RETURNED") : (newStatus = "OUT");
 
-  //If there is a deposit type and/or notes, treat them as a string.
+  //Is there is a deposit type and/or notes?
   if (depositType !== null) {
     depositType = `'${depositType}'`;
   }
@@ -185,7 +185,8 @@ async function createKey(req, res) {
     '${keyType}', 1, ${deposit}, '${keyOfficeLocation}', (SELECT a.address_id FROM 
       proline.address_tab a INNER JOIN proline.city_tab c ON c.city_id = a.city_tab_city_id 
       WHERE address LIKE '${address}' AND city LIKE '${city}'))`;
-
+  
+  //Gather remaining required information on the new key to generate a QR code.
   const qrQueryString = `SELECT p.property_number, MAX(k.key_number) as key_number FROM proline.key_tab k
     INNER JOIN proline.address_tab a ON k.address_tab_address_id = a.address_id
     INNER JOIN proline.property_tab p ON a.property_tab_property_id = p.property_id

@@ -1,3 +1,7 @@
+/* The ReactTable component is a package which we are customizing to be server-controlled for
+pagination, sorting and filtering of rows. Our API requests return a callback where we can set
+state. */
+
 import React, { Component } from "react";
 import ReactTable from "react-table";
 import { fetchRecordData } from "../../app/fetch/fetches";
@@ -16,78 +20,31 @@ class RecordList extends Component {
     };
   }
 
+  //Dynamic result filtering according to column and value
   componentDidUpdate(prevProps, prevState) {
     if (
       this.props.type !== prevProps.type ||
       this.props.filter !== prevProps.filter
     ) {
-      switch (this.props.type) {
-        case "keys":
+      this.setState({
+        loading: true
+      });
+      fetchRecordData(
+        "records",
+        this.props.type,
+        this.state.page,
+        this.state.pageSize,
+        this.state.sorted,
+        this.props.filter,
+        res => {
           this.setState({
-            loading: true
+            data: res.data,
+            page: 0,
+            pages: res.pages,
+            loading: false
           });
-          fetchRecordData(
-            "records",
-            this.props.type,
-            this.state.page,
-            this.state.pageSize,
-            this.state.sorted,
-            this.props.filter,
-            res => {
-              this.setState({
-                data: res.data,
-                page: 0,
-                pages: res.pages,
-                loading: false
-              });
-            }
-          );
-          break;
-        case "properties":
-          this.setState({
-            loading: true
-          });
-          fetchRecordData(
-            "records",
-            this.props.type,
-            this.state.page,
-            this.state.pageSize,
-            this.state.sorted,
-            this.props.filter,
-            res => {
-              this.setState({
-                data: res.data,
-                page: 0,
-                pages: res.pages,
-                loading: false
-              });
-            }
-          );
-          break;
-        case "people":
-          this.setState({
-            loading: true
-          });
-          fetchRecordData(
-            "records",
-            this.props.type,
-            this.state.page,
-            this.state.pageSize,
-            this.state.sorted,
-            this.props.filter,
-            res => {
-              this.setState({
-                data: res.data,
-                page: 0,
-                pages: res.pages,
-                loading: false
-              });
-            }
-          );
-          break;
-        default:
-          return;
-      }
+        }
+      );
     }
   }
 

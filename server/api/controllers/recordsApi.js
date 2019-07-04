@@ -1,7 +1,12 @@
+/* These functions are called in response to API requests for general data to be displayed to the
+user in the "Records" tables. Unless filtered out by the user, all records will be
+made available. */
+
 const db = require("../db/connection");
 const queries = require("../db/queries");
 
 //Returns a total row count and paginated results for requested records, optionally sorted and filtered
+//SQL queries are described in a separate file and built upon according to the request body.
 async function listRecords(req, res) {
   let countQuery;
   let recordQuery;
@@ -28,7 +33,6 @@ async function listRecords(req, res) {
   }
 
   //Build queries with WHERE clause, if request body includes an id and a value.
-
   if (req.body.filter.id && req.body.filter.value) {
     //People view. Requires alias for UNION ALL subselect.
     if (req.body.queryType === "people") {
@@ -113,11 +117,10 @@ async function listRecords(req, res) {
 
   console.log(recordQuery);
 
-  //Query database and respond with state object
+  //Query database and build response object
   try {
     const count = await db.dbQuery(countQuery);
     const rows = await db.dbQuery(recordQuery);
-    //Placeholder for toUpper() conversion (only for capstone demo)
     let pageCount = Math.ceil(
       parseFloat(count[0].count) / parseFloat(req.body.pageSize)
     );
@@ -132,8 +135,8 @@ async function listRecords(req, res) {
   }
 }
 
+//Return rows from SELECT of requested properties. This is specifically for our 'Autocomplete' React component.
 async function getSearchOptions(req, res) {
-  //Return rows from SELECT of requested properties
   const { filterId, filterValue, tableName } = req.body;
   const listQueryString = `SELECT DISTINCT ${filterId} as title FROM proline.${tableName} WHERE ${filterId} LIKE '%${filterValue}%'  LIMIT 10`;
   console.log(listQueryString);

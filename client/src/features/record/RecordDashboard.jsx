@@ -1,3 +1,9 @@
+/* A parent component to handle the appropriate props to be passed down to the data table component, 
+where the columns and filtering are described by objects matched to the type of table being viewed
+(Keys, Properties or People). The type of records being requested are selected in the NavBar and 
+props are passed by React-Router in 'layout/App' */
+
+
 import React, { Component } from 'react';
 import { Input, Divider, Dropdown, Menu } from 'semantic-ui-react'
 import RecordList from './RecordList';
@@ -21,9 +27,9 @@ class RecordDashboard extends Component {
     this.handleValue = this.handleValue.bind(this);
   }
 
+  //On switching table views from the NavBar, clear the last filter search and switch props
   static getDerivedStateFromProps(nextProps, prevState) {
     if (nextProps.tableType !== prevState.tableType) {
-      console.log("firing");
       return {
         filterValue: '',
         tableType: nextProps.tableType
@@ -40,7 +46,7 @@ class RecordDashboard extends Component {
       id: this.state.filterId,
       value: this.state.filterValue
     }
-    
+      //Selecting objects to pass, matching our requested table, which describe our columns and formatting
       switch (this.props.tableType) {
       case "keys":
         columns = ui.keyColumns;
